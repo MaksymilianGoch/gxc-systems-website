@@ -1,0 +1,27 @@
+[
+  {
+    "id": "faq-1",
+    "question": "Was kostet das, und was bekomme ich dafür?",
+    "answer": "Das Setup ist eine einmalige Investition zwischen 2.500 € und 5.000 €, je nachdem, wie viele Module Sie benötigen. Sie bekommen ein funktionierendes System, das Ihnen direkt messbar Zeit und Leads bringt — keine Stundensätze, kein Scope-Creep. Laufende Betreuung ist optional ab 250 € pro Monat."
+  },
+  {
+    "id": "faq-2",
+    "question": "Ich bin kein Technik-Mensch. Wie aufwendig ist das für mich?",
+    "answer": "Null Aufwand für Sie während der Einrichtung. Alles wird von uns gebaut, getestet und übergeben. Sie bekommen eine 30-minütige Einführung und ein kurzes Dokument, das erklärt, was läuft und wie Sie Änderungen beauftragen. Danach bedienen Sie das System wie ein Telefon — Sie müssen nicht wissen, wie es funktioniert."
+  },
+  {
+    "id": "faq-3",
+    "question": "Wie lange dauert die Einrichtung bis zum ersten Lead?",
+    "answer": "Lead-Engine und Terminbuchung sind typischerweise in 5–7 Werktagen live. Die vollständige Landingpage mit allen Modulen in 10–14 Werktagen. Voraussetzung: Sie liefern Inhalte (Logo, Adresse, Textwünsche) innerhalb der ersten 48 Stunden nach Auftragserteilung."
+  },
+  {
+    "id": "faq-4",
+    "question": "Was passiert mit meinen Kundendaten? Ist das DSGVO-konform?",
+    "answer": "Ja, vollständig. Alle Systeme laufen auf EU-Servern (Airtable EU, n8n EU-Cloud oder self-hosted). Die Datenverarbeitung entspricht österreichischem und europäischem Recht. Mit jedem Kunden schließen wir einen Auftragsverarbeitungsvertrag (AVV) ab — das ist Pflicht und kein Extra."
+  },
+  {
+    "id": "faq-5",
+    "question": "Was, wenn etwas nicht funktioniert oder ich Änderungen brauche?",
+    "answer": "In den ersten 30 Tagen nach Go-Live sind Anpassungen kostenlos. Danach im Retainer enthalten oder als einzelne Aufgabe beauftragbar. Sie erreichen uns per Slack oder Telegram — Reaktionszeit unter 4 Stunden an Werktagen. Wir haben keine Hotline und kein Ticket-System, das Sie nie wieder sehen."
+  }
+]

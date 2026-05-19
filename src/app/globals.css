@@ -1,0 +1,377 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   GXC SYSTEMS — PREMIUM DESIGN SYSTEM
+   Architecture: Consulting × Automation × Precision
+═══════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Brand Palette ──────────────────────────────────── */
+  --color-cream:       #F4F1EB;
+  --color-charcoal:    #12121A;
+  --color-navy:        #0A1F44;
+  --color-navy-mid:    #1A3560;
+  --color-teal:        #196470;
+  --color-teal-light:  #2A8999;
+  --color-gold:        #C8A44A;
+  --color-gold-light:  #E8C97A;
+
+  /* ── Semantic ────────────────────────────────────────── */
+  --color-text:        #0C0C14;
+  --color-text-mid:    #52525F;
+  --color-text-soft:   #8A8A9A;
+  --color-line:        #DDD9D2;
+  --color-surface:     #FFFFFF;
+  --color-surface-2:   #F9F7F3;
+
+  /* ── Typography ──────────────────────────────────────── */
+  --font-display:  var(--font-fraunces), Georgia, serif;
+  --font-body:     var(--font-inter), system-ui, sans-serif;
+  --font-mono:     var(--font-jetbrains), 'Courier New', monospace;
+
+  /* ── Spacing ─────────────────────────────────────────── */
+  --section-pad:   clamp(5rem, 9vw, 8rem);
+}
+
+/* ─── Keyframes ─────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes drawLine {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+@keyframes flowDot {
+  0%   { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+@keyframes slideTab {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ─── Base ──────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-cream);
+    color: var(--color-text);
+    line-height: 1.65;
+    font-size: 1rem;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-text);
+    font-weight: 550;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  p { color: var(--color-text-mid); }
+  a { color: inherit; text-decoration: none; }
+}
+
+/* ─── Utilities ─────────────────────────────────────────── */
+@layer utilities {
+
+  /* Section rhythm */
+  .section-y {
+    padding-top: var(--section-pad);
+    padding-bottom: var(--section-pad);
+  }
+
+  /* ── Typography scale ────────────────────────── */
+  .text-display {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6.5vw, 6rem);
+    font-weight: 600;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+  }
+
+  .text-display-sm {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 550;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .text-section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 550;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  /* Monospace label (for stats, technical, step numbers) */
+  .text-mono {
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+
+  .text-label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-teal);
+  }
+
+  .text-stat {
+    font-family: var(--font-mono);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-text);
+  }
+
+  /* ── Layout ──────────────────────────────────── */
+  .grid-consulting {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  /* ── Premium horizontal rule ─────────────────── */
+  .rule {
+    height: 1px;
+    background: var(--color-line);
+  }
+
+  .rule-gold {
+    height: 1px;
+    background: var(--color-gold);
+    width: 3rem;
+  }
+
+  /* ── Scroll animation ────────────────────────── */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-animate="left"]  { transform: translateX(-18px); }
+  [data-animate="right"] { transform: translateX(18px); }
+  [data-animate="scale"] { transform: scale(0.96); opacity: 0; }
+  [data-visible=true] { opacity: 1 !important; transform: none !important; }
+
+  /* ── Card styles ─────────────────────────────── */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    padding: 2rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1);
+  }
+  .card:hover {
+    border-color: color-mix(in srgb, var(--color-teal) 35%, var(--color-line));
+    box-shadow: 0 8px 32px -8px color-mix(in srgb, var(--color-navy) 12%, transparent);
+    transform: translateY(-3px);
+  }
+
+  .card-dark {
+    background: var(--color-charcoal);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 2rem;
+  }
+
+  /* ── Button press feedback ───────────────────── */
+  .btn-press:active { transform: scale(0.97); }
+
+  /* ── Gold accent line ────────────────────────── */
+  .accent-rule::before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 1.5px;
+    background-color: var(--color-gold);
+    margin: 0 auto 1rem;
+  }
+
+  .accent-rule-left::before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 1.5px;
+    background-color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  /* ── Section label ───────────────────────────── */
+  .section-label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-teal);
+  }
+
+  /* ── Index number style ──────────────────────── */
+  .step-number {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--color-gold);
+  }
+
+  /* ── Live pulse dot ──────────────────────────── */
+  .dot-live {
+    position: relative;
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+  }
+  .dot-live::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: pulse 2s ease-in-out infinite;
+    opacity: 0.6;
+  }
+
+  /* ── Feature tag ─────────────────────────────── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    color: var(--color-text-mid);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    border-radius: 3px;
+  }
+
+  /* ── Input field ─────────────────────────────── */
+  .field {
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: 0.75rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    width: 100%;
+    border-radius: 2px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+  }
+  .field:focus {
+    border-color: var(--color-teal);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-teal) 12%, transparent);
+  }
+  .field::placeholder { color: var(--color-text-soft); }
+
+  /* ── CSS-only button/link hover states (usable in Server Components) ── */
+  .btn-cta {
+    background: var(--color-teal);
+    color: white;
+    border-radius: 2px;
+    transition: background 0.2s ease;
+  }
+  .btn-cta:hover { background: var(--color-teal-light); }
+
+  .btn-ghost-white {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 2px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .btn-ghost-white:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+  }
+
+  .btn-outline-dark {
+    border: 1px solid var(--color-line);
+    color: var(--color-text);
+    border-radius: 2px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .btn-outline-dark:hover {
+    background: var(--color-cream);
+    border-color: color-mix(in srgb, var(--color-teal) 30%, var(--color-line));
+  }
+
+  .btn-outline-white {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    border-radius: 2px;
+    background: transparent;
+    transition: background 0.2s ease;
+  }
+  .btn-outline-white:hover { background: rgba(255, 255, 255, 0.08); }
+
+  .service-card {
+    background: var(--color-surface);
+    transition: background 0.25s ease;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--color-cream); }
+
+  .link-teal {
+    color: var(--color-teal);
+    transition: color 0.15s ease;
+  }
+  .link-teal:hover { color: var(--color-navy); }
+
+  .link-white-muted {
+    color: rgba(255, 255, 255, 0.55);
+    transition: color 0.15s ease;
+  }
+  .link-white-muted:hover { color: rgba(255, 255, 255, 0.9); }
+
+  /* ── Dark hero/section texture ───────────────── */
+  .dark-section {
+    background: var(--color-charcoal);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .dark-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 40%, color-mix(in srgb, #196470 12%, transparent) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at 80% 80%, color-mix(in srgb, #0A1F44 20%, transparent) 0%, transparent 60%);
+    pointer-events: none;
+  }
+}

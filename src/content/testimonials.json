@@ -1,0 +1,29 @@
+[
+  {
+    "id": "testimonial-1",
+    "name": "Markus W.",
+    "company": "MW Elektrotechnik",
+    "role": "Inhaber",
+    "quote": "Früher habe ich Anfragen in drei verschiedenen Apps gesucht. Jetzt kommt alles direkt in Slack und ich sehe sofort, was als nächstes dran ist. Die Einrichtung hat eine Woche gedauert, der Unterschied ist sofort spürbar.",
+    "rating": 5,
+    "projectType": "Lead-Engine + Terminbuchung"
+  },
+  {
+    "id": "testimonial-2",
+    "name": "Sandra K.",
+    "company": "Kanzlei Köhler",
+    "role": "Geschäftsführerin",
+    "quote": "Unsere Terminanfragen haben sich verdreifacht, seit wir den Buchungslink direkt auf der Website haben. Kein Telefonat mehr für einen einfachen Termin. Das klingt nach einer Kleinigkeit, spart uns aber locker 5 Stunden pro Woche.",
+    "rating": 5,
+    "projectType": "Terminbuchung + Online-Präsenz"
+  },
+  {
+    "id": "testimonial-3",
+    "name": "Thomas B.",
+    "company": "Bauer Haustechnik GmbH",
+    "role": "Betriebsleiter",
+    "quote": "Ich war skeptisch, ob das wirklich für unseren Handwerksbetrieb passt. Passt. Die Landingpage bringt uns jetzt 2–3 qualifizierte Anfragen pro Woche über Google, ohne dass wir etwas dafür tun.",
+    "rating": 5,
+    "projectType": "Vollpaket (alle 4 Module)"
+  }
+]

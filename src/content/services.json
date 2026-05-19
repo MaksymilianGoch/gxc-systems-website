@@ -1,0 +1,58 @@
+[
+  {
+    "id": "lead-engine",
+    "title": "Lead-Engine",
+    "tagline": "Jede Anfrage landet sofort im richtigen System.",
+    "description": "Ihr Kontaktformular ist mit Airtable und Slack verbunden. Sobald jemand eine Anfrage schickt, haben Sie sie in Sekunden im CRM — mit allen Infos, sortiert, erinnerbar. Kein Nachsuchen in E-Mails, kein manuelles Eintippen.",
+    "benefits": [
+      "Automatische Lead-Erfassung aus Webformular, WhatsApp-Integration und E-Mail",
+      "Sofort-Benachrichtigung per Slack oder Telegram mit allen Kontaktdaten",
+      "CRM-Eintrag in Airtable ohne manuelle Dateneingabe",
+      "Status-Tracking: Neu → In Bearbeitung → Angebot → Abgeschlossen"
+    ],
+    "icon": "Zap",
+    "priceFrom": 1200
+  },
+  {
+    "id": "terminbuchung",
+    "title": "Terminbuchung",
+    "tagline": "Kunden buchen selbst. Sie bestätigen einmal.",
+    "description": "Calendly-Integration mit automatischer Bestätigung, Erinnerung 24h vorher und Nachfass-Nachricht nach dem Gespräch. Das endlose Hin-und-Her per Telefon für Terminvereinbarungen entfällt komplett.",
+    "benefits": [
+      "Online-Buchungslink 24/7 aktiv — keine Telefonunterbrechungen",
+      "Automatische Kalenderblockierung bei Buchung",
+      "Erinnerungs-SMS/E-Mail 24h und 1h vor Termin",
+      "No-Show-Rate sinkt durchschnittlich um 35–40 %"
+    ],
+    "icon": "Calendar",
+    "priceFrom": 800
+  },
+  {
+    "id": "online-praesenz",
+    "title": "Online-Präsenz",
+    "tagline": "Gefunden werden, bevor der Konkurrent angerufen wird.",
+    "description": "Professionelle Landingpage mit Conversion-Fokus plus vollständig optimiertes Google Business Profile. Keine Imageseite, kein Imagefilm — eine Seite, die Anfragen generiert. Lokale SEO für Ihr Einzugsgebiet im Dreiländereck.",
+    "benefits": [
+      "Landingpage mit klarem Conversion-Pfad (Formular, Buchungslink, Call-to-Actions)",
+      "Google Business Profile vollständig aufgebaut + Review-Strategie",
+      "Lokale SEO-Optimierung für Vorarlberg, Ostschweiz und Bodenseeraum",
+      "Core Web Vitals > 90 (PageSpeed) als Lieferbedingung"
+    ],
+    "icon": "Globe",
+    "priceFrom": 1500
+  },
+  {
+    "id": "kommunikations-hub",
+    "title": "Kommunikations-Hub",
+    "tagline": "Automatische Antworten. Persönlicher Ton.",
+    "description": "E-Mail-Sequenzen für Angebotsnachverfolgung, Onboarding und Kundenpflege. Kein Lead wird mehr vergessen. Optional: KI-Voice-Agent, der Erstanfragen außerhalb der Geschäftszeiten entgegennimmt und ins CRM trägt.",
+    "benefits": [
+      "Follow-up-Sequenz: 3 Nachrichten nach Erstkontakt, automatisch versandt",
+      "Angebots-Reminder nach 3 und 7 Tagen ohne manuelle Erinnerung",
+      "Kunden-Onboarding-Sequenz nach Auftragsbestätigung",
+      "Optional: Voice Agent für Erstanfragen (24/7, außerhalb Geschäftszeiten)"
+    ],
+    "icon": "MessageSquare",
+    "priceFrom": 1000
+  }
+]
