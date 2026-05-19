@@ -1,65 +1,65 @@
 import { Container } from '@/components/ui/Container'
 import { AnimateIn } from '@/components/ui/AnimateIn'
 
-const tiers = [
+const pakete = [
   {
     id: 'starter',
     index: '01',
     name: 'Starter',
-    price: '1.490',
-    period: 'einmalig',
-    note: null,
-    monthly: null,
-    summary: 'Die zwei entscheidenden Bausteine für Betriebe, die anfangen wollen zu automatisieren.',
-    items: [
-      'Lead-Engine (Webformular → CRM → Benachrichtigung)',
+    preis: '1.490',
+    zeitraum: 'einmalig',
+    hinweis: null,
+    retainer: null,
+    zusammenfassung: 'Die zwei entscheidenden Bausteine für Betriebe, die mit Systemdenken anfangen wollen.',
+    leistungen: [
+      'Lead-Erfassung (Formular → CRM → Benachrichtigung)',
       'Terminbuchungssystem mit automatischen Erinnerungen',
       'Einfaches Airtable-CRM-Setup',
-      'Einführung + Übergabedokumentation',
+      'Einführung und Übergabedokumentation',
       '30 Tage Anpassungsphase nach Go-Live',
     ],
     cta: 'Starter anfragen',
-    featured: false,
+    hervorgehoben: false,
   },
   {
     id: 'professional',
     index: '02',
     name: 'Professional',
-    price: '2.990',
-    period: 'einmalig',
-    note: 'Meistgewählt',
-    monthly: '+ 249 €/Monat',
-    summary: 'Das vollständige System für Betriebe, die professionell skalieren wollen.',
-    items: [
+    preis: '2.990',
+    zeitraum: 'einmalig',
+    hinweis: 'Meistgewählt',
+    retainer: '+ 249 €/Monat',
+    zusammenfassung: 'Das vollständige System für Betriebe, die professionell wachsen wollen.',
+    leistungen: [
       'Alles aus Starter',
       'Professionelle Conversion-Landingpage',
-      'Google Business Profile vollständig aufgebaut',
+      'Google Business Profil vollständig aufgebaut',
       'Lokale SEO-Optimierung für Ihr Einzugsgebiet',
-      'Kommunikations-Hub (Follow-up-Automatisierung)',
-      'Angebots-Reminder (3 + 7 Tage automatisch)',
-      'Monatliches Performance-Reporting',
+      'Kommunikations-Modul (Follow-up-Automatisierung)',
+      'Angebots-Erinnerung (Tag 3 und 7 automatisch)',
+      'Monatliches Leistungs-Reporting',
     ],
     cta: 'Professional anfragen',
-    featured: true,
+    hervorgehoben: true,
   },
   {
     id: 'vollsystem',
     index: '03',
     name: 'Vollsystem',
-    price: '4.490',
-    period: 'einmalig',
-    note: 'Enterprise',
-    monthly: '+ 399 €/Monat',
-    summary: 'Das komplette Automatisierungssystem inklusive KI-Voice-Agent und Priority-Support.',
-    items: [
+    preis: '4.490',
+    zeitraum: 'einmalig',
+    hinweis: 'Enterprise',
+    retainer: '+ 399 €/Monat',
+    zusammenfassung: 'Das komplette operative System inklusive KI-Sprachagent und Priority-Support.',
+    leistungen: [
       'Alles aus Professional',
-      'AI Voice Agent (24/7-Anrufannahme)',
+      'KI-Sprachagent (Anrufannahme rund um die Uhr)',
       'Komplexe E-Mail-Klassifizierung mit KI',
-      'Priority Support (Reaktion < 2 Stunden)',
+      'Priority Support (Reaktion unter 2 Stunden)',
       'Vierteljährliches Strategie-Review',
     ],
     cta: 'Vollsystem anfragen',
-    featured: false,
+    hervorgehoben: false,
   },
 ]
 
@@ -68,155 +68,181 @@ export function PricingSection() {
     <section
       id="preise"
       className="section-y"
-      style={{ background: 'var(--color-cream)' }}
-      aria-labelledby="pricing-heading"
+      style={{ background: 'var(--color-bg-1)' }}
+      aria-labelledby="preise-heading"
     >
       <Container>
 
-        {/* Header */}
         <AnimateIn>
           <div className="mb-14">
-            <div className="flex items-center gap-4 mb-5">
-              <div className="h-px w-10" style={{ background: 'var(--color-gold)' }} />
-              <span className="text-label">Investition</span>
-            </div>
+            <span className="accent-line" />
+            <p className="text-label mb-4">Investition</p>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <h2 id="pricing-heading" className="text-display-sm" style={{ color: 'var(--color-text)' }}>
-                Transparent.<br />Einmalig. Ohne Überraschungen.
+              <h2
+                id="preise-heading"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(2rem, 3.5vw, 3.25rem)',
+                  fontWeight: 700,
+                  color: 'var(--color-text)',
+                  letterSpacing: '-0.028em',
+                  lineHeight: 1.05,
+                }}
+              >
+                Transparent. Einmalig.
+                <br />
+                Ohne Überraschungen.
               </h2>
-              <p className="text-sm max-w-xs" style={{ color: 'var(--color-text-soft)' }}>
-                Betriebe ohne System verlieren durchschnittlich
-                2–3 Aufträge pro Monat.
+              <p
+                style={{
+                  fontSize: '0.875rem',
+                  color: 'var(--color-text-3)',
+                  maxWidth: '26rem',
+                }}
+              >
+                Bei einem durchschnittlichen Auftragswert von 800 € entgehen Ihnen monatlich 1.600–2.400 €. Das Starter-Paket amortisiert sich nach Auftrag Nummer zwei.
               </p>
             </div>
           </div>
         </AnimateIn>
 
-        {/* Equal-height 3-column grid */}
+        {/* Drei gleich große Karten */}
         <div
-          className="grid grid-cols-1 lg:grid-cols-3 gap-px"
-          style={{ background: 'var(--color-line)', alignItems: 'stretch' }}
+          className="grid grid-cols-1 lg:grid-cols-3"
+          style={{ border: '1px solid var(--color-border)', alignItems: 'stretch' }}
         >
-          {tiers.map((tier, i) => (
-            <AnimateIn key={tier.id} delay={i * 80}>
+          {pakete.map((paket, i) => (
+            <AnimateIn key={paket.id} delay={i * 70}>
               <div
                 className="flex flex-col h-full"
                 style={{
-                  background: tier.featured ? 'var(--color-navy)' : 'var(--color-surface)',
+                  background: paket.hervorgehoben ? 'var(--color-bg-3)' : 'var(--color-bg-2)',
                   position: 'relative',
-                  boxShadow: tier.featured
-                    ? '0 0 0 2px var(--color-navy), 0 20px 60px -12px rgba(10,31,68,0.35)'
-                    : 'none',
-                  zIndex: tier.featured ? 1 : 0,
+                  borderRight: i < pakete.length - 1 ? '1px solid var(--color-border)' : 'none',
+                  outline: paket.hervorgehoben ? '2px solid var(--color-blue)' : 'none',
+                  outlineOffset: '-2px',
+                  zIndex: paket.hervorgehoben ? 1 : 0,
                 }}
               >
-                {/* Featured badge */}
-                {tier.note && (
+                {paket.hinweis && (
                   <div
                     style={{
                       position: 'absolute',
                       top: '-1px',
                       left: '50%',
                       transform: 'translateX(-50%)',
-                      background: tier.featured ? 'var(--color-gold)' : 'var(--color-teal)',
-                      color: tier.featured ? 'var(--color-charcoal)' : 'white',
+                      background: paket.hervorgehoben ? 'var(--color-blue)' : 'var(--color-cyan)',
+                      color: 'white',
                       fontSize: '0.62rem',
                       fontWeight: 700,
                       letterSpacing: '0.12em',
                       textTransform: 'uppercase',
-                      padding: '0.22rem 0.75rem',
+                      padding: '0.2rem 0.75rem',
                       fontFamily: 'var(--font-mono)',
                       whiteSpace: 'nowrap',
                     }}
                   >
-                    {tier.note}
+                    {paket.hinweis}
                   </div>
                 )}
 
                 <div className="p-8 flex flex-col flex-1">
-                  {/* Index */}
                   <span
-                    className="block mb-4 text-xs"
+                    className="block mb-4"
                     style={{
-                      color: tier.featured ? 'rgba(255,255,255,0.3)' : 'var(--color-text-soft)',
                       fontFamily: 'var(--font-mono)',
+                      fontSize: '0.65rem',
+                      color: paket.hervorgehoben ? 'var(--color-text-2)' : 'var(--color-text-3)',
+                      letterSpacing: '0.08em',
                     }}
                   >
-                    {tier.index} — {tier.name}
+                    {paket.index} — {paket.name}
                   </span>
 
-                  {/* Price */}
-                  <div className="mb-6 pb-6" style={{ borderBottom: `1px solid ${tier.featured ? 'rgba(255,255,255,0.1)' : 'var(--color-line)'}` }}>
+                  <div className="mb-6">
                     <div className="flex items-baseline gap-1.5 flex-wrap">
                       <span
                         style={{
                           fontFamily: 'var(--font-mono)',
                           fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
                           fontWeight: 700,
-                          color: tier.featured ? 'white' : 'var(--color-text)',
+                          color: 'var(--color-text)',
                           letterSpacing: '-0.03em',
                           lineHeight: 1,
                         }}
                       >
-                        {tier.price} €
+                        {paket.preis} €
                       </span>
                     </div>
                     <p
-                      className="text-xs mt-1.5"
                       style={{
-                        color: tier.featured ? 'rgba(255,255,255,0.4)' : 'var(--color-text-soft)',
                         fontFamily: 'var(--font-mono)',
+                        fontSize: '0.7rem',
+                        color: 'var(--color-text-3)',
+                        marginTop: '0.4rem',
                       }}
                     >
-                      {tier.period}
-                      {tier.monthly && (
-                        <span
-                          className="block mt-0.5"
-                          style={{ color: tier.featured ? 'rgba(200,164,74,0.8)' : 'var(--color-teal)' }}
-                        >
-                          {tier.monthly} Betreuung
+                      {paket.zeitraum}
+                      {paket.retainer && (
+                        <span style={{ display: 'block', color: paket.hervorgehoben ? 'var(--color-blue-glow)' : 'var(--color-cyan)', marginTop: '0.25rem' }}>
+                          {paket.retainer} Betreuung
                         </span>
                       )}
                     </p>
                   </div>
 
-                  {/* Summary */}
                   <p
-                    className="text-sm leading-relaxed mb-7"
-                    style={{ color: tier.featured ? 'rgba(255,255,255,0.6)' : 'var(--color-text-mid)' }}
+                    style={{
+                      fontSize: '0.875rem',
+                      color: 'var(--color-text-2)',
+                      lineHeight: 1.65,
+                      marginBottom: '1.75rem',
+                    }}
                   >
-                    {tier.summary}
+                    {paket.zusammenfassung}
                   </p>
 
-                  {/* Items — flex-1 so cards stretch equally */}
-                  <ul className="space-y-3 flex-1 mb-8">
-                    {tier.items.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
+                  <ul className="flex-1" style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', marginBottom: '2rem' }}>
+                    {paket.leistungen.map((l) => (
+                      <li key={l} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
                         <span
-                          className="text-xs shrink-0 mt-0.5"
                           style={{
-                            color: tier.featured ? 'rgba(200,164,74,0.8)' : 'var(--color-teal)',
                             fontFamily: 'var(--font-mono)',
+                            fontSize: '0.7rem',
+                            color: paket.hervorgehoben ? 'var(--color-blue-glow)' : 'var(--color-cyan)',
+                            marginTop: '0.1rem',
+                            flexShrink: 0,
                           }}
                         >
                           →
                         </span>
-                        <span
-                          className="text-xs leading-relaxed"
-                          style={{ color: tier.featured ? 'rgba(255,255,255,0.65)' : 'var(--color-text-mid)' }}
-                        >
-                          {item}
+                        <span style={{ fontSize: '0.82rem', color: 'var(--color-text-2)', lineHeight: 1.55 }}>
+                          {l}
                         </span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* CTA — pinned to bottom */}
                   <a
                     href="#kontakt"
-                    className={`block w-full text-center text-xs font-semibold tracking-[0.1em] uppercase py-3.5 btn-press mt-auto ${tier.featured ? 'btn-outline-white' : 'btn-outline-dark'}`}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      textAlign: 'center',
+                      fontFamily: 'var(--font-display)',
+                      fontWeight: 600,
+                      fontSize: '0.825rem',
+                      letterSpacing: '-0.01em',
+                      padding: '0.8rem',
+                      borderRadius: '3px',
+                      border: paket.hervorgehoben ? 'none' : '1px solid var(--color-border-2)',
+                      background: paket.hervorgehoben ? 'var(--color-blue)' : 'transparent',
+                      color: paket.hervorgehoben ? 'white' : 'var(--color-text)',
+                      transition: 'all 0.15s ease',
+                      marginTop: 'auto',
+                    }}
                   >
-                    {tier.cta}
+                    {paket.cta}
                   </a>
                 </div>
               </div>
@@ -224,16 +250,25 @@ export function PricingSection() {
           ))}
         </div>
 
-        <AnimateIn delay={200}>
+        <AnimateIn delay={180}>
           <div
             className="mt-8 flex flex-col sm:flex-row justify-between items-start gap-4 pt-6"
-            style={{ borderTop: '1px solid var(--color-line)' }}
+            style={{ borderTop: '1px solid var(--color-border)' }}
           >
-            <p className="text-xs" style={{ color: 'var(--color-text-soft)' }}>
+            <p style={{ fontSize: '0.78rem', color: 'var(--color-text-3)' }}>
               Jedes Paket amortisiert sich nach dem ersten geretteten Auftrag.
-              Die Systeme gehören Ihnen — kein Vendor-Lock-in.
+              Die Systeme gehören Ihnen — kein Vendor Lock-in.
             </p>
-            <a href="#kontakt" className="text-xs font-medium whitespace-nowrap link-teal">
+            <a
+              href="#kontakt"
+              style={{
+                fontSize: '0.78rem',
+                fontWeight: 500,
+                color: 'var(--color-blue)',
+                whiteSpace: 'nowrap',
+                textDecoration: 'none',
+              }}
+            >
               Paket im Erstgespräch klären →
             </a>
           </div>

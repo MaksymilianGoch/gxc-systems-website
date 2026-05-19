@@ -9,39 +9,39 @@ interface DisciplinePanel {
 
 const PANELS: DisciplinePanel[] = [
   {
-    title: 'Structured Delivery',
+    title: 'Strukturierte Lieferung',
     content:
-      'Every system is delivered through a defined implementation sequence — audit, architecture, build, test, deploy, handover. No improvisation.',
+      'Jedes System wird nach einer definierten Umsetzungssequenz ausgeliefert — Analyse, Architektur, Entwicklung, Test, Inbetriebnahme, Übergabe. Keine Improvisation.',
     items: [
-      '01 — Operations audit',
-      '02 — System architecture',
-      '03 — Build & integration',
-      '04 — Testing & QA',
-      '05 — Deployment & training',
+      '01 — Betriebsanalyse',
+      '02 — Systemarchitektur',
+      '03 — Entwicklung & Integration',
+      '04 — Test & Qualitätssicherung',
+      '05 — Inbetriebnahme & Einweisung',
     ],
   },
   {
-    title: 'Enterprise-Grade Infrastructure',
+    title: 'Professionelle Infrastruktur',
     content:
-      'EU-hosted, GDPR-compliant. API-first architecture. All integrations documented. Systems owned by the client.',
+      'EU-gehostet, DSGVO-konform. API-first-Architektur. Alle Integrationen dokumentiert. Systeme verbleiben im Eigentum des Kunden.',
     items: [
-      'EU servers only',
-      'Data processing agreements included',
-      'No vendor lock-in',
-      'Full handover documentation',
-      'Client retains all credentials',
+      'Ausschließlich EU-Server',
+      'Auftragsverarbeitungsverträge inklusive',
+      'Keine Herstellerbindung',
+      'Vollständige Übergabedokumentation',
+      'Alle Zugangsdaten verbleiben beim Kunden',
     ],
   },
   {
-    title: 'Measurable Results',
+    title: 'Messbare Ergebnisse',
     content:
-      'We do not deliver software. We deliver operational improvements with measurable business outcomes defined at the start of each project.',
+      'Wir liefern keine Software. Wir liefern operative Verbesserungen mit messbaren unternehmerischen Kennzahlen — definiert zu Beginn jedes Projekts.',
     items: [
-      'Agreed KPIs before build begins',
-      '30-day post-launch review included',
-      'Optimization roadmap provided',
-      'Ongoing support available',
-      'Pilot projects available for qualification',
+      'Vereinbarte KPIs vor Projektbeginn',
+      '30-Tage-Nachbetrachtung nach Launch inklusive',
+      'Optimierungsfahrplan wird bereitgestellt',
+      'Laufender Support verfügbar',
+      'Pilotprojekte zur Eignungsprüfung möglich',
     ],
   },
 ]
@@ -59,15 +59,15 @@ export function TrustSection() {
         <AnimateIn>
           <div className="mb-14 max-w-2xl">
             <span className="accent-line" aria-hidden="true" />
-            <p className="text-label mb-4">OPERATING STANDARDS</p>
+            <p className="text-label mb-4">ARBEITSWEISE</p>
             <h2
               id="trust-heading"
               className="text-display-sm"
               style={{ color: 'var(--color-text)' }}
             >
-              How we build.
+              Wie wir bauen.
               <br />
-              Why it lasts.
+              Warum es hält.
             </h2>
           </div>
         </AnimateIn>

@@ -102,7 +102,7 @@ export function Footer() {
               href="mailto:office@gxc-systems.com"
               style={{ fontSize: '0.82rem', color: 'var(--color-text-2)', display: 'block', marginBottom: '0.75rem' }}
             >
-              office@gxc-systems.com {/* REVIEW */}
+              office@gxc-systems.com
             </a>
             <p style={{ fontSize: '0.75rem', color: 'var(--color-text-3)', lineHeight: 1.6 }}>
               Vorarlberg · Ostschweiz<br />Liechtenstein · Bodenseeraum

@@ -17,66 +17,66 @@ const MODULES: Module[] = [
   {
     index: '01',
     id: 'ai-agent-systems',
-    title: 'AI Agent Systems',
-    tagline: 'Intelligent process automation with decision-making capability',
+    title: 'KI-Agenten-Systeme',
+    tagline: 'Intelligente Prozessautomatisierung mit eigenständiger Entscheidungsfähigkeit',
     detail:
-      'AI agents that qualify leads, route inquiries, trigger workflows and handle standard communications without human intervention. Built on your business logic, trained on your processes.',
+      'KI-Agenten, die Leads qualifizieren, Anfragen weiterleiten, Abläufe auslösen und Standardkommunikation ohne menschlichen Eingriff abwickeln. Aufgebaut auf Ihrer Geschäftslogik, trainiert auf Ihren Prozessen.',
     outcomes: [
-      'Lead qualification automated',
-      'Response time < 60 seconds',
-      '24/7 availability without staff cost',
+      'Lead-Qualifizierung vollständig automatisiert',
+      'Reaktionszeit unter 60 Sekunden',
+      'Rund-um-die-Uhr-Verfügbarkeit ohne Personalkosten',
     ],
   },
   {
     index: '02',
     id: 'workflow-automation',
-    title: 'Workflow Automation',
-    tagline: 'End-to-end process execution without manual coordination',
+    title: 'Prozessautomatisierung',
+    tagline: 'Durchgängige Prozessausführung ohne manuelle Koordination',
     detail:
-      'Multi-step workflows that run from inquiry to outcome — booking confirmations, follow-up sequences, status updates and internal notifications — all triggered by business events.',
+      'Mehrstufige Abläufe, die von der Anfrage bis zum Ergebnis laufen — Buchungsbestätigungen, Nachverfolgungssequenzen, Statusmeldungen und interne Benachrichtigungen — alle ausgelöst durch Geschäftsereignisse.',
     outcomes: [
-      'Zero dropped follow-ups',
-      '8+ hours/week admin eliminated',
-      'Full audit trail',
+      'Keine Nachverfolgung geht verloren',
+      'Über 8 Stunden Verwaltungsaufwand pro Woche eingespart',
+      'Vollständiges Protokoll aller Vorgänge',
     ],
   },
   {
     index: '03',
     id: 'crm-lead-management',
-    title: 'CRM & Lead Management',
-    tagline: 'Structured pipeline from first contact to closed deal',
+    title: 'CRM & Lead-Management',
+    tagline: 'Strukturierte Pipeline vom Erstkontakt bis zum Abschluss',
     detail:
-      'Every lead captured, categorized, assigned and tracked. Automated status transitions, follow-up reminders and performance reporting built in from day one.',
+      'Jeder Lead wird erfasst, kategorisiert, zugewiesen und verfolgt. Automatische Statusübergänge, Nachverfolgungserinnerungen und Leistungsberichte sind vom ersten Tag an integriert.',
     outcomes: [
-      '100% lead capture rate',
-      'Pipeline visibility in real time',
-      'No manual data entry',
+      '100 % Lead-Erfassungsrate',
+      'Pipeline-Übersicht in Echtzeit',
+      'Keine manuelle Dateneingabe',
     ],
   },
   {
     index: '04',
     id: 'websites-digital-presence',
-    title: 'Websites & Digital Presence',
-    tagline: 'Conversion-engineered digital infrastructure',
+    title: 'Website & Digitale Präsenz',
+    tagline: 'Auf Konversion ausgelegte digitale Infrastruktur',
     detail:
-      'Websites built as operational systems — not brochures. Integrated with lead capture, CRM routing and booking systems from launch.',
+      'Websites, die als operative Systeme gebaut werden — nicht als Broschüren. Von Beginn an integriert mit Lead-Erfassung, CRM-Weiterleitung und Buchungssystemen.',
     outcomes: [
-      'Leads captured automatically',
-      'Zero-friction booking flow',
-      'Google Business profile optimized',
+      'Leads werden automatisch erfasst',
+      'Reibungsloser Buchungsablauf',
+      'Google-Unternehmensprofil optimiert',
     ],
   },
   {
     index: '05',
     id: 'integrations-infrastructure',
-    title: 'Integrations & Infrastructure',
-    tagline: 'All your tools, connected and coordinated',
+    title: 'Integrationen & Infrastruktur',
+    tagline: 'Alle Ihre Systeme — verbunden und koordiniert',
     detail:
-      'API integrations between your existing tools — calendar, email, payment, communication — orchestrated through a central automation layer.',
+      'API-Integrationen zwischen Ihren bestehenden Werkzeugen — Kalender, E-Mail, Zahlung, Kommunikation — orchestriert über eine zentrale Automatisierungsschicht.',
     outcomes: [
-      'Eliminate manual sync',
-      'Single source of truth',
-      'Scales without adding headcount',
+      'Manuelle Synchronisation entfällt',
+      'Einheitliche Datenquelle',
+      'Skalierbar ohne zusätzliches Personal',
     ],
   },
 ]
@@ -100,19 +100,19 @@ export function ServicesSection() {
         <AnimateIn>
           <div className="mb-14 max-w-2xl">
             <span className="accent-line" aria-hidden="true" />
-            <p className="text-label mb-4">OPERATIONAL MODULES</p>
+            <p className="text-label mb-4">OPERATIVE MODULE</p>
             <h2
               id="services-heading"
               className="text-display-sm mb-5"
               style={{ color: 'var(--color-text)' }}
             >
-              Five systems.
+              Fünf Module.
               <br />
-              One operational layer.
+              Ein Betriebssystem für Ihren Betrieb.
             </h2>
             <p style={{ color: 'var(--color-text-2)', fontSize: '1rem', lineHeight: 1.7 }}>
-              Each module solves a specific operational problem. Together, they eliminate the
-              friction between customer intent and business outcome.
+              Jedes Modul löst ein konkretes operatives Problem. Gemeinsam beseitigen sie die
+              Reibung zwischen Kundenabsicht und Geschäftsergebnis.
             </p>
           </div>
         </AnimateIn>

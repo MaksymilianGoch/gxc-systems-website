@@ -4,35 +4,35 @@ import { AnimateIn } from '@/components/ui/AnimateIn'
 const costCards = [
   {
     index: '01',
-    metric: '> 4 hours',
-    label: 'Average business response to new inquiries',
-    context: 'Industry benchmark: 80% of deals go to the first responder',
+    metric: '> 4 Stunden',
+    label: 'Durchschnittliche Reaktionszeit von Unternehmen auf neue Anfragen',
+    context: 'Branchen-Benchmark: 80 % der Aufträge gehen an denjenigen, der zuerst antwortet',
     accentColor: '#F59E0B',
-    accentLabel: 'Response Time',
+    accentLabel: 'Reaktionszeit',
   },
   {
     index: '02',
-    metric: '~ 35%',
-    label: 'Leads lost due to no follow-up system',
-    context: 'Manual tracking fails under volume and pressure',
+    metric: '~ 35 %',
+    label: 'Anfragen gehen verloren, weil kein strukturiertes Nachverfolgungssystem existiert',
+    context: 'Manuelle Erfassung versagt unter Volumen und Zeitdruck',
     accentColor: '#EF4444',
-    accentLabel: 'Lead Leakage',
+    accentLabel: 'Verlorene Anfragen',
   },
   {
     index: '03',
-    metric: '8+ hrs/wk',
-    label: 'Spent on manual scheduling, data entry and chasing',
-    context: 'Time that compounds against operational capacity',
+    metric: '8+ Std./Woche',
+    label: 'Aufgewendet für manuelle Terminplanung, Dateneingabe und Nachfassen',
+    context: 'Zeit, die sich gegen die operative Kapazität summiert',
     accentColor: '#F59E0B',
-    accentLabel: 'Admin Overhead',
+    accentLabel: 'Verwaltungsaufwand',
   },
   {
     index: '04',
     metric: '2–3×',
-    label: 'More conversions with automated follow-up vs manual',
-    context: 'Systems do not tire, forget or deprioritize',
+    label: 'Mehr Abschlüsse mit automatisierter Nachverfolgung gegenüber manueller Bearbeitung',
+    context: 'Systeme ermüden nicht, vergessen nichts und setzen keine Prioritäten falsch',
     accentColor: '#10B981',
-    accentLabel: 'Conversion Gap',
+    accentLabel: 'Abschlussquote',
   },
 ] as const
 
@@ -51,17 +51,17 @@ export function CostSection() {
           <div className="lg:col-span-5 lg:sticky lg:top-28">
             <AnimateIn direction="left" delay={0}>
               <span className="accent-line" aria-hidden="true" />
-              <p className="text-label mb-5">The Cost of Inaction</p>
+              <p className="text-label mb-5">Der Preis des Nichtstuns</p>
               <h2
                 id="cost-heading"
                 className="text-display-sm mb-6"
                 style={{ color: 'var(--color-text)' }}
               >
-                Every day without a system
+                Jeden Tag verlieren Sie Aufträge,
                 <br />
-                costs you more than
+                die Sie nicht einmal
                 <br />
-                you measure.
+                bemerken.
               </h2>
               <p
                 style={{
@@ -72,8 +72,9 @@ export function CostSection() {
                   marginBottom: '2.5rem',
                 }}
               >
-                Missed leads, slow responses, manual admin and scattered tools do not just
-                create frustration. They create measurable revenue loss.
+                Verpasste Anfragen, langsame Reaktionszeiten, manuelle Verwaltung und
+                unverbundene Werkzeuge erzeugen nicht nur Frustration. Sie verursachen
+                messbaren Umsatzverlust.
               </p>
 
               {/* Separator */}
@@ -96,8 +97,8 @@ export function CostSection() {
                   paddingLeft: '1.25rem',
                 }}
               >
-                GXC Systems does not sell automation features. It builds the operational
-                infrastructure that eliminates these gaps permanently.
+                GXC Systems verkauft keine Automatisierungs-Features. Wir bauen die operative
+                Infrastruktur, die diese Lücken dauerhaft schließt.
               </p>
             </AnimateIn>
           </div>
@@ -107,7 +108,7 @@ export function CostSection() {
             <div
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               role="list"
-              aria-label="Cost of inaction metrics"
+              aria-label="Kennzahlen zum Preis des Nichtstuns"
             >
               {costCards.map((card, i) => (
                 <AnimateIn key={card.index} delay={i * 90} direction="up">

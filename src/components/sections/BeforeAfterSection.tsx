@@ -8,28 +8,28 @@ interface ComparisonRow {
 
 const ROWS: ComparisonRow[] = [
   {
-    before: 'Inquiries received via WhatsApp, email, phone — no central capture',
-    after: 'Every inquiry captured from all channels, structured and routed automatically',
+    before: 'Anfragen kommen über WhatsApp, E-Mail, Telefon — keine zentrale Erfassung',
+    after: 'Jede Anfrage aus allen Kanälen automatisch erfasst, strukturiert und weitergeleitet',
   },
   {
-    before: 'Response times measured in hours or days',
-    after: 'Automated response dispatched in under 60 seconds',
+    before: 'Reaktionszeiten von Stunden oder Tagen',
+    after: 'Automatische Antwort in unter 60 Sekunden versendet',
   },
   {
-    before: 'Leads tracked in spreadsheets or not tracked at all',
-    after: 'CRM populated automatically — searchable, trackable, actionable',
+    before: 'Leads werden in Tabellen oder gar nicht erfasst',
+    after: 'CRM automatisch befüllt — durchsuchbar, verfolgbar, verwertbar',
   },
   {
-    before: 'Appointments booked through manual back-and-forth',
-    after: 'Booking link sent instantly — calendar synced, reminders automated',
+    before: 'Termine durch manuelles Hin-und-Her vereinbart',
+    after: 'Buchungslink sofort gesendet — Kalender synchronisiert, Erinnerungen automatisiert',
   },
   {
-    before: 'Follow-up depends on human memory and discipline',
-    after: 'Follow-up sequences run on schedule regardless of volume',
+    before: 'Follow-up hängt von Erinnerung und Disziplin ab',
+    after: 'Follow-up-Sequenzen laufen planmäßig, unabhängig vom Volumen',
   },
   {
-    before: 'No visibility into pipeline, performance or revenue',
-    after: 'Real-time dashboard — every lead, every status, every metric',
+    before: 'Kein Überblick über Pipeline, Leistung oder Umsatz',
+    after: 'Echtzeit-Dashboard — jeder Lead, jeder Status, jede Kennzahl',
   },
 ]
 
@@ -85,7 +85,7 @@ function Column({ variant, rows }: ColumnProps) {
   const rowDivider = isBefore ? 'rgba(239,68,68,0.07)' : 'rgba(16,185,129,0.07)'
   const iconColor = isBefore ? 'rgba(239,68,68,0.65)' : 'rgba(16,185,129,0.85)'
   const textColor = isBefore ? 'var(--color-text-2)' : 'var(--color-text)'
-  const label = isBefore ? 'WITHOUT SYSTEMS' : 'WITH GXC SYSTEMS'
+  const label = isBefore ? 'OHNE SYSTEM' : 'MIT GXC SYSTEMS'
 
   return (
     <div
@@ -170,15 +170,15 @@ export function BeforeAfterSection() {
         {/* Header */}
         <AnimateIn>
           <div className="text-center mb-14">
-            <p className="text-label mb-4">THE TRANSFORMATION</p>
+            <p className="text-label mb-4">DIE VERÄNDERUNG</p>
             <h2
               id="transformation-heading"
               className="text-display-sm"
               style={{ color: 'var(--color-text)' }}
             >
-              The operational gap
+              Der operative Unterschied
               <br />
-              is measurable.
+              ist messbar.
             </h2>
           </div>
         </AnimateIn>

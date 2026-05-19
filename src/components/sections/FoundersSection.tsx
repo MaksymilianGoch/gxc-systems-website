@@ -1,13 +1,7 @@
 import { Container } from '@/components/ui/Container'
 import { AnimateIn } from '@/components/ui/AnimateIn'
 
-/* ─── Data ──────────────────────────────────────────────── */
-
-const differentiators = [
-  'Systemarchitektur statt Einzellösungen',
-  'KI-Workflows statt manuelle Prozesse',
-  'Operativer Fokus statt technische Features',
-]
+/* ─── Founder Data ───────────────────────────────────────── */
 
 interface Founder {
   initials: string
@@ -21,112 +15,153 @@ const founders: Founder[] = [
   {
     initials: 'MG',
     name: 'Maksymilian Goch',
-    role: 'Gründer & Stratege',
-    bio: 'Unternehmensstratege mit Fokus auf operative Systemarchitektur und automatisierte Akquise-Infrastruktur.',
+    role: 'Gründer & Strategie',
+    bio: 'Unternehmensstratege mit Fokus auf operative Systemarchitektur und automatisierte Akquise-Infrastruktur für KMU im Dreiländereck.',
     tags: ['Strategie', 'Systemdesign', 'Vertrieb'],
   },
   {
-    initials: 'CF',
-    name: 'Co-Founder', // REVIEW
-    role: 'Co-Gründer & Technologie', // REVIEW
-    bio: 'Technologie-Experte mit Spezialisierung auf KI-Workflows, Automatisierungsarchitektur und digitale Systemintegration.', // REVIEW
-    tags: ['Automation', 'KI', 'Integration'],
+    initials: 'AG',
+    name: 'Alessio Gaudio',
+    role: 'Co-Gründer & Technologie',
+    bio: 'Technologie-Lead mit Fokus auf KI-gestützte Prozessarchitektur, Automatisierungssysteme und skalierbare Integrationen. Verantwortlich für die technische Umsetzung aller GXC-Systeme.',
+    tags: ['KI-Systeme', 'Automatisierung', 'Infrastruktur'],
   },
 ]
 
-interface CaseStudy {
-  category: string
-  headline: string
-  description: string
-  metricValue: string
-  metricLabel: string
-}
+const differentiators = [
+  'Systemarchitektur statt Einzellösungen',
+  'KI als Mittel — nicht als Botschaft',
+  'Operativer Fokus, nicht technisches Featurebingo',
+]
 
-const caseStudies: CaseStudy[] = [
+/* ─── Pilot Program Data ─────────────────────────────────── */
+
+const pilotCards = [
   {
-    category: 'Handwerk · Haustechnik',
-    headline: 'Von 3 Stunden auf 12 Minuten.',
-    description:
-      'Anfragenbearbeitung komplett automatisiert. Der Betrieb reagiert jetzt schneller als die Konkurrenz — ohne Mehraufwand.',
-    metricValue: '−92%',
-    metricLabel: 'Zeitaufwand pro Lead',
+    index: '01',
+    headline: 'Was Sie bekommen',
+    items: [
+      'Vollständige Systemanalyse Ihres Betriebs',
+      'Aufbau des ersten operativen Moduls (Lead-Capture oder Terminlogik)',
+      'CRM-Setup mit Echtdaten aus Ihrem Betrieb',
+      'Monatliches Reporting während des Pilots',
+      'Persönliche Begleitung durch beide Gründer',
+    ],
+    accent: 'var(--color-blue)',
   },
   {
-    category: 'Dienstleistung · Beratung',
-    headline: 'Terminausfälle auf unter 8%.',
-    description:
-      'Automatische Erinnerungssequenzen reduzierten No-Shows drastisch. Kalender läuft jetzt auf 94% Auslastung.',
-    metricValue: '−78%',
-    metricLabel: 'No-Show-Rate',
+    index: '02',
+    headline: 'Was wir verlangen',
+    items: [
+      'Ehrliches Feedback während der Umsetzung',
+      'Bereitschaft, Prozesse zu überdenken',
+      'Einen Ansprechpartner mit Entscheidungskompetenz',
+      'Bei messbarem Erfolg: eine dokumentierte Referenz',
+      'Keine anderen Anforderungen',
+    ],
+    accent: 'var(--color-cyan)',
   },
   {
-    category: 'Lokaler Dienstleister',
-    headline: '11 neue Leads pro Woche.',
-    description:
-      'Google Business Profile Optimierung plus Lead-Engine. Vom unsichtbaren zum meistgefundenen Anbieter der Region.',
-    metricValue: '+3.4×',
-    metricLabel: 'Mehr Anfragen',
+    index: '03',
+    headline: 'Was es kostet',
+    items: [
+      'Reduzierte Pilotinvestition: ab 790 €',
+      'Kein Retainer während des Pilots',
+      'Volle Transparenz über Aufwand und Ergebnis',
+      'Kein Vendor Lock-in — die Systeme gehören Ihnen',
+      'Weiterer Ausbau optional, nie automatisch',
+    ],
+    accent: 'var(--color-amber)',
   },
 ]
 
-/* ─── Sub-components ────────────────────────────────────── */
+/* ─── Sub-components ─────────────────────────────────────── */
 
 function FounderCard({ founder, delay }: { founder: Founder; delay: number }) {
   return (
     <AnimateIn delay={delay} direction="up">
       <article
-        className="card rounded-sm flex flex-col gap-5 h-full"
-        style={{ padding: '1.5rem' }}
+        style={{
+          background: 'var(--color-bg-2)',
+          border: '1px solid var(--color-border)',
+          borderRadius: '4px',
+          padding: '1.75rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.25rem',
+          height: '100%',
+        }}
       >
-        {/* Photo placeholder */}
+        {/* Photo placeholder — ready for real photo via CSS background */}
         <div
-          className="w-full rounded-sm overflow-hidden"
-          style={{ aspectRatio: '1 / 1', background: 'var(--color-surface-2)', border: '1px solid var(--color-line)' }}
+          style={{
+            width: '100%',
+            aspectRatio: '1 / 1',
+            background: 'var(--color-bg-3)',
+            border: '1px solid var(--color-border)',
+            borderRadius: '3px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
           aria-hidden="true"
         >
-          <div
-            className="w-full h-full flex items-center justify-center"
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '2rem',
+              fontWeight: 600,
+              letterSpacing: '0.06em',
+              color: 'var(--color-text-3)',
+            }}
           >
-            <span
-              className="text-mono"
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '2rem',
-                fontWeight: 600,
-                letterSpacing: '0.06em',
-                color: 'var(--color-text-soft)',
-              }}
-            >
-              {founder.initials}
-            </span>
-          </div>
+            {founder.initials}
+          </span>
         </div>
 
-        {/* Identity */}
         <div>
           <h3
-            className="text-display-sm"
-            style={{ fontSize: '1.1rem', color: 'var(--color-text)', marginBottom: '0.25rem' }}
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.1rem',
+              fontWeight: 600,
+              color: 'var(--color-text)',
+              letterSpacing: '-0.02em',
+              marginBottom: '0.25rem',
+            }}
           >
             {founder.name}
           </h3>
           <p
-            className="text-label"
-            style={{ color: 'var(--color-teal)' }}
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.65rem',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: 'var(--color-blue)',
+            }}
           >
             {founder.role}
           </p>
         </div>
 
-        {/* Bio */}
-        <p style={{ fontSize: '0.85rem', color: 'var(--color-text-mid)', lineHeight: 1.65 }}>
+        <p style={{ fontSize: '0.85rem', color: 'var(--color-text-2)', lineHeight: 1.65, flex: 1 }}>
           {founder.bio}
         </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mt-auto">
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem', marginTop: 'auto' }}>
           {founder.tags.map((tag) => (
-            <span key={tag} className="tag" style={{ borderRadius: '3px' }}>
+            <span
+              key={tag}
+              style={{
+                fontSize: '0.7rem',
+                fontFamily: 'var(--font-mono)',
+                color: 'var(--color-text-3)',
+                border: '1px solid var(--color-border)',
+                padding: '0.2rem 0.6rem',
+                borderRadius: '2px',
+              }}
+            >
               {tag}
             </span>
           ))}
@@ -136,350 +171,190 @@ function FounderCard({ founder, delay }: { founder: Founder; delay: number }) {
   )
 }
 
-function CaseStudyCard({ study, delay }: { study: CaseStudy; delay: number }) {
-  return (
-    <AnimateIn delay={delay} direction="up">
-      <article
-        className="flex flex-col gap-5 h-full rounded-sm"
-        style={{
-          background: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          padding: '2rem',
-          transition: 'border-color 0.2s ease',
-        }}
-      >
-        {/* Category */}
-        <p
-          className="text-label"
-          style={{ color: 'var(--color-gold)', letterSpacing: '0.12em' }}
-        >
-          {study.category}
-        </p>
-
-        {/* Headline */}
-        <h3
-          className="text-display-sm"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '1.4rem',
-            fontWeight: 550,
-            lineHeight: 1.15,
-            letterSpacing: '-0.025em',
-            color: '#ffffff',
-          }}
-        >
-          {study.headline}
-        </h3>
-
-        {/* Description */}
-        <p
-          style={{
-            fontSize: '0.875rem',
-            color: 'rgba(255,255,255,0.58)',
-            lineHeight: 1.65,
-            flex: 1,
-          }}
-        >
-          {study.description}
-        </p>
-
-        {/* Metric */}
-        <div
-          className="rule"
-          style={{ background: 'rgba(255,255,255,0.08)', marginBottom: '1.25rem' }}
-          aria-hidden="true"
-        />
-        <dl>
-          <dt
-            className="text-mono"
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'clamp(2rem, 4vw, 2.75rem)',
-              fontWeight: 700,
-              lineHeight: 1,
-              letterSpacing: '-0.03em',
-              color: '#ffffff',
-            }}
-          >
-            <span
-              style={{
-                background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-light))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              {study.metricValue}
-            </span>
-          </dt>
-          <dd
-            style={{
-              marginTop: '0.35rem',
-              fontSize: '0.75rem',
-              color: 'rgba(255,255,255,0.42)',
-              fontWeight: 500,
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-            }}
-          >
-            {study.metricLabel}
-          </dd>
-        </dl>
-
-        {/* Review note */}
-        <p
-          className="text-mono"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.65rem',
-            color: 'rgba(255,255,255,0.18)',
-            marginTop: 'auto',
-            paddingTop: '1rem',
-            borderTop: '1px solid rgba(255,255,255,0.06)',
-          }}
-        >
-          {'// REVIEW — echtes Case Study noch eintragen'}
-        </p>
-      </article>
-    </AnimateIn>
-  )
-}
-
-/* ─── Main export ───────────────────────────────────────── */
+/* ─── Main export ─────────────────────────────────────────── */
 
 export function FoundersSection() {
   return (
     <>
-      {/* ── Visual separator — clear break from previous sections ── */}
-      <div
-        style={{
-          background: 'var(--color-navy)',
-          padding: '2.5rem 0',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-        aria-hidden="true"
-      >
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 80px)',
-          }}
-        />
-        <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 relative">
-          <div className="flex items-center justify-between gap-8">
-            <div className="flex items-center gap-4">
-              <div className="h-px w-8" style={{ background: 'var(--color-gold)' }} />
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.7rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(255,255,255,0.3)',
-                }}
-              >
-                Über GXC Systems
-              </span>
-            </div>
-            <div className="flex items-center gap-6">
-              {['Strategie', 'Automation', 'Ergebnisse'].map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.65rem',
-                    letterSpacing: '0.12em',
-                    color: 'rgba(255,255,255,0.2)',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ══════════════════════════════════════════════
-          PART 1 — Founders / About
-      ══════════════════════════════════════════════ */}
+      {/* ── ÜBER UNS ─────────────────────────────────────── */}
       <section
         id="ueber-uns"
         className="section-y"
-        style={{ background: 'var(--color-cream)' }}
+        style={{ background: 'var(--color-bg-1)' }}
         aria-labelledby="founders-heading"
       >
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-start">
 
-            {/* Left: Company description */}
             <AnimateIn direction="left">
               <div>
-                {/* Gold rule */}
-                <div
-                  className="rule-gold"
-                  style={{ marginBottom: '1.5rem' }}
-                  aria-hidden="true"
-                />
-
-                {/* Label */}
-                <p className="text-label" style={{ marginBottom: '1rem' }}>
-                  Über uns
-                </p>
-
-                {/* Headline */}
+                <span className="accent-line" />
+                <p className="text-label mb-4">Über GXC Systems</p>
                 <h2
                   id="founders-heading"
-                  className="text-display-sm"
-                  style={{ color: 'var(--color-text)', marginBottom: '1.75rem' }}
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(2rem, 3.5vw, 3rem)',
+                    fontWeight: 700,
+                    color: 'var(--color-text)',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.05,
+                    marginBottom: '1.5rem',
+                  }}
                 >
-                  Gebaut von Unternehmern. Für Unternehmer.
+                  Gebaut von Unternehmern.
+                  <br />
+                  Für Unternehmer.
                 </h2>
 
-                {/* Body paragraphs */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
-                  <p style={{ fontSize: '1rem', color: 'var(--color-text-mid)', lineHeight: 1.7 }}>
-                    GXC Systems entstand aus einer einfachen Beobachtung: Die meisten KMU verlieren täglich
-                    Umsatz — nicht wegen mangelnder Qualität, sondern wegen fehlender Systeminfrastruktur.
-                  </p>
-                  <p style={{ fontSize: '1rem', color: 'var(--color-text-mid)', lineHeight: 1.7 }}>
-                    Wir bauen die operativen Fundamente, die Handwerker, Dienstleister und lokale Betriebe
-                    brauchen, um professionell zu skalieren.
-                  </p>
-                </div>
+                <p style={{ fontSize: '1rem', color: 'var(--color-text-2)', lineHeight: 1.7, marginBottom: '1rem' }}>
+                  GXC Systems entstand aus einer einfachen Beobachtung: Die meisten KMU verlieren täglich Umsatz — nicht wegen mangelnder Qualität, sondern weil ihnen die operative Infrastruktur fehlt, die Anfragen systematisch erfasst, beantwortet und in Aufträge verwandelt.
+                </p>
+                <p style={{ fontSize: '1rem', color: 'var(--color-text-2)', lineHeight: 1.7, marginBottom: '2.5rem' }}>
+                  Wir bauen diese Infrastruktur. Als verbundenes System — nicht als Ansammlung von Tools.
+                </p>
 
-                {/* Differentiators */}
-                <ul
+                <div
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '0',
-                    borderTop: '1px solid var(--color-line)',
+                    gap: 0,
+                    borderTop: '1px solid var(--color-border)',
                   }}
-                  aria-label="Unsere Differenzierungsmerkmale"
                 >
-                  {differentiators.map((item, i) => (
-                    <li
-                      key={item}
+                  {differentiators.map((d, i) => (
+                    <div
+                      key={i}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '1rem',
                         padding: '0.875rem 0',
-                        borderBottom: '1px solid var(--color-line)',
-                        fontSize: '0.9rem',
-                        color: 'var(--color-text)',
-                        fontWeight: 500,
+                        borderBottom: '1px solid var(--color-border)',
                       }}
                     >
                       <span
-                        aria-hidden="true"
                         style={{
                           fontFamily: 'var(--font-mono)',
-                          fontSize: '0.72rem',
-                          color: 'var(--color-gold)',
-                          fontWeight: 500,
-                          letterSpacing: '0.04em',
-                          flexShrink: 0,
+                          fontSize: '0.62rem',
+                          color: 'var(--color-blue)',
+                          minWidth: '1.5rem',
                         }}
                       >
                         {String(i + 1).padStart(2, '0')}
                       </span>
-                      {item}
-                    </li>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--color-text-2)' }}>{d}</p>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </AnimateIn>
 
-            {/* Right: Two founder cards side by side */}
-            <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {founders.map((founder, i) => (
-                  <FounderCard key={founder.initials} founder={founder} delay={i * 120} />
-                ))}
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {founders.map((f, i) => (
+                <FounderCard key={f.initials} founder={f} delay={i * 100} />
+              ))}
             </div>
           </div>
         </Container>
       </section>
 
-      {/* ══════════════════════════════════════════════
-          PART 2 — Case Studies / Ergebnisse
-      ══════════════════════════════════════════════ */}
+      {/* ── PILOTPROGRAMM ────────────────────────────────── */}
       <section
         id="ergebnisse"
-        className="section-y dark-section"
-        aria-labelledby="results-heading"
+        className="section-y"
+        style={{ background: 'var(--color-bg)' }}
+        aria-labelledby="pilot-heading"
       >
-        <Container className="relative">
-          {/* Header */}
+        <Container>
           <AnimateIn>
-            <div style={{ marginBottom: '4rem' }}>
-              <p
-                className="text-label"
-                style={{
-                  color: 'rgba(200,164,74,0.85)',
-                  marginBottom: '1rem',
-                }}
-              >
-                Ergebnisse
-              </p>
+            <div className="text-center mb-14" style={{ maxWidth: '42rem', margin: '0 auto 3.5rem' }}>
+              <span className="accent-line" style={{ margin: '0 auto 1.25rem' }} />
+              <p className="text-label mb-4">Pilotprogramm</p>
               <h2
-                id="results-heading"
-                className="text-display-sm"
+                id="pilot-heading"
                 style={{
-                  color: '#ffffff',
-                  marginBottom: '1rem',
-                  maxWidth: '36rem',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
+                  fontWeight: 700,
+                  color: 'var(--color-text)',
+                  letterSpacing: '-0.028em',
+                  marginBottom: '1.25rem',
                 }}
               >
-                Was unsere Systeme leisten.
+                Drei Pilotplätze für Q3 2026.
               </h2>
-              <p
-                style={{
-                  fontSize: '1rem',
-                  color: 'rgba(255,255,255,0.58)',
-                  lineHeight: 1.65,
-                }}
-              >
-                Konkrete Resultate aus echten Projekten.
+              <p style={{ fontSize: '1rem', color: 'var(--color-text-2)', lineHeight: 1.7 }}>
+                Wir nehmen aktuell drei Betriebe in unser Pilotprogramm auf. Reduzierte Investition, vollständige Dokumentation, gemeinsame Optimierung. Das Einzige, was wir verlangen: ehrliches Feedback und — bei Erfolg — eine Referenz.
               </p>
             </div>
           </AnimateIn>
 
-          {/* Case Study cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {caseStudies.map((study, i) => (
-              <CaseStudyCard key={study.headline} study={study} delay={i * 120} />
+          <div
+            className="grid grid-cols-1 md:grid-cols-3"
+            style={{ border: '1px solid var(--color-border)', borderRadius: '4px', overflow: 'hidden' }}
+          >
+            {pilotCards.map((card, i) => (
+              <AnimateIn key={card.index} delay={i * 80}>
+                <div
+                  style={{
+                    padding: '2rem',
+                    borderRight: i < pilotCards.length - 1 ? '1px solid var(--color-border)' : 'none',
+                    borderBottom: '0',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.5rem',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.65rem',
+                        color: card.accent,
+                      }}
+                    >
+                      {card.index}
+                    </span>
+                    <h3
+                      style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.1rem',
+                        fontWeight: 600,
+                        color: 'var(--color-text)',
+                        letterSpacing: '-0.02em',
+                      }}
+                    >
+                      {card.headline}
+                    </h3>
+                  </div>
+
+                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', flex: 1 }}>
+                    {card.items.map((item) => (
+                      <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
+                        <span style={{ color: card.accent, fontFamily: 'var(--font-mono)', fontSize: '0.7rem', marginTop: '0.15rem', flexShrink: 0 }}>→</span>
+                        <span style={{ fontSize: '0.875rem', color: 'var(--color-text-2)', lineHeight: 1.55 }}>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </AnimateIn>
             ))}
           </div>
 
-          {/* Footer note */}
-          <AnimateIn delay={300}>
-            <div
-              style={{
-                marginTop: '3.5rem',
-                paddingTop: '2rem',
-                borderTop: '1px solid rgba(255,255,255,0.08)',
-                textAlign: 'center',
-              }}
-            >
-              <p
-                style={{
-                  fontSize: '0.8rem',
-                  color: 'rgba(255,255,255,0.32)',
-                  maxWidth: '42rem',
-                  margin: '0 auto',
-                  lineHeight: 1.6,
-                }}
+          <AnimateIn delay={150}>
+            <div className="text-center mt-10">
+              <a
+                href="#kontakt"
+                className="btn-primary"
+                style={{ fontSize: '0.95rem', padding: '1rem 2.25rem' }}
               >
-                Alle Ergebnisse stammen aus realen Projekten. Spezifische Zahlen können je nach Branche,
-                Ausgangssituation und Umsetzungstiefe variieren.
-              </p>
+                Pilotplatz anfragen
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
             </div>
           </AnimateIn>
         </Container>

@@ -6,10 +6,10 @@ import { Menu, X } from 'lucide-react'
 
 const navLinks = [
   { label: 'System', href: '#leistungen' },
-  { label: 'Architecture', href: '#ablauf' },
-  { label: 'Results', href: '#ergebnisse' },
-  { label: 'About', href: '#ueber-uns' },
-  { label: 'Pricing', href: '#preise' },
+  { label: 'Ablauf', href: '#ablauf' },
+  { label: 'Pilotprogramm', href: '#ergebnisse' },
+  { label: 'Über uns', href: '#ueber-uns' },
+  { label: 'Preise', href: '#preise' },
 ]
 
 export function Navigation() {
@@ -26,9 +26,7 @@ export function Navigation() {
     <header
       className="sticky top-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled
-          ? 'rgba(7, 9, 15, 0.92)'
-          : 'rgba(7, 9, 15, 0.6)',
+        background: scrolled ? 'rgba(10, 11, 13, 0.92)' : 'rgba(10, 11, 13, 0.6)',
         backdropFilter: 'blur(12px)',
         borderBottom: '1px solid',
         borderColor: scrolled ? 'var(--color-border)' : 'transparent',
@@ -38,43 +36,42 @@ export function Navigation() {
         <nav
           className="flex items-center justify-between"
           style={{ height: '4.5rem' }}
-          aria-label="Main Navigation"
+          aria-label="Hauptnavigation"
         >
           {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-3"
-            aria-label="GXC Systems — Home"
+            aria-label="GXC Systems — Startseite"
           >
-            {/* Icon mark */}
             <div
               style={{
-                width: '32px',
-                height: '32px',
-                border: '1px solid rgba(59,130,246,0.4)',
-                background: 'rgba(59,130,246,0.08)',
+                width: '30px',
+                height: '30px',
+                border: '1px solid rgba(37,99,235,0.4)',
+                background: 'rgba(37,99,235,0.08)',
                 borderRadius: '4px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexShrink: 0,
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <rect x="2" y="2" width="5" height="5" fill="#3B82F6" opacity="0.8" />
-                <rect x="9" y="2" width="5" height="5" fill="#06B6D4" opacity="0.5" />
-                <rect x="2" y="9" width="5" height="5" fill="#06B6D4" opacity="0.5" />
-                <rect x="9" y="9" width="5" height="5" fill="#3B82F6" opacity="0.8" />
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <rect x="2" y="2" width="5" height="5" fill="#2563EB" opacity="0.9" />
+                <rect x="9" y="2" width="5" height="5" fill="#06B6D4" opacity="0.6" />
+                <rect x="2" y="9" width="5" height="5" fill="#06B6D4" opacity="0.6" />
+                <rect x="9" y="9" width="5" height="5" fill="#2563EB" opacity="0.9" />
               </svg>
             </div>
 
-            {/* Wordmark */}
             <div style={{ lineHeight: 1 }}>
               <div
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontWeight: 700,
-                  fontSize: '1.1rem',
-                  letterSpacing: '-0.03em',
+                  fontSize: '1.05rem',
+                  letterSpacing: '-0.025em',
                   color: 'var(--color-text)',
                 }}
               >
@@ -83,34 +80,31 @@ export function Navigation() {
               <div
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '0.55rem',
-                  letterSpacing: '0.2em',
+                  fontSize: '0.52rem',
+                  letterSpacing: '0.18em',
                   textTransform: 'uppercase',
                   color: 'var(--color-text-3)',
                   marginTop: '2px',
                 }}
               >
-                Operational AI
+                Operative Infrastruktur
               </div>
             </div>
           </Link>
 
-          {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-8">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-7">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
+                className="nav-link"
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '0.825rem',
                   fontWeight: 500,
                   letterSpacing: '-0.01em',
-                  color: 'var(--color-text-2)',
-                  transition: 'color 0.15s ease',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-text)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-2)')}
               >
                 {link.label}
               </a>
@@ -118,61 +112,49 @@ export function Navigation() {
           </div>
 
           {/* CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center">
             <a
               href="#kontakt"
+              className="nav-cta"
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 600,
                 fontSize: '0.825rem',
                 letterSpacing: '-0.01em',
                 color: 'white',
-                background: 'var(--color-blue)',
-                padding: '0.55rem 1.25rem',
-                borderRadius: '4px',
-                transition: 'background 0.15s ease',
+                padding: '0.55rem 1.2rem',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-blue-glow)')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--color-blue)')}
             >
-              Book a Demo
+              Erstgespräch buchen
             </a>
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile */}
           <button
             type="button"
             onClick={() => setIsOpen((p) => !p)}
-            className="lg:hidden p-2 transition-colors"
-            style={{ color: 'var(--color-text-2)' }}
+            className="lg:hidden p-2 nav-link"
             aria-expanded={isOpen}
-            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-label={isOpen ? 'Menü schließen' : 'Menü öffnen'}
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </nav>
       </div>
 
-      {/* Mobile menu */}
       {isOpen && (
-        <div
-          style={{
-            borderTop: '1px solid var(--color-border)',
-            background: 'var(--color-bg)',
-          }}
-        >
+        <div style={{ borderTop: '1px solid var(--color-border)', background: 'var(--color-bg)' }}>
           <div className="max-w-[1280px] mx-auto px-6 py-5 flex flex-col gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block py-3"
+                className="block py-3 nav-link"
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '0.9rem',
                   fontWeight: 500,
-                  color: 'var(--color-text-2)',
                   borderBottom: '1px solid var(--color-border)',
                 }}
               >
@@ -183,9 +165,8 @@ export function Navigation() {
               href="#kontakt"
               onClick={() => setIsOpen(false)}
               className="btn-primary mt-4 justify-center text-center"
-              style={{ borderRadius: '4px' }}
             >
-              Book a System Demo
+              Erstgespräch buchen
             </a>
           </div>
         </div>

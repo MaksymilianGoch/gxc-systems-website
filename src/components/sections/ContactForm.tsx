@@ -108,10 +108,10 @@ export function ContactForm({ dark = false }: ContactFormProps) {
           <p className="text-sm text-navy">
             {serverError} Oder schreiben Sie uns direkt an{' '}
             <a
-              href="mailto:office@gxc-systems.com" // REVIEW
+              href="mailto:office@gxc-systems.com"
               className="underline underline-offset-2 hover:text-teal"
             >
-              office@gxc-systems.com {/* REVIEW */}
+              office@gxc-systems.com
             </a>
             .
           </p>

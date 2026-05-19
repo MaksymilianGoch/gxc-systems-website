@@ -3,9 +3,9 @@ import { Container } from '@/components/ui/Container'
 import { ContactForm } from './ContactForm'
 
 const TRUST_SIGNALS = [
-  '30 minutes — scoped and efficient',
-  'System audit included — no charge',
-  'All systems remain client-owned',
+  '30 Minuten — strukturiert und effizient',
+  'Systemanalyse inklusive — kostenlos',
+  'Alle Systeme bleiben in Ihrem Besitz',
 ]
 
 export function ContactSection() {
@@ -26,15 +26,15 @@ export function ContactSection() {
           <div>
             <AnimateIn>
               <span className="accent-line" aria-hidden="true" />
-              <p className="text-label mb-4">START THE CONVERSATION</p>
+              <p className="text-label mb-4">JETZT STARTEN</p>
               <h2
                 id="contact-heading"
                 className="text-display-sm mb-6"
                 style={{ color: 'var(--color-text)' }}
               >
-                Ready to remove the
+                Bereit, das System zu installieren,
                 <br />
-                operational friction?
+                bevor es Ihr Wettbewerber tut?
               </h2>
               <p
                 style={{
@@ -44,12 +44,11 @@ export function ContactSection() {
                   marginBottom: '2.5rem',
                 }}
               >
-                Book a 30-minute system strategy call. We analyze your current operations,
-                identify the highest-impact automation opportunities and show you what a
-                connected system would look like for your business.
+                Lassen Sie uns 30 Minuten reden — kein Pitch, keine Folien. Wir schauen uns
+                Ihren Betrieb an und sagen Ihnen ehrlich, wo das größte Leck ist.
                 <br />
                 <br />
-                No pitch. No pressure. Just operational clarity.
+                Keine ungebetenen Angebote danach.
               </p>
             </AnimateIn>
 

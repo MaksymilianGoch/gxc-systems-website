@@ -4,9 +4,9 @@ import { AnimateIn } from '@/components/ui/AnimateIn'
 const stages = [
   {
     index: '01',
-    phase: 'Input',
-    label: 'Business Inquiry',
-    description: 'Web form, phone, email or chat — every entry point captured',
+    phase: 'Eingang',
+    label: 'Eingehende Anfrage',
+    description: 'Webformular, Telefon, E-Mail oder Chat — jeder Eingangskanal wird erfasst',
     icon: (
       <svg
         width="22"
@@ -27,9 +27,9 @@ const stages = [
   },
   {
     index: '02',
-    phase: 'AI Processing',
-    label: 'Intent Classification',
-    description: 'AI agent analyzes, prioritizes and routes based on business rules',
+    phase: 'KI-Verarbeitung',
+    label: 'KI-Klassifizierung',
+    description: 'KI-Agent analysiert, priorisiert und leitet auf Basis von Geschäftsregeln weiter',
     icon: (
       <svg
         width="22"
@@ -52,9 +52,9 @@ const stages = [
   },
   {
     index: '03',
-    phase: 'CRM Entry',
-    label: 'Lead Registered',
-    description: 'Structured data stored with source, timestamp and priority',
+    phase: 'CRM-Erfassung',
+    label: 'Lead erfasst',
+    description: 'Strukturierte Daten gespeichert mit Quelle, Zeitstempel und Priorität',
     icon: (
       <svg
         width="22"
@@ -76,9 +76,9 @@ const stages = [
   },
   {
     index: '04',
-    phase: 'Routing',
-    label: 'Workflow Trigger',
-    description: 'Automated sequences activated: assignment, notification, follow-up',
+    phase: 'Weiterleitung',
+    label: 'Prozess ausgelöst',
+    description: 'Automatisierte Abläufe gestartet: Zuweisung, Benachrichtigung, Nachverfolgung',
     icon: (
       <svg
         width="22"
@@ -99,9 +99,9 @@ const stages = [
   },
   {
     index: '05',
-    phase: 'Communication',
-    label: 'Response Dispatched',
-    description: 'Instant confirmation, booking link or agent handoff — sub-minute',
+    phase: 'Kommunikation',
+    label: 'Antwort versendet',
+    description: 'Sofortige Bestätigung, Buchungslink oder Übergabe an den zuständigen Mitarbeiter — innerhalb von Sekunden',
     icon: (
       <svg
         width="22"
@@ -122,9 +122,9 @@ const stages = [
   },
   {
     index: '06',
-    phase: 'Tracking',
-    label: 'Pipeline Updated',
-    description: 'Status tracked, reminders set, no lead falls through',
+    phase: 'Nachverfolgung',
+    label: 'Pipeline aktualisiert',
+    description: 'Status verfolgt, Erinnerungen gesetzt, kein Lead geht verloren',
     icon: (
       <svg
         width="22"
@@ -146,9 +146,9 @@ const stages = [
   },
   {
     index: '07',
-    phase: 'Outcome',
-    label: 'Revenue Realized',
-    description: 'Closed deal, booked appointment or qualified disqualification',
+    phase: 'Ergebnis',
+    label: 'Auftrag gewonnen',
+    description: 'Abgeschlossener Auftrag, gebuchter Termin oder qualifizierte Absage',
     icon: (
       <svg
         width="22"
@@ -201,7 +201,7 @@ export function ArchitectureSection() {
               style={{ margin: '0 auto 1.25rem' }}
               aria-hidden="true"
             />
-            <p className="text-label mb-5">System Architecture</p>
+            <p className="text-label mb-5">Systemarchitektur</p>
             <h2
               id="architecture-heading"
               className="text-display-sm"
@@ -211,9 +211,9 @@ export function ArchitectureSection() {
                 margin: '0 auto 1.25rem',
               }}
             >
-              One operating layer.
+              Eine operative Schicht.
               <br />
-              Every process connected.
+              Alle Prozesse verbunden.
             </h2>
             <p
               style={{
@@ -224,7 +224,7 @@ export function ArchitectureSection() {
                 margin: '0 auto',
               }}
             >
-              GXC builds a connected operational system — not isolated tools.
+              GXC baut ein verbundenes operatives System — keine isolierten Einzelwerkzeuge.
             </p>
           </div>
         </AnimateIn>
@@ -232,7 +232,7 @@ export function ArchitectureSection() {
         {/* Flow diagram */}
         <div
           role="list"
-          aria-label="System architecture stages"
+          aria-label="Phasen der Systemarchitektur"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(7, 1fr)',
@@ -360,7 +360,7 @@ export function ArchitectureSection() {
         {/* Mobile: vertical stack */}
         <div
           role="list"
-          aria-label="System architecture stages"
+          aria-label="Phasen der Systemarchitektur"
           className="flex flex-col gap-0 lg:hidden"
         >
           {stages.map((stage, i) => (
@@ -479,8 +479,8 @@ export function ArchitectureSection() {
                 letterSpacing: '0.06em',
               }}
             >
-              Average time from inquiry to structured CRM entry:{' '}
-              <span style={{ color: 'var(--color-cyan)' }}>&lt; 30 seconds.</span>
+              Durchschnittliche Zeit von der Anfrage bis zum strukturierten CRM-Eintrag:{' '}
+              <span style={{ color: 'var(--color-cyan)' }}>&lt; 30 Sekunden.</span>
             </p>
           </div>
         </AnimateIn>

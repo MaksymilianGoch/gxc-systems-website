@@ -6,41 +6,41 @@ import { AnimateIn } from '@/components/ui/AnimateIn'
 const PHASES = [
   {
     id: 'intake',
-    phase: '01 — INTAKE',
-    title: 'Capture',
+    phase: '01 — EINGANG',
+    title: 'Erfassen',
     steps: [
-      { n: '01', title: 'Inquiry Received', desc: 'Web form, phone, email, or chat — unified capture from every channel.' },
-      { n: '02', title: 'AI Classification', desc: 'Intent detected. Priority assigned. Source logged. Routing rules applied.' },
+      { n: '01', title: 'Anfrage eingegangen', desc: 'Webformular, Telefon, E-Mail oder Chat — einheitliche Erfassung aus jedem Kanal.' },
+      { n: '02', title: 'KI-Klassifizierung', desc: 'Absicht erkannt. Priorität vergeben. Quelle protokolliert. Weiterleitungsregeln angewendet.' },
     ],
   },
   {
     id: 'process',
-    phase: '02 — PROCESS',
-    title: 'Route',
+    phase: '02 — VERARBEITUNG',
+    title: 'Weiterleiten',
     steps: [
-      { n: '03', title: 'CRM Entry', desc: 'Structured lead record created automatically — no manual data entry.' },
-      { n: '04', title: 'Workflow Trigger', desc: 'Automated sequences initiated based on lead type, source and priority.' },
-      { n: '05', title: 'Team Alert', desc: 'Structured notification dispatched via Slack or Telegram in seconds.' },
+      { n: '03', title: 'CRM-Eintrag', desc: 'Strukturierter Lead-Datensatz automatisch angelegt — keine manuelle Dateneingabe.' },
+      { n: '04', title: 'Ablauf-Auslöser', desc: 'Automatisierte Sequenzen gestartet auf Basis von Lead-Typ, Quelle und Priorität.' },
+      { n: '05', title: 'Team-Benachrichtigung', desc: 'Strukturierte Mitteilung innerhalb von Sekunden via Slack oder Telegram versandt.' },
     ],
   },
   {
     id: 'engage',
-    phase: '03 — ENGAGE',
-    title: 'Respond',
+    phase: '03 — KOMMUNIKATION',
+    title: 'Reagieren',
     steps: [
-      { n: '06', title: 'Instant Response', desc: 'Professional acknowledgment sent automatically. Booking link included.' },
-      { n: '07', title: 'Appointment Set', desc: 'Calendar synced. Confirmation sent. Reminders scheduled automatically.' },
-      { n: '08', title: 'CRM Updated', desc: 'Status changes in real time. No manual updates. No stale data.' },
+      { n: '06', title: 'Sofortantwort', desc: 'Professionelle Eingangsbestätigung automatisch versandt. Buchungslink inklusive.' },
+      { n: '07', title: 'Termin vereinbart', desc: 'Kalender synchronisiert. Bestätigung versandt. Erinnerungen automatisch geplant.' },
+      { n: '08', title: 'CRM aktualisiert', desc: 'Statusänderungen in Echtzeit. Keine manuellen Aktualisierungen. Keine veralteten Daten.' },
     ],
   },
   {
     id: 'close',
-    phase: '04 — CLOSE',
-    title: 'Convert',
+    phase: '04 — ABSCHLUSS',
+    title: 'Abschließen',
     steps: [
-      { n: '09', title: 'Proposal Sent', desc: 'Offer prepared and dispatched. Follow-up scheduled at day 3 and day 7.' },
-      { n: '10', title: 'Payment Processed', desc: 'Stripe link issued. Payment confirmed. Status updated to Client.' },
-      { n: '11', title: 'Retained', desc: 'Client onboarding triggered. Recurring workflow activated. Cycle complete.' },
+      { n: '09', title: 'Angebot versandt', desc: 'Angebot erstellt und übermittelt. Follow-up für Tag 3 und Tag 7 eingeplant.' },
+      { n: '10', title: 'Zahlung abgewickelt', desc: 'Stripe-Link ausgestellt. Zahlung bestätigt. Status auf Kunde aktualisiert.' },
+      { n: '11', title: 'Gewonnen', desc: 'Kunden-Onboarding ausgelöst. Wiederkehrender Ablauf aktiviert. Zyklus abgeschlossen.' },
     ],
   },
 ]
@@ -67,16 +67,16 @@ export function InteractiveTimeline() {
         <AnimateIn>
           <div className="mb-14">
             <span className="accent-line" />
-            <p className="text-label mb-4">IMPLEMENTATION SEQUENCE</p>
+            <p className="text-label mb-4">UMSETZUNGSABLAUF</p>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <h2
                 id="timeline-heading"
                 className="text-display-sm"
                 style={{ color: 'var(--color-text)' }}
               >
-                From first contact
+                Von der ersten Anfrage
                 <br />
-                to closed deal.
+                zum abgeschlossenen Auftrag.
               </h2>
               <p
                 style={{
@@ -86,7 +86,7 @@ export function InteractiveTimeline() {
                   maxWidth: '22rem',
                 }}
               >
-                {String(globalStep + 1).padStart(2, '0')} of {String(totalSteps).padStart(2, '0')} steps · {currentPhase.phase}
+                {String(globalStep + 1).padStart(2, '0')} von {String(totalSteps).padStart(2, '0')} Schritten · {currentPhase.phase}
               </p>
             </div>
           </div>
@@ -229,7 +229,7 @@ export function InteractiveTimeline() {
                     fontSize: '0.78rem',
                   }}
                 >
-                  ← Previous
+                  ← Zurück
                 </button>
                 <button
                   type="button"
@@ -255,7 +255,7 @@ export function InteractiveTimeline() {
                     transition: 'all 0.15s ease',
                   }}
                 >
-                  Next →
+                  Weiter →
                 </button>
               </div>
             </div>
@@ -327,10 +327,10 @@ export function InteractiveTimeline() {
                 }}
               >
                 <p style={{ fontSize: '0.8rem', color: 'rgba(16,185,129,0.9)', fontFamily: 'var(--font-mono)' }}>
-                  ✓ Full system cycle complete
+                  ✓ Vollständiger Systemzyklus abgeschlossen
                 </p>
                 <p style={{ fontSize: '0.72rem', color: 'var(--color-text-3)', marginTop: '0.25rem' }}>
-                  From inquiry to retained client — automated.
+                  Von der Anfrage zum gewonnenen Kunden — automatisiert.
                 </p>
               </div>
             )}

@@ -27,18 +27,18 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'GXC Systems — AI-Powered Operational Infrastructure',
+    default: 'GXC Systems — Operative Infrastruktur für KMU im Dreiländereck',
     template: '%s | GXC Systems',
   },
   description:
-    'GXC Systems builds AI-powered operational infrastructure for businesses that cannot afford inefficiency. Workflow automation, CRM systems, AI agents, and intelligent process architecture.',
+    'Wir bauen für Handwerker und Dienstleister in Vorarlberg, der Ostschweiz, Liechtenstein und am Bodensee die digitalen Systeme, die jede Anfrage in einen Termin verwandeln. Lead-Erfassung, CRM, KI-Agenten und Prozessautomatisierung — als ein verbundenes System.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://gxc-systems.com'),
   openGraph: {
     type: 'website',
     locale: 'de_AT',
     siteName: 'GXC Systems',
-    title: 'GXC Systems — AI-Powered Operational Infrastructure',
-    description: 'Operational infrastructure for companies where inefficiency becomes expensive.',
+    title: 'GXC Systems — Operative Infrastruktur für KMU im Dreiländereck',
+    description: 'Jede Anfrage erfasst. Jeder Termin automatisiert. Auch wenn niemand ans Telefon geht.',
   },
   robots: { index: true, follow: true },
 }
