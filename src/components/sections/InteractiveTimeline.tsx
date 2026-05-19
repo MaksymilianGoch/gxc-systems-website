@@ -1,332 +1,343 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { Container } from '@/components/ui/Container'
+import { useState } from 'react'
+import { AnimateIn } from '@/components/ui/AnimateIn'
 
-const STEPS = [
-  { id: 1, phase: 'AUFMERKSAMKEIT', title: 'Website', desc: 'Der Interessent findet Sie über Google oder eine persönliche Empfehlung. Ihr erster digitaler Eindruck entscheidet über Vertrauen oder Absprung.' },
-  { id: 2, phase: 'AUFMERKSAMKEIT', title: 'Formular', desc: 'Kontaktformular ausgefüllt in 60 Sekunden. Name, E-Mail, Anliegen — strukturiert, direkt, ohne Reibung.' },
-  { id: 3, phase: 'VERARBEITUNG', title: 'Webhook', desc: 'Die Anfrage wird sofort an das Automatisierungssystem übergeben. Keine Sekunde Verzögerung, keine menschliche Intervention nötig.' },
-  { id: 4, phase: 'VERARBEITUNG', title: 'CRM', desc: 'Ein Lead-Datensatz wird automatisch in Airtable angelegt — vollständig, sortiert, mit Zeitstempel und Quelle.' },
-  { id: 5, phase: 'VERARBEITUNG', title: 'Benachrichtigung', desc: 'Sie erhalten in Sekunden eine strukturierte Meldung per Slack oder Telegram mit allen Kontaktdaten.' },
-  { id: 6, phase: 'KOMMUNIKATION', title: 'E-Mail', desc: 'Der Interessent bekommt sofort eine professionelle Eingangsbestätigung — mit Buchungslink für den nächsten Schritt.' },
-  { id: 7, phase: 'KOMMUNIKATION', title: 'Terminbuchung', desc: 'Er bucht direkt einen Gesprächstermin. Kein Hin-und-Her, kein Telefonieren, keine Zeitverschwendung.' },
-  { id: 8, phase: 'KOMMUNIKATION', title: 'CRM-Update', desc: 'Der Lead-Status wird automatisch auf "Termin vereinbart" gesetzt. Ihr CRM bleibt immer aktuell.' },
-  { id: 9, phase: 'ABSCHLUSS', title: 'Angebot', desc: 'Nach dem Gespräch: Angebot wird vorbereitet, versendet und nach 3 und 7 Tagen automatisch nachgefasst.' },
-  { id: 10, phase: 'ABSCHLUSS', title: 'Zahlung', desc: 'Auftragserteilung und Zahlungsabwicklung per Stripe-Link. Status automatisch auf "Kunde" gesetzt.' },
-  { id: 11, phase: 'ABSCHLUSS', title: 'Betreuung', desc: 'Laufende Optimierung, Monitoring und monatliches Reporting. Das System wird mit Ihrem Betrieb besser.' },
+const PHASES = [
+  {
+    id: 'intake',
+    phase: '01 — INTAKE',
+    title: 'Capture',
+    steps: [
+      { n: '01', title: 'Inquiry Received', desc: 'Web form, phone, email, or chat — unified capture from every channel.' },
+      { n: '02', title: 'AI Classification', desc: 'Intent detected. Priority assigned. Source logged. Routing rules applied.' },
+    ],
+  },
+  {
+    id: 'process',
+    phase: '02 — PROCESS',
+    title: 'Route',
+    steps: [
+      { n: '03', title: 'CRM Entry', desc: 'Structured lead record created automatically — no manual data entry.' },
+      { n: '04', title: 'Workflow Trigger', desc: 'Automated sequences initiated based on lead type, source and priority.' },
+      { n: '05', title: 'Team Alert', desc: 'Structured notification dispatched via Slack or Telegram in seconds.' },
+    ],
+  },
+  {
+    id: 'engage',
+    phase: '03 — ENGAGE',
+    title: 'Respond',
+    steps: [
+      { n: '06', title: 'Instant Response', desc: 'Professional acknowledgment sent automatically. Booking link included.' },
+      { n: '07', title: 'Appointment Set', desc: 'Calendar synced. Confirmation sent. Reminders scheduled automatically.' },
+      { n: '08', title: 'CRM Updated', desc: 'Status changes in real time. No manual updates. No stale data.' },
+    ],
+  },
+  {
+    id: 'close',
+    phase: '04 — CLOSE',
+    title: 'Convert',
+    steps: [
+      { n: '09', title: 'Proposal Sent', desc: 'Offer prepared and dispatched. Follow-up scheduled at day 3 and day 7.' },
+      { n: '10', title: 'Payment Processed', desc: 'Stripe link issued. Payment confirmed. Status updated to Client.' },
+      { n: '11', title: 'Retained', desc: 'Client onboarding triggered. Recurring workflow activated. Cycle complete.' },
+    ],
+  },
 ]
 
-const PHASES = ['AUFMERKSAMKEIT', 'VERARBEITUNG', 'KOMMUNIKATION', 'ABSCHLUSS']
-
-const PHASE_COLORS: Record<string, string> = {
-  AUFMERKSAMKEIT: '#196470',
-  VERARBEITUNG:   '#C8A44A',
-  KOMMUNIKATION:  '#2A8999',
-  ABSCHLUSS:      '#0A1F44',
-}
-
 export function InteractiveTimeline() {
+  const [activePhase, setActivePhase] = useState(0)
   const [activeStep, setActiveStep] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false)
-  const autoRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const current = STEPS[activeStep]
-  const progress = ((activeStep + 1) / STEPS.length) * 100
-  const phaseColor = PHASE_COLORS[current.phase]
-
-  useEffect(() => {
-    if (!isAutoPlaying) return
-    autoRef.current = setTimeout(() => {
-      if (activeStep < STEPS.length - 1) {
-        setActiveStep((s) => s + 1)
-      } else {
-        setIsAutoPlaying(false)
-      }
-    }, 2200)
-    return () => { if (autoRef.current) clearTimeout(autoRef.current) }
-  }, [activeStep, isAutoPlaying])
-
-  const goTo = (i: number) => {
-    setIsAutoPlaying(false)
-    setActiveStep(i)
-  }
-
-  const toggleAuto = () => {
-    if (activeStep === STEPS.length - 1) setActiveStep(0)
-    setIsAutoPlaying((p) => !p)
-  }
+  const currentPhase = PHASES[activePhase]
+  const allSteps = PHASES.flatMap((p) => p.steps)
+  const globalStep = PHASES.slice(0, activePhase).reduce((s, p) => s + p.steps.length, 0) + activeStep
+  const totalSteps = allSteps.length
+  const progress = ((globalStep + 1) / totalSteps) * 100
 
   return (
     <section
       id="ablauf"
-      className="dark-section"
-      style={{ paddingTop: 'clamp(5rem, 9vw, 7rem)', paddingBottom: 'clamp(5rem, 9vw, 7rem)' }}
+      style={{ background: 'var(--color-bg)', padding: 'clamp(5rem, 9vw, 8rem) 0' }}
       aria-labelledby="timeline-heading"
     >
-      <Container className="relative">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-16">
 
         {/* Header */}
-        <div className="mb-14">
-          <div className="flex items-center gap-4 mb-5">
-            <div className="h-px w-10" style={{ background: 'var(--color-gold)' }} />
-            <span
-              className="text-xs font-semibold tracking-[0.14em] uppercase"
-              style={{ color: 'var(--color-teal-light)' }}
-            >
-              Ihr System-Ablauf
-            </span>
+        <AnimateIn>
+          <div className="mb-14">
+            <span className="accent-line" />
+            <p className="text-label mb-4">IMPLEMENTATION SEQUENCE</p>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+              <h2
+                id="timeline-heading"
+                className="text-display-sm"
+                style={{ color: 'var(--color-text)' }}
+              >
+                From first contact
+                <br />
+                to closed deal.
+              </h2>
+              <p
+                style={{
+                  color: 'var(--color-text-3)',
+                  fontSize: '0.8rem',
+                  fontFamily: 'var(--font-mono)',
+                  maxWidth: '22rem',
+                }}
+              >
+                {String(globalStep + 1).padStart(2, '0')} of {String(totalSteps).padStart(2, '0')} steps · {currentPhase.phase}
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h2
-              id="timeline-heading"
-              style={{ color: 'white', fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 550, letterSpacing: '-0.03em', lineHeight: 1.1 }}
-            >
-              Einmal einrichten.<br />
-              Dauerhaft automatisiert.
-            </h2>
-            <button
-              type="button"
-              onClick={toggleAuto}
-              className="flex items-center gap-3 text-xs font-semibold tracking-[0.1em] uppercase px-5 py-2.5 shrink-0 btn-press transition-all duration-200"
-              style={{
-                border: '1px solid rgba(255,255,255,0.2)',
-                color: isAutoPlaying ? 'var(--color-gold)' : 'rgba(255,255,255,0.7)',
-                borderColor: isAutoPlaying ? 'rgba(200,164,74,0.5)' : 'rgba(255,255,255,0.2)',
-                borderRadius: '2px',
-                background: isAutoPlaying ? 'rgba(200,164,74,0.08)' : 'transparent',
-              }}
-            >
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ background: isAutoPlaying ? 'var(--color-gold)' : 'rgba(255,255,255,0.4)' }}
-              />
-              {isAutoPlaying ? 'Pause' : activeStep === STEPS.length - 1 ? 'Neustart' : 'Abspielen'}
-            </button>
-          </div>
-        </div>
+        </AnimateIn>
 
         {/* Progress bar */}
         <div className="mb-10">
-          <div className="flex items-center justify-between mb-2">
-            <span
-              className="text-xs"
-              style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)' }}
-            >
-              Schritt {String(activeStep + 1).padStart(2, '0')} von {STEPS.length}
-            </span>
-            <span
-              className="text-xs"
-              style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)' }}
-            >
-              {current.phase}
-            </span>
-          </div>
-          <div
-            className="h-0.5 w-full rounded-full overflow-hidden"
-            style={{ background: 'rgba(255,255,255,0.08)' }}
-          >
+          <div style={{ height: '1px', background: 'var(--color-border)', borderRadius: '1px', overflow: 'hidden' }}>
             <div
-              className="h-full rounded-full"
               style={{
+                height: '100%',
                 width: `${progress}%`,
-                background: `linear-gradient(90deg, var(--color-teal), ${phaseColor})`,
+                background: 'linear-gradient(90deg, var(--color-blue), var(--color-cyan))',
                 transition: 'width 0.5s cubic-bezier(0.16,1,0.3,1)',
               }}
             />
           </div>
         </div>
 
-        {/* Main content: Big step card + step dots */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
-          {/* Left: Large active step */}
-          <div className="lg:col-span-7">
-            <div
-              className="p-8 md:p-10"
+        {/* Phase selector */}
+        <div
+          className="flex gap-1 mb-10 overflow-x-auto"
+          style={{ scrollbarWidth: 'none' }}
+        >
+          {PHASES.map((phase, i) => (
+            <button
+              key={phase.id}
+              type="button"
+              onClick={() => { setActivePhase(i); setActiveStep(0) }}
               style={{
-                border: `1px solid ${phaseColor}40`,
-                borderLeft: `3px solid ${phaseColor}`,
-                background: 'rgba(255,255,255,0.03)',
-                borderRadius: '0 4px 4px 0',
-                minHeight: '280px',
-                transition: 'border-color 0.4s ease',
+                flex: '0 0 auto',
+                padding: '0.5rem 1.25rem',
+                fontSize: '0.72rem',
+                fontFamily: 'var(--font-mono)',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                fontWeight: 600,
+                border: '1px solid',
+                borderColor: activePhase === i ? 'var(--color-blue)' : 'var(--color-border)',
+                background: activePhase === i ? 'rgba(59,130,246,0.12)' : 'transparent',
+                color: activePhase === i ? 'var(--color-blue)' : 'var(--color-text-3)',
+                borderRadius: '3px',
+                transition: 'all 0.15s ease',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
               }}
             >
-              {/* Step number — huge decorative */}
+              {phase.title}
+            </button>
+          ))}
+        </div>
+
+        {/* Main content */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+          {/* Left: Active step detail — 7 cols */}
+          <div className="lg:col-span-7">
+            <div
+              style={{
+                border: '1px solid var(--color-border-2)',
+                borderLeft: '2px solid var(--color-blue)',
+                background: 'var(--color-bg-2)',
+                borderRadius: '0 4px 4px 0',
+                padding: '2.5rem',
+                minHeight: '260px',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              {/* Decorative step number */}
               <div
-                className="mb-6 leading-none select-none"
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 'clamp(4rem, 8vw, 6.5rem)',
+                  fontSize: 'clamp(5rem, 10vw, 8rem)',
                   fontWeight: 700,
-                  color: `${phaseColor}20`,
-                  letterSpacing: '-0.04em',
                   lineHeight: 0.85,
+                  color: 'rgba(59,130,246,0.06)',
+                  letterSpacing: '-0.05em',
+                  marginBottom: '1.5rem',
+                  userSelect: 'none',
                 }}
                 aria-hidden="true"
               >
-                {String(activeStep + 1).padStart(2, '0')}
+                {currentPhase.steps[activeStep]?.n}
               </div>
 
-              <div className="flex items-center gap-3 mb-4">
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontSize: '0.62rem',
+                  fontFamily: 'var(--font-mono)',
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-blue)',
+                  marginBottom: '1rem',
+                }}
+              >
                 <span
-                  className="text-xs px-2 py-0.5"
-                  style={{
-                    color: phaseColor,
-                    background: `${phaseColor}18`,
-                    fontFamily: 'var(--font-mono)',
-                    letterSpacing: '0.1em',
-                    borderRadius: '2px',
-                    fontSize: '0.68rem',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  {current.phase}
-                </span>
+                  style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-blue)', display: 'inline-block' }}
+                  aria-hidden="true"
+                />
+                {currentPhase.phase}
               </div>
 
               <h3
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-                  fontWeight: 550,
-                  color: 'white',
+                  fontWeight: 700,
+                  color: 'var(--color-text)',
                   letterSpacing: '-0.025em',
                   marginBottom: '1rem',
                 }}
               >
-                {current.title}
+                {currentPhase.steps[activeStep]?.title}
               </h3>
 
-              <p
-                style={{
-                  color: 'rgba(255,255,255,0.55)',
-                  fontSize: '1rem',
-                  lineHeight: 1.7,
-                  maxWidth: '38rem',
-                }}
-              >
-                {current.desc}
+              <p style={{ color: 'var(--color-text-2)', fontSize: '1rem', lineHeight: 1.7, maxWidth: '36rem' }}>
+                {currentPhase.steps[activeStep]?.desc}
               </p>
 
-              {/* Prev / Next */}
-              <div className="flex items-center gap-4 mt-8">
+              {/* Navigation */}
+              <div className="flex gap-3 mt-8">
                 <button
                   type="button"
-                  onClick={() => goTo(Math.max(0, activeStep - 1))}
-                  disabled={activeStep === 0}
-                  className="text-xs font-semibold tracking-wide uppercase px-4 py-2 transition-all duration-150"
+                  onClick={() => {
+                    if (activeStep > 0) {
+                      setActiveStep(activeStep - 1)
+                    } else if (activePhase > 0) {
+                      setActivePhase(activePhase - 1)
+                      setActiveStep(PHASES[activePhase - 1].steps.length - 1)
+                    }
+                  }}
+                  disabled={globalStep === 0}
+                  className="btn-secondary"
                   style={{
-                    color: activeStep === 0 ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.6)',
-                    border: '1px solid',
-                    borderColor: activeStep === 0 ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.18)',
-                    borderRadius: '2px',
-                    background: 'transparent',
+                    opacity: globalStep === 0 ? 0.3 : 1,
+                    padding: '0.6rem 1.25rem',
+                    fontSize: '0.78rem',
                   }}
                 >
-                  ← Zurück
+                  ← Previous
                 </button>
                 <button
                   type="button"
-                  onClick={() => goTo(Math.min(STEPS.length - 1, activeStep + 1))}
-                  disabled={activeStep === STEPS.length - 1}
-                  className="text-xs font-semibold tracking-wide uppercase px-4 py-2 transition-all duration-150"
+                  onClick={() => {
+                    if (activeStep < currentPhase.steps.length - 1) {
+                      setActiveStep(activeStep + 1)
+                    } else if (activePhase < PHASES.length - 1) {
+                      setActivePhase(activePhase + 1)
+                      setActiveStep(0)
+                    }
+                  }}
+                  disabled={globalStep === totalSteps - 1}
                   style={{
-                    color: activeStep === STEPS.length - 1 ? 'rgba(255,255,255,0.2)' : 'white',
-                    border: '1px solid',
-                    borderColor: activeStep === STEPS.length - 1 ? 'rgba(255,255,255,0.08)' : phaseColor,
-                    background: activeStep === STEPS.length - 1 ? 'transparent' : `${phaseColor}20`,
-                    borderRadius: '2px',
+                    background: globalStep === totalSteps - 1 ? 'transparent' : 'var(--color-blue)',
+                    color: globalStep === totalSteps - 1 ? 'var(--color-text-3)' : 'white',
+                    border: `1px solid ${globalStep === totalSteps - 1 ? 'var(--color-border)' : 'var(--color-blue)'}`,
+                    fontFamily: 'var(--font-display)',
+                    fontWeight: 600,
+                    fontSize: '0.78rem',
+                    padding: '0.6rem 1.25rem',
+                    borderRadius: '4px',
+                    cursor: globalStep === totalSteps - 1 ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.15s ease',
                   }}
                 >
-                  Weiter →
+                  Next →
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Right: Phase groups + step dots */}
-          <div className="lg:col-span-5 space-y-5">
-            {PHASES.map((phase) => {
-              const phaseSteps = STEPS.filter((s) => s.phase === phase)
-              const pc = PHASE_COLORS[phase]
-              const isActivePhase = current.phase === phase
-              return (
-                <div
-                  key={phase}
-                  className="transition-opacity duration-300"
-                  style={{ opacity: isActivePhase ? 1 : 0.45 }}
-                >
-                  <p
-                    className="mb-2 text-xs font-semibold tracking-[0.14em] uppercase"
-                    style={{ color: isActivePhase ? pc : 'rgba(255,255,255,0.25)' }}
-                  >
-                    {phase}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {phaseSteps.map((step) => {
-                      const idx = STEPS.findIndex((s) => s.id === step.id)
-                      const isDone = idx < activeStep
-                      const isCurrent = idx === activeStep
-                      return (
-                        <button
-                          key={step.id}
-                          type="button"
-                          onClick={() => goTo(idx)}
-                          className="flex items-center gap-2 px-3 py-1.5 transition-all duration-200"
-                          style={{
-                            borderRadius: '3px',
-                            fontSize: '0.78rem',
-                            fontWeight: isCurrent ? 700 : 500,
-                            border: `1px solid ${isCurrent ? pc : isDone ? `${pc}40` : 'rgba(255,255,255,0.08)'}`,
-                            background: isCurrent ? `${pc}20` : isDone ? `${pc}08` : 'transparent',
-                            color: isCurrent ? 'white' : isDone ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)',
-                          }}
-                        >
-                          <span
-                            className="w-1.5 h-1.5 rounded-full shrink-0"
-                            style={{
-                              background: isCurrent ? pc : isDone ? `${pc}80` : 'rgba(255,255,255,0.2)',
-                            }}
-                          />
-                          <span
-                            style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', marginRight: '2px' }}
-                          >
-                            {String(step.id).padStart(2, '0')}
-                          </span>
-                          {step.title}
-                        </button>
-                      )
-                    })}
-                  </div>
-                </div>
-              )
-            })}
-
-            {/* Completion state */}
-            {activeStep === STEPS.length - 1 && (
-              <div
-                className="mt-4 p-4"
+          {/* Right: Step list — 5 cols */}
+          <div className="lg:col-span-5 space-y-1">
+            {currentPhase.steps.map((step, i) => (
+              <button
+                key={step.n}
+                type="button"
+                onClick={() => setActiveStep(i)}
                 style={{
-                  border: '1px solid rgba(34,197,94,0.3)',
-                  background: 'rgba(34,197,94,0.06)',
+                  width: '100%',
+                  textAlign: 'left',
+                  padding: '1rem 1.25rem',
+                  border: '1px solid',
+                  borderColor: activeStep === i ? 'var(--color-border-2)' : 'var(--color-border)',
+                  background: activeStep === i ? 'var(--color-bg-2)' : 'transparent',
+                  borderRadius: '3px',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '0.875rem',
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.65rem',
+                    color: activeStep === i ? 'var(--color-blue)' : 'var(--color-text-3)',
+                    marginTop: '2px',
+                    minWidth: '1.5rem',
+                  }}
+                >
+                  {step.n}
+                </span>
+                <div>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontWeight: 600,
+                      fontSize: '0.875rem',
+                      color: activeStep === i ? 'var(--color-text)' : 'var(--color-text-2)',
+                      marginBottom: '0.2rem',
+                    }}
+                  >
+                    {step.title}
+                  </p>
+                  {activeStep === i && (
+                    <p style={{ fontSize: '0.75rem', color: 'var(--color-text-3)', lineHeight: 1.55 }}>
+                      {step.desc}
+                    </p>
+                  )}
+                </div>
+              </button>
+            ))}
+
+            {/* Completion */}
+            {globalStep === totalSteps - 1 && (
+              <div
+                style={{
+                  marginTop: '1rem',
+                  padding: '1rem',
+                  border: '1px solid rgba(16,185,129,0.25)',
+                  background: 'rgba(16,185,129,0.04)',
                   borderRadius: '3px',
                 }}
               >
-                <p className="text-sm font-medium" style={{ color: 'rgba(134,239,172,0.9)' }}>
-                  ✓ Vollständiger System-Ablauf
+                <p style={{ fontSize: '0.8rem', color: 'rgba(16,185,129,0.9)', fontFamily: 'var(--font-mono)' }}>
+                  ✓ Full system cycle complete
                 </p>
-                <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                  Von der ersten Anfrage bis zum laufenden Auftrag — automatisiert.
+                <p style={{ fontSize: '0.72rem', color: 'var(--color-text-3)', marginTop: '0.25rem' }}>
+                  From inquiry to retained client — automated.
                 </p>
               </div>
             )}
           </div>
         </div>
 
-      </Container>
+      </div>
     </section>
   )
 }

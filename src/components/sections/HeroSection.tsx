@@ -1,220 +1,237 @@
-import { Container } from '@/components/ui/Container'
+'use client'
+
+import dynamic from 'next/dynamic'
 import { AnimateIn } from '@/components/ui/AnimateIn'
 
-const metrics = [
-  { stat: '14', unit: 'Tage', label: 'bis zum Live-System' },
-  { stat: '∅ 6', unit: 'Std./Woche', label: 'zurückgewonnen' },
-  { stat: '0', unit: 'Leads', label: 'gehen verloren' },
+const HeroCanvasDynamic = dynamic(
+  () => import('@/components/3d/HeroCanvas').then((m) => ({ default: m.HeroCanvasDynamic })),
+  { ssr: false, loading: () => <div className="w-full h-full" /> }
+)
+
+const outcomeBar = [
+  { value: '< 5 min', label: 'Lead response time' },
+  { value: '0 gaps', label: 'In data capture' },
+  { value: '8× ROI', label: 'Typical system payback' },
 ]
 
-const capabilities = [
-  'Lead-Erfassung & CRM-Integration',
-  'Terminautomation & Kalender-Workflows',
-  'KI-gestützte Kundenkommunikation',
-  'Angebots- & Zahlungslogik',
+const systemStatus = [
+  { label: 'Lead Capture', status: 'ACTIVE' },
+  { label: 'CRM Routing', status: 'ACTIVE' },
+  { label: 'Workflow Engine', status: 'ACTIVE' },
+  { label: 'Notifications', status: 'ACTIVE' },
 ]
 
 export function HeroSection() {
   return (
     <section
-      className="dark-section"
-      style={{ paddingTop: 'clamp(5rem, 9vw, 7rem)', paddingBottom: 'clamp(4rem, 7vw, 6rem)' }}
-      aria-label="GXC Systems — Automatisierungsinfrastruktur"
+      className="relative overflow-hidden"
+      style={{
+        background: 'var(--color-bg)',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: '5rem',
+        paddingBottom: '4rem',
+      }}
+      aria-label="GXC Systems — Operational Infrastructure"
     >
-      <Container className="relative">
+      {/* Subtle grid background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px)',
+          backgroundSize: '80px 80px',
+          opacity: 0.3,
+        }}
+        aria-hidden="true"
+      />
 
-        {/* Top meta row */}
-        <AnimateIn delay={0}>
-          <div className="flex items-center gap-4 mb-12">
-            <div className="flex items-center gap-2">
-              <span className="dot-live" aria-hidden="true" />
-              <span
-                className="text-xs font-medium tracking-[0.12em] uppercase"
-                style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-mono)' }}
-              >
-                Aktiv im Dreiländereck
-              </span>
-            </div>
-            <div className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.06)' }} />
-            <span
-              className="text-xs tracking-[0.12em] uppercase"
-              style={{ color: 'rgba(200,164,74,0.7)', fontFamily: 'var(--font-mono)' }}
-            >
-              Vorarlberg · Ostschweiz · Bodensee
-            </span>
-          </div>
-        </AnimateIn>
+      {/* Radial depth gradient */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 70% at 60% 50%, rgba(14,30,68,0.6) 0%, transparent 70%)',
+        }}
+        aria-hidden="true"
+      />
 
-        {/* Main grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-16 w-full relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
 
-          {/* Left: Headline + CTA — 7 cols */}
-          <div className="lg:col-span-7">
-            <AnimateIn delay={60}>
-              <h1 className="text-display text-white mb-8" style={{ color: 'white' }}>
-                Ihre Betriebsprozesse.
+          {/* Left: Copy — 6 cols */}
+          <div className="lg:col-span-6 xl:col-span-5">
+
+            {/* Status row */}
+            <AnimateIn delay={0}>
+              <div className="flex items-center gap-3 mb-8">
+                <span className="live-dot" aria-hidden="true" />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-text-3)',
+                  }}
+                >
+                  Operational Systems — GXC/v2.4
+                </span>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.68rem',
+                    color: 'var(--color-green)',
+                    marginLeft: 'auto',
+                  }}
+                >
+                  ALL SYSTEMS NOMINAL
+                </span>
+              </div>
+            </AnimateIn>
+
+            {/* Headline */}
+            <AnimateIn delay={80}>
+              <h1 className="text-display mb-6" style={{ color: 'var(--color-text)' }}>
+                Built for
                 <br />
-                <span style={{ color: 'var(--color-teal-light)' }}>Vollständig automatisiert.</span>
+                <span className="gradient-text">Operational</span>
+                <br />
+                Control.
               </h1>
             </AnimateIn>
 
-            <AnimateIn delay={140}>
+            {/* Subheadline */}
+            <AnimateIn delay={160}>
               <p
-                className="text-lg leading-relaxed mb-10 max-w-xl"
-                style={{ color: 'rgba(255,255,255,0.6)' }}
+                style={{
+                  fontSize: '1.1rem',
+                  lineHeight: 1.65,
+                  color: 'var(--color-text-2)',
+                  maxWidth: '34rem',
+                  marginBottom: '2.5rem',
+                }}
               >
-                GXC Systems baut die operative Infrastruktur, die Handwerker und
-                Dienstleister brauchen — von der ersten Anfrage bis zum abgeschlossenen Auftrag.
-                Kein manueller Aufwand. Keine verpassten Leads.
+                GXC Systems builds AI-powered operational infrastructure for
+                businesses where inefficiency is no longer affordable. Automated
+                workflows, intelligent lead systems, and connected operations —
+                engineered to run without friction.
               </p>
             </AnimateIn>
 
-            <AnimateIn delay={200}>
-              <div className="flex flex-col sm:flex-row items-start gap-4 mb-14">
-                <a
-                  href="#kontakt"
-                  className="inline-flex items-center gap-2 font-semibold btn-cta btn-press"
-                  style={{ fontSize: '0.95rem', padding: '1rem 2rem', letterSpacing: '0.01em' }}
-                >
-                  Kostenloses Erstgespräch
+            {/* CTAs */}
+            <AnimateIn delay={220}>
+              <div className="flex flex-col sm:flex-row gap-3 mb-10">
+                <a href="#kontakt" className="btn-primary">
+                  Request a System Demo
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </a>
-                <a
-                  href="#leistungen"
-                  className="inline-flex items-center gap-2 font-medium btn-ghost-white"
-                  style={{ fontSize: '0.95rem', padding: '1rem 2rem' }}
-                >
-                  Leistungen ansehen →
+                <a href="#ablauf" className="btn-secondary">
+                  See How It Works
                 </a>
               </div>
             </AnimateIn>
 
-            {/* Metrics row */}
-            <AnimateIn delay={280}>
+            {/* System status panel */}
+            <AnimateIn delay={300}>
               <div
-                className="grid grid-cols-3 gap-px"
-                style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
-              >
-                {metrics.map((m) => (
-                  <div
-                    key={m.label}
-                    className="pt-6 pr-6"
-                  >
-                    <div className="flex items-baseline gap-1.5 mb-1">
-                      <span
-                        className="text-3xl font-bold leading-none"
-                        style={{ fontFamily: 'var(--font-mono)', color: 'white' }}
-                      >
-                        {m.stat}
-                      </span>
-                      <span
-                        className="text-sm"
-                        style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-mono)' }}
-                      >
-                        {m.unit}
-                      </span>
-                    </div>
-                    <p className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                      {m.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </AnimateIn>
-          </div>
-
-          {/* Right: System capabilities panel — 5 cols */}
-          <div className="lg:col-span-5">
-            <AnimateIn delay={320} direction="right">
-              <div
-                className="rounded-sm overflow-hidden"
                 style={{
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '4px',
+                  padding: '1rem 1.25rem',
+                  background: 'rgba(12, 16, 24, 0.8)',
                 }}
               >
-                {/* Panel header */}
-                <div
-                  className="flex items-center justify-between px-5 py-3"
-                  style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+                <p
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.62rem',
+                    letterSpacing: '0.14em',
+                    color: 'var(--color-text-3)',
+                    textTransform: 'uppercase',
+                    marginBottom: '0.75rem',
+                  }}
                 >
-                  <span
-                    className="text-xs tracking-[0.12em] uppercase"
-                    style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)' }}
-                  >
-                    System — Übersicht
-                  </span>
-                  <div className="flex gap-1.5">
-                    {['rgba(255,255,255,0.12)', 'rgba(255,255,255,0.12)', 'rgba(200,164,74,0.5)'].map((c, i) => (
+                  Core System Status
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {systemStatus.map((s) => (
+                    <div key={s.label} className="flex items-center gap-2">
                       <span
-                        key={i}
-                        className="w-2 h-2 rounded-full"
-                        style={{ background: c }}
+                        className="live-dot"
+                        style={{ width: 5, height: 5 }}
                         aria-hidden="true"
                       />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Capabilities list */}
-                <div className="p-6 space-y-0">
-                  {capabilities.map((cap, i) => (
-                    <div
-                      key={cap}
-                      className="flex items-center gap-5 py-4"
-                      style={{
-                        borderBottom: i < capabilities.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                      }}
-                    >
                       <span
-                        className="shrink-0 w-7 text-center"
-                        style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-mono)', fontSize: '0.78rem' }}
-                      >
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <span
-                        className="font-medium flex-1"
-                        style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.95rem' }}
-                      >
-                        {cap}
-                      </span>
-                      <span
-                        className="text-xs px-2 py-0.5"
                         style={{
-                          color: 'var(--color-teal-light)',
-                          background: 'rgba(26, 100, 114, 0.2)',
                           fontFamily: 'var(--font-mono)',
-                          borderRadius: '2px',
+                          fontSize: '0.65rem',
+                          color: 'var(--color-text-2)',
                         }}
                       >
-                        aktiv
+                        {s.label}
+                      </span>
+                      <span
+                        style={{
+                          marginLeft: 'auto',
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.6rem',
+                          color: 'var(--color-green)',
+                          letterSpacing: '0.08em',
+                        }}
+                      >
+                        {s.status}
                       </span>
                     </div>
                   ))}
                 </div>
-
-                {/* Panel footer */}
-                <div
-                  className="flex items-center gap-2 px-5 py-3"
-                  style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
-                >
-                  <span className="dot-live" aria-hidden="true" />
-                  <span className="text-xs" style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-mono)' }}>
-                    GXC Automation Core — v2.4
-                  </span>
-                </div>
               </div>
             </AnimateIn>
+          </div>
 
-            {/* Below panel: trust note */}
-            <AnimateIn delay={400} direction="right">
-              <p className="mt-5 text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>
-                Einrichtung in 5–14 Werktagen. 30 Tage kostenlose Anpassungsphase.
-                Keine Abo-Falle — die Systeme gehören Ihnen.
-              </p>
-            </AnimateIn>
+          {/* Right: 3D Canvas — 6 cols */}
+          <div
+            className="lg:col-span-6 xl:col-span-7"
+            style={{ height: 'clamp(380px, 55vw, 580px)' }}
+            aria-hidden="true"
+          >
+            <HeroCanvasDynamic />
           </div>
         </div>
-      </Container>
+
+        {/* Outcome bar */}
+        <AnimateIn delay={380}>
+          <div
+            className="mt-16 pt-8 grid grid-cols-3 gap-8"
+            style={{ borderTop: '1px solid var(--color-border)' }}
+          >
+            {outcomeBar.map((o) => (
+              <div key={o.value} className="text-center">
+                <p
+                  className="text-stat mb-1"
+                  style={{ color: 'var(--color-blue)' }}
+                >
+                  {o.value}
+                </p>
+                <p
+                  style={{
+                    fontSize: '0.72rem',
+                    color: 'var(--color-text-3)',
+                    fontFamily: 'var(--font-mono)',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {o.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </AnimateIn>
+      </div>
     </section>
   )
 }

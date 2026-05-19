@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
-import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google'
+import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
 import { ChatWidget } from '@/components/ChatWidget'
 
-const fraunces = Fraunces({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-fraunces',
+  variable: '--font-space-grotesk',
   display: 'swap',
-  axes: ['opsz', 'SOFT', 'WONK'],
+  weight: ['400', '500', '600', '700'],
 })
 
 const inter = Inter({
@@ -27,45 +27,37 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'GXC Systems — Prozessautomation für KMU im Dreiländereck',
+    default: 'GXC Systems — AI-Powered Operational Infrastructure',
     template: '%s | GXC Systems',
   },
   description:
-    'GXC Systems automatisiert Anfragenerfassung, Terminbuchung und Kundenkommunikation für Handwerker und Dienstleister in Vorarlberg, der Ostschweiz und dem Bodenseeraum.',
+    'GXC Systems builds AI-powered operational infrastructure for businesses that cannot afford inefficiency. Workflow automation, CRM systems, AI agents, and intelligent process architecture.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://gxc-systems.com'),
   openGraph: {
     type: 'website',
     locale: 'de_AT',
     siteName: 'GXC Systems',
-    title: 'GXC Systems — Prozessautomation für KMU im Dreiländereck',
-    description:
-      'Jede Anfrage erfasst. Jeder Termin automatisch gebucht. Kein administratives Chaos mehr.',
+    title: 'GXC Systems — AI-Powered Operational Infrastructure',
+    description: 'Operational infrastructure for companies where inefficiency becomes expensive.',
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  alternates: {
-    canonical: '/',
-  },
+  robots: { index: true, follow: true },
 }
 
 const schemaOrg = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'GXC Systems',
-  description:
-    'Prozessautomation für KMU: Lead-Erfassung, Terminbuchung, Online-Präsenz und Kommunikationsautomation für Handwerker und Dienstleister im Dreiländereck.',
+  description: 'AI-powered operational infrastructure — workflow automation, CRM systems, AI agents.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://gxc-systems.com',
-  email: 'office@gxc-systems.com', // REVIEW
   areaServed: ['Vorarlberg', 'Ostschweiz', 'Liechtenstein', 'Bodenseeraum'],
-  priceRange: '€€',
-  serviceType: ['Prozessautomation', 'Websiteerstellung', 'Lead-Management', 'CRM-Integration'],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`} lang="de">
+    <html
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      lang="de"
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}

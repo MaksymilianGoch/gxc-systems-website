@@ -1,132 +1,129 @@
 import Link from 'next/link'
-import { Container } from '@/components/ui/Container'
 
-const navLinks = [
-  { label: 'Leistungen', href: '/#leistungen' },
-  { label: 'Ablauf', href: '/#ablauf' },
-  { label: 'Ergebnisse', href: '/#ergebnisse' },
-  { label: 'Über uns', href: '/#ueber-uns' },
-  { label: 'Preise', href: '/#preise' },
-  { label: 'Kontakt', href: '/#kontakt' },
-]
-
-const legalLinks = [
-  { label: 'Impressum', href: '/impressum' },
-  { label: 'Datenschutz', href: '/datenschutz' },
-]
+const links = {
+  system: [
+    { label: 'AI Agent Systems', href: '/#leistungen' },
+    { label: 'Workflow Automation', href: '/#leistungen' },
+    { label: 'CRM & Lead Management', href: '/#leistungen' },
+    { label: 'Websites & Digital Presence', href: '/#leistungen' },
+    { label: 'Integrations', href: '/#leistungen' },
+  ],
+  company: [
+    { label: 'Architecture', href: '/#ablauf' },
+    { label: 'Results', href: '/#ergebnisse' },
+    { label: 'About', href: '/#ueber-uns' },
+    { label: 'Pricing', href: '/#preise' },
+    { label: 'Book a Demo', href: '/#kontakt' },
+  ],
+  legal: [
+    { label: 'Impressum', href: '/impressum' },
+    { label: 'Datenschutz', href: '/datenschutz' },
+  ],
+}
 
 export function Footer() {
   const year = new Date().getFullYear()
-
   return (
-    <footer style={{ background: 'var(--color-charcoal)', color: 'white' }}>
-      <Container>
+    <footer
+      style={{
+        background: 'var(--color-bg)',
+        borderTop: '1px solid var(--color-border)',
+      }}
+    >
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-16">
+
         {/* Top */}
         <div
-          className="py-14 flex flex-col md:flex-row md:items-start md:justify-between gap-10"
-          style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+          className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"
+          style={{ borderBottom: '1px solid var(--color-border)' }}
         >
           {/* Brand */}
-          <div className="max-w-xs">
-            <Link href="/" className="flex items-center gap-3 mb-5">
+          <div>
+            <Link href="/" className="flex items-center gap-2.5 mb-5">
               <div
-                className="w-7 h-7 flex items-center justify-center shrink-0"
                 style={{
-                  border: '1.5px solid rgba(200,164,74,0.5)',
-                  background: 'rgba(200,164,74,0.07)',
+                  width: 28, height: 28,
+                  border: '1px solid rgba(59,130,246,0.35)',
+                  background: 'rgba(59,130,246,0.07)',
+                  borderRadius: '3px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >
-                <span
-                  className="text-xs font-bold"
-                  style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-mono)' }}
-                >
-                  GX
-                </span>
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <rect x="2" y="2" width="5" height="5" fill="#3B82F6" opacity="0.8" />
+                  <rect x="9" y="2" width="5" height="5" fill="#06B6D4" opacity="0.5" />
+                  <rect x="2" y="9" width="5" height="5" fill="#06B6D4" opacity="0.5" />
+                  <rect x="9" y="9" width="5" height="5" fill="#3B82F6" opacity="0.8" />
+                </svg>
               </div>
-              <span
-                className="font-semibold text-white"
-                style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', letterSpacing: '-0.02em' }}
-              >
+              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-text)', letterSpacing: '-0.02em' }}>
                 GXC Systems
               </span>
             </Link>
-            <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
-              Operative Systemarchitektur und Prozessautomation
-              für Betriebe im Dreiländereck.
+            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-3)', lineHeight: 1.65, marginBottom: '1.25rem', maxWidth: '18rem' }}>
+              AI-powered operational infrastructure for businesses where inefficiency is no longer affordable.
             </p>
-            <div className="flex items-center gap-2 mt-4">
-              <span className="dot-live" aria-hidden="true" />
-              <span className="text-xs" style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-mono)' }}>
-                Vorarlberg · Ostschweiz · Bodensee
+            <div className="flex items-center gap-2">
+              <span className="live-dot" style={{ width: 5, height: 5 }} aria-hidden="true" />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--color-text-3)', letterSpacing: '0.1em' }}>
+                SYSTEMS ONLINE
               </span>
             </div>
           </div>
 
-          {/* Nav + Legal */}
-          <div className="flex flex-col sm:flex-row gap-12">
-            <div>
-              <p
-                className="text-xs font-semibold tracking-[0.14em] uppercase mb-4"
-                style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-mono)' }}
-              >
-                Navigation
-              </p>
-              <ul className="space-y-2.5">
-                {navLinks.map((l) => (
-                  <li key={l.href}>
-                    <a
-                      href={l.href}
-                      className="text-sm link-white-muted"
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* System links */}
+          <div>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '1.25rem' }}>System</p>
+            <ul className="space-y-2.5">
+              {links.system.map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className="link-dim" style={{ fontSize: '0.82rem' }}>{l.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            <div>
-              <p
-                className="text-xs font-semibold tracking-[0.14em] uppercase mb-4"
-                style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-mono)' }}
-              >
-                Rechtliches
-              </p>
-              <ul className="space-y-2.5">
-                {legalLinks.map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} className="text-sm link-white-muted">
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-xs mb-1" style={{ color: 'rgba(255,255,255,0.25)' }}>Kontakt</p>
-                <a
-                  href="mailto:office@gxc-systems.com" // REVIEW
-                  className="text-xs link-white-muted"
-                >
-                  office@gxc-systems.com {/* REVIEW */}
-                </a>
-              </div>
-            </div>
+          {/* Company links */}
+          <div>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '1.25rem' }}>Company</p>
+            <ul className="space-y-2.5">
+              {links.company.map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className="link-dim" style={{ fontSize: '0.82rem' }}>{l.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '1.25rem' }}>Contact</p>
+            <a
+              href="mailto:office@gxc-systems.com"
+              style={{ fontSize: '0.82rem', color: 'var(--color-text-2)', display: 'block', marginBottom: '0.75rem' }}
+            >
+              office@gxc-systems.com {/* REVIEW */}
+            </a>
+            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+              Vorarlberg · Ostschweiz<br />Liechtenstein · Bodenseeraum
+            </p>
           </div>
         </div>
 
         {/* Bottom */}
         <div className="py-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p
-            className="text-xs"
-            style={{ color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-mono)' }}
-          >
-            © {year} GXC Systems. Alle Rechte vorbehalten.
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--color-text-3)', letterSpacing: '0.06em' }}>
+            © {year} GXC Systems. All rights reserved.
           </p>
-          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.12)' }}>
-            Systematisiert. Automatisiert. Skaliert.
-          </p>
+          <div className="flex gap-5">
+            {links.legal.map((l) => (
+              <a key={l.href} href={l.href} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--color-text-3)', letterSpacing: '0.06em' }}>
+                {l.label}
+              </a>
+            ))}
+          </div>
         </div>
-      </Container>
+      </div>
     </footer>
   )
 }

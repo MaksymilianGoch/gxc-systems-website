@@ -1,289 +1,324 @@
 'use client'
 
 import { useState } from 'react'
-import { Container } from '@/components/ui/Container'
 import { AnimateIn } from '@/components/ui/AnimateIn'
-import type { Service } from '@/types/content'
+import { Container } from '@/components/ui/Container'
 
-interface ServicesSectionProps { services: Service[] }
-
-const moduleColors: Record<string, { bg: string; border: string; num: string }> = {
-  'lead-engine':       { bg: 'rgba(25,100,114,0.06)',  border: 'rgba(25,100,114,0.18)',  num: '#196470' },
-  'terminbuchung':     { bg: 'rgba(10,31,68,0.05)',    border: 'rgba(10,31,68,0.15)',    num: '#0A1F44' },
-  'online-praesenz':   { bg: 'rgba(200,164,74,0.06)',  border: 'rgba(200,164,74,0.18)',  num: '#C8A44A' },
-  'kommunikations-hub':{ bg: 'rgba(42,137,153,0.06)', border: 'rgba(42,137,153,0.18)', num: '#2A8999' },
+interface Module {
+  index: string
+  id: string
+  title: string
+  tagline: string
+  detail: string
+  outcomes: string[]
 }
 
-const moduleIcons: Record<string, React.ReactNode> = {
-  'lead-engine': (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12 19.79 19.79 0 0 1 1.67 3.38 2 2 0 0 1 3.65 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1-1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-    </svg>
-  ),
-  'terminbuchung': (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-      <line x1="16" y1="2" x2="16" y2="6"/>
-      <line x1="8" y1="2" x2="8" y2="6"/>
-      <line x1="3" y1="10" x2="21" y2="10"/>
-      <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
-    </svg>
-  ),
-  'online-praesenz': (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <line x1="2" y1="12" x2="22" y2="12"/>
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-    </svg>
-  ),
-  'kommunikations-hub': (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>
-  ),
-}
+const MODULES: Module[] = [
+  {
+    index: '01',
+    id: 'ai-agent-systems',
+    title: 'AI Agent Systems',
+    tagline: 'Intelligent process automation with decision-making capability',
+    detail:
+      'AI agents that qualify leads, route inquiries, trigger workflows and handle standard communications without human intervention. Built on your business logic, trained on your processes.',
+    outcomes: [
+      'Lead qualification automated',
+      'Response time < 60 seconds',
+      '24/7 availability without staff cost',
+    ],
+  },
+  {
+    index: '02',
+    id: 'workflow-automation',
+    title: 'Workflow Automation',
+    tagline: 'End-to-end process execution without manual coordination',
+    detail:
+      'Multi-step workflows that run from inquiry to outcome — booking confirmations, follow-up sequences, status updates and internal notifications — all triggered by business events.',
+    outcomes: [
+      'Zero dropped follow-ups',
+      '8+ hours/week admin eliminated',
+      'Full audit trail',
+    ],
+  },
+  {
+    index: '03',
+    id: 'crm-lead-management',
+    title: 'CRM & Lead Management',
+    tagline: 'Structured pipeline from first contact to closed deal',
+    detail:
+      'Every lead captured, categorized, assigned and tracked. Automated status transitions, follow-up reminders and performance reporting built in from day one.',
+    outcomes: [
+      '100% lead capture rate',
+      'Pipeline visibility in real time',
+      'No manual data entry',
+    ],
+  },
+  {
+    index: '04',
+    id: 'websites-digital-presence',
+    title: 'Websites & Digital Presence',
+    tagline: 'Conversion-engineered digital infrastructure',
+    detail:
+      'Websites built as operational systems — not brochures. Integrated with lead capture, CRM routing and booking systems from launch.',
+    outcomes: [
+      'Leads captured automatically',
+      'Zero-friction booking flow',
+      'Google Business profile optimized',
+    ],
+  },
+  {
+    index: '05',
+    id: 'integrations-infrastructure',
+    title: 'Integrations & Infrastructure',
+    tagline: 'All your tools, connected and coordinated',
+    detail:
+      'API integrations between your existing tools — calendar, email, payment, communication — orchestrated through a central automation layer.',
+    outcomes: [
+      'Eliminate manual sync',
+      'Single source of truth',
+      'Scales without adding headcount',
+    ],
+  },
+]
 
-export function ServicesSection({ services }: ServicesSectionProps) {
-  const [activeId, setActiveId] = useState<string | null>(null)
+export function ServicesSection() {
+  const [openId, setOpenId] = useState<string | null>(null)
 
-  const active = services.find((s) => s.id === activeId)
+  const toggle = (id: string) => {
+    setOpenId((prev) => (prev === id ? null : id))
+  }
 
   return (
     <section
       id="leistungen"
       className="section-y"
-      style={{ background: 'var(--color-surface)' }}
+      style={{ background: 'var(--color-bg-1)' }}
       aria-labelledby="services-heading"
     >
       <Container>
-
-        {/* Premium Section Header — replaces dark bar */}
+        {/* Header */}
         <AnimateIn>
-          <div className="mb-16">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="h-px w-10" style={{ background: 'var(--color-gold)' }} />
-              <span className="text-label">Leistungen</span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
-              <h2 id="services-heading" className="text-display-sm" style={{ color: 'var(--color-text)' }}>
-                Vier Module.<br />
-                Ein System.
-              </h2>
-              <p style={{ color: 'var(--color-text-soft)', fontSize: '0.9rem', maxWidth: '28rem' }}>
-                Klicken Sie auf ein Modul, um die vollständigen Funktionen und Ergebnisse zu sehen.
-                Jedes Modul lässt sich einzeln einsetzen oder als integriertes Gesamtsystem.
-              </p>
-            </div>
+          <div className="mb-14 max-w-2xl">
+            <span className="accent-line" aria-hidden="true" />
+            <p className="text-label mb-4">OPERATIONAL MODULES</p>
+            <h2
+              id="services-heading"
+              className="text-display-sm mb-5"
+              style={{ color: 'var(--color-text)' }}
+            >
+              Five systems.
+              <br />
+              One operational layer.
+            </h2>
+            <p style={{ color: 'var(--color-text-2)', fontSize: '1rem', lineHeight: 1.7 }}>
+              Each module solves a specific operational problem. Together, they eliminate the
+              friction between customer intent and business outcome.
+            </p>
           </div>
         </AnimateIn>
 
-        {/* Interactive Module Grid */}
+        {/* Module list */}
         <div
-          className="grid gap-3"
-          style={{
-            gridTemplateColumns: activeId ? '1fr' : 'repeat(2, 1fr)',
-            transition: 'grid-template-columns 0.4s cubic-bezier(0.16,1,0.3,1)',
-          }}
+          role="list"
+          style={{ borderTop: '1px solid var(--color-border)' }}
         >
-          {activeId === null ? (
-            // Default: 2×2 grid
-            services.map((service, i) => {
-              const colors = moduleColors[service.id] ?? moduleColors['lead-engine']
-              return (
-                <AnimateIn key={service.id} delay={i * 60}>
+          {MODULES.map((mod, i) => {
+            const isOpen = openId === mod.id
+            return (
+              <AnimateIn key={mod.id} delay={i * 50}>
+                <div
+                  role="listitem"
+                  style={{
+                    borderBottom: '1px solid var(--color-border)',
+                    background: isOpen ? 'var(--color-bg-2)' : 'var(--color-bg-1)',
+                    borderLeft: isOpen
+                      ? '2px solid var(--color-blue)'
+                      : '2px solid transparent',
+                    transition: 'background 0.25s ease, border-color 0.2s ease',
+                  }}
+                >
+                  {/* Row trigger */}
                   <button
                     type="button"
-                    onClick={() => setActiveId(service.id)}
-                    className="w-full text-left p-8 transition-all duration-300 group"
+                    onClick={() => toggle(mod.id)}
+                    aria-expanded={isOpen}
+                    aria-controls={`module-detail-${mod.id}`}
+                    className="w-full text-left"
                     style={{
-                      background: colors.bg,
-                      border: `1px solid ${colors.border}`,
-                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1.5rem',
+                      padding: '1.5rem 1.5rem 1.5rem 1.25rem',
+                      cursor: 'pointer',
+                      background: 'none',
+                      border: 'none',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isOpen) {
+                        ;(e.currentTarget.parentElement as HTMLElement).style.borderBottomColor =
+                          'var(--color-border-2)'
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isOpen) {
+                        ;(e.currentTarget.parentElement as HTMLElement).style.borderBottomColor =
+                          'var(--color-border)'
+                      }
                     }}
                   >
-                    <div className="flex items-start justify-between gap-4 mb-5">
-                      <div
-                        className="p-2.5 rounded-sm"
-                        style={{ color: colors.num, background: 'rgba(255,255,255,0.7)' }}
-                      >
-                        {moduleIcons[service.id]}
-                      </div>
-                      <span
-                        className="text-xs font-mono mt-1"
-                        style={{ color: colors.num, fontFamily: 'var(--font-mono)', opacity: 0.7 }}
-                      >
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                    </div>
-
-                    <h3
-                      className="mb-2"
+                    {/* Index */}
+                    <span
                       style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '1.35rem',
-                        fontWeight: 550,
-                        color: 'var(--color-text)',
-                        letterSpacing: '-0.02em',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.72rem',
+                        color: 'var(--color-blue)',
+                        letterSpacing: '0.08em',
+                        flexShrink: 0,
+                        width: '2rem',
                       }}
                     >
-                      {service.title}
-                    </h3>
+                      {mod.index}
+                    </span>
 
-                    <p
-                      className="mb-4"
-                      style={{ color: colors.num, fontSize: '0.875rem', fontWeight: 500 }}
-                    >
-                      {service.tagline}
-                    </p>
-
-                    <p style={{ color: 'var(--color-text-mid)', fontSize: '0.875rem', lineHeight: 1.65 }}>
-                      {service.description}
-                    </p>
-
-                    <div
-                      className="mt-5 flex items-center gap-2 text-xs font-semibold tracking-wide uppercase"
-                      style={{ color: colors.num }}
-                    >
-                      <span>Details ansehen</span>
-                      <span style={{ transition: 'transform 0.2s' }} className="group-hover:translate-x-1">→</span>
+                    {/* Title + tagline */}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <p
+                        style={{
+                          fontFamily: 'var(--font-display)',
+                          fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
+                          fontWeight: 600,
+                          color: 'var(--color-text)',
+                          letterSpacing: '-0.02em',
+                          marginBottom: '0.2rem',
+                        }}
+                      >
+                        {mod.title}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: '0.85rem',
+                          color: 'var(--color-text-2)',
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {mod.tagline}
+                      </p>
                     </div>
-                  </button>
-                </AnimateIn>
-              )
-            })
-          ) : (
-            // Expanded: full-width active module
-            <div>
-              {/* Back button */}
-              <button
-                type="button"
-                onClick={() => setActiveId(null)}
-                className="flex items-center gap-2 mb-6 text-sm font-medium link-teal"
-              >
-                ← Alle Module
-              </button>
 
-              {active && (() => {
-                const colors = moduleColors[active.id] ?? moduleColors['lead-engine']
-                const idx = services.findIndex((s) => s.id === active.id)
-                return (
+                    {/* Expand arrow */}
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        flexShrink: 0,
+                        color: 'var(--color-text-3)',
+                        fontSize: '1rem',
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M4 6l4 4 4-4" />
+                      </svg>
+                    </span>
+                  </button>
+
+                  {/* Expandable detail panel */}
                   <div
-                    className="p-8 md:p-12"
+                    id={`module-detail-${mod.id}`}
+                    role="region"
+                    aria-hidden={!isOpen}
                     style={{
-                      background: colors.bg,
-                      border: `1px solid ${colors.border}`,
-                      borderRadius: '4px',
+                      maxHeight: isOpen ? '600px' : '0',
+                      overflow: 'hidden',
+                      transition: 'max-height 0.45s cubic-bezier(0.16,1,0.3,1)',
                     }}
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                      {/* Left: Identity */}
-                      <div>
-                        <div className="flex items-center gap-4 mb-6">
+                    <div
+                      style={{
+                        padding: '0 1.25rem 2rem 4.5rem',
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: '0.9rem',
+                          color: 'var(--color-text-2)',
+                          lineHeight: 1.75,
+                          marginBottom: '1.5rem',
+                          maxWidth: '56rem',
+                        }}
+                      >
+                        {mod.detail}
+                      </p>
+
+                      {/* Outcomes */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '0.6rem',
+                        }}
+                      >
+                        {mod.outcomes.map((outcome) => (
                           <div
-                            className="p-3 rounded-sm"
-                            style={{ color: colors.num, background: 'rgba(255,255,255,0.8)' }}
+                            key={outcome}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '0.75rem',
+                            }}
                           >
-                            {moduleIcons[active.id]}
-                          </div>
-                          <span
-                            className="text-xs"
-                            style={{ color: colors.num, fontFamily: 'var(--font-mono)', opacity: 0.7 }}
-                          >
-                            Modul {String(idx + 1).padStart(2, '0')}
-                          </span>
-                        </div>
-
-                        <h3
-                          style={{
-                            fontFamily: 'var(--font-display)',
-                            fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-                            fontWeight: 550,
-                            color: 'var(--color-text)',
-                            letterSpacing: '-0.025em',
-                            marginBottom: '0.75rem',
-                          }}
-                        >
-                          {active.title}
-                        </h3>
-
-                        <p style={{ color: colors.num, fontSize: '1rem', fontWeight: 500, marginBottom: '1.25rem' }}>
-                          {active.tagline}
-                        </p>
-
-                        <p style={{ color: 'var(--color-text-mid)', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '2rem' }}>
-                          {active.description}
-                        </p>
-
-                        <a
-                          href="#kontakt"
-                          className="inline-flex items-center gap-2 text-sm font-semibold btn-cta btn-press"
-                          style={{ padding: '0.875rem 1.75rem' }}
-                        >
-                          Modul anfragen
-                        </a>
-                      </div>
-
-                      {/* Right: Benefits */}
-                      <div>
-                        <p
-                          className="mb-5 text-xs font-semibold tracking-[0.12em] uppercase"
-                          style={{ color: 'var(--color-text-soft)' }}
-                        >
-                          Was enthalten ist
-                        </p>
-                        <div className="space-y-0">
-                          {active.benefits.map((b, bi) => (
-                            <div
-                              key={b}
-                              className="flex items-start gap-4 py-4"
-                              style={{ borderBottom: bi < active.benefits.length - 1 ? `1px solid ${colors.border}` : 'none' }}
+                            <span
+                              aria-hidden="true"
+                              style={{
+                                color: 'var(--color-green)',
+                                fontSize: '0.85rem',
+                                flexShrink: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                              }}
                             >
-                              <span
-                                style={{ color: colors.num, fontFamily: 'var(--font-mono)', fontSize: '0.72rem', marginTop: '0.15rem' }}
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                               >
-                                {String(bi + 1).padStart(2, '0')}
-                              </span>
-                              <span style={{ color: 'var(--color-text-mid)', fontSize: '0.9rem', lineHeight: 1.55 }}>
-                                {b}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
+                                <path d="M2 7l3.5 3.5L12 3" />
+                              </svg>
+                            </span>
+                            <span
+                              style={{
+                                fontSize: '0.85rem',
+                                color: 'var(--color-text)',
+                                fontWeight: 500,
+                              }}
+                            >
+                              {outcome}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
-                )
-              })()}
-
-              {/* Other modules as small chips */}
-              <div className="grid grid-cols-3 gap-3 mt-3">
-                {services.filter((s) => s.id !== activeId).map((service) => {
-                  const colors = moduleColors[service.id] ?? moduleColors['lead-engine']
-                  return (
-                    <button
-                      key={service.id}
-                      type="button"
-                      onClick={() => setActiveId(service.id)}
-                      className="p-4 text-left transition-all duration-200"
-                      style={{
-                        background: 'rgba(0,0,0,0.02)',
-                        border: `1px solid var(--color-line)`,
-                        borderRadius: '3px',
-                        opacity: 0.65,
-                      }}
-                      onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-                      onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.65')}
-                    >
-                      <div className="flex items-center gap-2 mb-2" style={{ color: colors.num }}>
-                        <span style={{ width: 16, height: 16, display: 'flex' }}>{moduleIcons[service.id]}</span>
-                      </div>
-                      <p style={{ color: 'var(--color-text)', fontSize: '0.8rem', fontWeight: 600 }}>{service.title}</p>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-          )}
+                </div>
+              </AnimateIn>
+            )
+          })}
         </div>
       </Container>
     </section>
