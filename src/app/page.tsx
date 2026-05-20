@@ -1,4 +1,5 @@
 import { HeroSection } from '@/components/sections/HeroSection'
+import { SystemFlowSection } from '@/components/sections/SystemFlowSection'
 import { ProblemSection } from '@/components/sections/ProblemSection'
 import { WorkflowSection } from '@/components/sections/WorkflowSection'
 import { ServicesSection } from '@/components/sections/ServicesSection'
@@ -17,6 +18,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <SystemFlowSection />
       <ProblemSection />
       <WorkflowSection />
       <ServicesSection />
