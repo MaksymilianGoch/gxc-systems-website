@@ -38,7 +38,7 @@ function Input({ label, id, type = 'text', placeholder, required = true }: { lab
           outline: 'none', fontFamily: 'var(--font-body)',
           transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
         }}
-        onFocus={(e) => { e.target.style.borderColor = 'var(--color-green)'; e.target.style.boxShadow = '0 0 0 3px rgba(110,171,140,0.15)'; }}
+        onFocus={(e) => { e.target.style.borderColor = '#4ade80'; e.target.style.boxShadow = '0 0 0 3px rgba(74,222,128,0.12)'; }}
         onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; e.target.style.boxShadow = 'none'; }}
       />
     </div>
@@ -74,13 +74,13 @@ export function ContactSection() {
           <AnimateIn direction="left">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               <div>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-green)', display: 'block', marginBottom: '1.25rem' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#4ade80', display: 'block', marginBottom: '1.25rem' }}>
                   System-Analyse
                 </span>
                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', fontWeight: 700, color: 'white', letterSpacing: '-0.04em', lineHeight: 1.05, marginBottom: '1.25rem' }}>
                   Lass uns über<br />
                   dein System<br />
-                  <span style={{ color: 'var(--color-green)' }}>sprechen.</span>
+                  <span style={{ color: '#4ade80' }}>sprechen.</span>
                 </h2>
                 <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.75, maxWidth: '28rem' }}>
                   Wir schauen uns deinen Betrieb an und sagen dir ehrlich, wo das größte Leck ist. Kein Pitch. Keine Folien.
@@ -91,7 +91,7 @@ export function ContactSection() {
                 {TRUST.map((t) => (
                   <div key={t.icon} style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
                     <div style={{ width: 36, height: 36, borderRadius: 'var(--radius-lg)', background: 'rgba(110,171,140,0.12)', border: '1px solid rgba(110,171,140,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <span className="material-symbols-outlined" style={{ fontSize: '1rem', color: 'var(--color-green)' }}>{t.icon}</span>
+                      <span className="material-symbols-outlined" style={{ fontSize: '1rem', color: '#4ade80' }}>{t.icon}</span>
                     </div>
                     <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.65)' }}>{t.text}</p>
                   </div>
@@ -116,8 +116,8 @@ export function ContactSection() {
 
               {sent ? (
                 <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-                  <div style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(110,171,140,0.15)', border: '1.5px solid rgba(110,171,140,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '1.75rem', color: 'var(--color-green)' }}>check_circle</span>
+                  <div style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(74,222,128,0.12)', border: '1.5px solid rgba(74,222,128,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: '1.75rem', color: '#4ade80' }}>check_circle</span>
                   </div>
                   <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 700, color: 'white', marginBottom: '0.625rem' }}>Nachricht angekommen.</h3>
                   <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.9rem', lineHeight: 1.65 }}>
@@ -147,7 +147,7 @@ export function ContactSection() {
                     <select
                       id="problem"
                       style={{ width: '100%', padding: '0.75rem 1rem', fontSize: '0.9rem', color: '#1b1c1c', background: 'white', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: 'var(--radius-lg)', outline: 'none', cursor: 'pointer', fontFamily: 'var(--font-body)', appearance: 'none' }}
-                      onFocus={(e) => { e.target.style.borderColor = 'var(--color-green)'; }}
+                      onFocus={(e) => { e.target.style.borderColor = '#4ade80'; }}
                       onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; }}
                     >
                       <option value="">Größtes Problem wählen...</option>
@@ -164,7 +164,7 @@ export function ContactSection() {
                       rows={3}
                       placeholder="z.B.: Ich bekomme täglich 5 Anfragen, verliere davon 2–3 weil ich zu spät antworte..."
                       style={{ width: '100%', padding: '0.75rem 1rem', fontSize: '0.875rem', color: '#1b1c1c', background: 'white', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: 'var(--radius-lg)', outline: 'none', resize: 'none', fontFamily: 'var(--font-body)', lineHeight: 1.6, transition: 'border-color 0.15s ease, box-shadow 0.15s ease' }}
-                      onFocus={(e) => { e.target.style.borderColor = 'var(--color-green)'; e.target.style.boxShadow = '0 0 0 3px rgba(110,171,140,0.15)'; }}
+                      onFocus={(e) => { e.target.style.borderColor = '#4ade80'; e.target.style.boxShadow = '0 0 0 3px rgba(74,222,128,0.12)'; }}
                       onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; e.target.style.boxShadow = 'none'; }}
                     />
                   </div>
@@ -172,9 +172,9 @@ export function ContactSection() {
                   <button
                     type="submit"
                     disabled={loading}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.625rem', background: loading ? 'rgba(110,171,140,0.7)' : 'var(--color-green)', color: '#0a1f3d', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', padding: '1rem', borderRadius: 'var(--radius-xl)', border: 'none', cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.18s ease', boxShadow: '0 8px 32px -8px rgba(110,171,140,0.4)', marginTop: '0.25rem' }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.625rem', background: loading ? 'rgba(74,222,128,0.7)' : '#4ade80', color: '#0a1f3d', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', padding: '1rem', borderRadius: 'var(--radius-xl)', border: 'none', cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.18s ease', boxShadow: '0 8px 32px -8px rgba(74,222,128,0.35)', marginTop: '0.25rem' }}
                     onMouseEnter={(e) => { if (!loading) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 14px 40px -8px rgba(110,171,140,0.5)'; } }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 32px -8px rgba(110,171,140,0.4)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 32px -8px rgba(74,222,128,0.35)'; }}
                   >
                     {loading
                       ? <><span className="material-symbols-outlined" style={{ fontSize: '1.1rem', animation: 'spin 1s linear infinite' }}>progress_activity</span> Wird gesendet...</>
