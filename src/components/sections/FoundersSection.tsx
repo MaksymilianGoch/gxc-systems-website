@@ -185,23 +185,31 @@ export function FoundersSection() {
           </AnimateIn>
         </div>
 
-        {/* Case studies */}
-        <div id="ergebnisse" style={{ marginTop: '5rem', paddingTop: '4rem', borderTop: '1px solid var(--color-border)' }}>
+      </Container>
+
+      {/* Case studies — full-width dark navy */}
+      <div id="ergebnisse" style={{ background: 'linear-gradient(135deg, #0d2040 0%, #0f2a50 40%, #122d54 100%)', paddingTop: '5rem', paddingBottom: '5rem', position: 'relative', overflow: 'hidden' }}>
+        {/* Decorative orbs */}
+        <div style={{ position: 'absolute', top: '-15%', right: '-5%', width: '35vw', height: '35vw', borderRadius: '50%', background: 'radial-gradient(circle, rgba(110,171,140,0.07) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} aria-hidden="true" />
+        <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '30vw', height: '30vw', borderRadius: '50%', background: 'radial-gradient(circle, rgba(174,199,245,0.06) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} aria-hidden="true" />
+
+        <Container>
           <AnimateIn>
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem, 3vw, 2.25rem)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em', marginBottom: '0.75rem' }}>
-                Pilot-Ergebnisse.
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#4ade80', display: 'block', marginBottom: '1rem' }}>Pilot-Ergebnisse</span>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem, 3vw, 2.25rem)', fontWeight: 700, color: 'white', letterSpacing: '-0.03em', marginBottom: '0.75rem' }}>
+                Systemeffekte aus der Praxis.
               </h2>
-              <p style={{ fontSize: '1rem', color: 'var(--color-text-2)' }}>Beispielhafte Systemeffekte aus typischen Einsatzszenarien.</p>
+              <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.55)' }}>Beispielhafte Ergebnisse aus typischen Einsatzszenarien.</p>
             </div>
           </AnimateIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {CASE_STUDIES.map((cs) => (
               <AnimateIn key={cs.title} delay={80}>
-                <div style={{ background: 'var(--color-bg-2)', borderRadius: 'var(--radius-2xl)', padding: '2rem', border: '1px solid var(--color-border)' }}>
+                <div style={{ background: 'white', borderRadius: 'var(--radius-2xl)', padding: '2rem', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 20px 48px -12px rgba(0,0,0,0.3)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                     <div>
-                      <span style={{ display: 'inline-block', background: 'var(--color-green)', color: '#0a1a35', fontSize: '0.62rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: 'var(--radius-full)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>{cs.tag}</span>
+                      <span style={{ display: 'inline-block', background: '#4ade80', color: '#0a1a35', fontSize: '0.62rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: 'var(--radius-full)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>{cs.tag}</span>
                       <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 600, color: 'var(--color-text)', letterSpacing: '-0.02em' }}>{cs.title}</h4>
                     </div>
                     <div style={{ textAlign: 'right' }}>
@@ -223,8 +231,8 @@ export function FoundersSection() {
               </AnimateIn>
             ))}
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
     </section>
   )
 }

@@ -36,14 +36,37 @@ export function Navigation() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3" aria-label="GXC Systems">
-            <div style={{ width: 36, height: 36, borderRadius: 'var(--radius-lg)', background: 'var(--color-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 12px -2px rgba(0,32,69,0.3)' }}>
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <rect x="2" y="2" width="5" height="5" fill="white" opacity="0.95" />
-                <rect x="9" y="2" width="5" height="5" fill="rgba(110,171,140,0.9)" />
-                <rect x="2" y="9" width="5" height="5" fill="rgba(110,171,140,0.9)" />
-                <rect x="9" y="9" width="5" height="5" fill="white" opacity="0.95" />
-              </svg>
-            </div>
+            {/* Octopus logo — no background */}
+            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+              {/* Hexagon outline */}
+              <path d="M50 4L91 27V73L50 96L9 73V27Z" fill="rgba(180,210,255,0.12)" stroke="rgba(140,190,255,0.5)" strokeWidth="2"/>
+              {/* Body */}
+              <ellipse cx="50" cy="36" rx="14" ry="17" fill="rgba(180,210,255,0.9)"/>
+              {/* Eyes */}
+              <circle cx="44" cy="33" r="3.5" fill="rgba(100,160,240,0.7)"/>
+              <circle cx="56" cy="33" r="3.5" fill="rgba(100,160,240,0.7)"/>
+              <circle cx="44.8" cy="33.8" r="1.5" fill="rgba(40,80,160,0.8)"/>
+              {/* Wink right */}
+              <path d="M54 33 Q56 35 58 33" stroke="rgba(40,80,160,0.8)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+              {/* Smile */}
+              <path d="M44 40 Q50 45 56 40" stroke="rgba(40,80,160,0.7)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+              {/* Tentacles */}
+              <path d="M38 50 Q30 60 26 72 Q24 78 28 80" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              <path d="M44 53 Q38 65 36 76 Q34 82 30 82" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              <path d="M50 54 Q50 68 50 78 Q50 84 46 86 M50 78 Q52 84 56 86" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              <path d="M56 53 Q62 65 64 76 Q66 82 70 82" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              <path d="M62 50 Q70 60 74 72 Q76 78 72 80" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              {/* Side arms */}
+              <path d="M36 42 Q22 40 14 46 Q10 50 14 54" stroke="rgba(160,200,255,0.8)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              <path d="M64 42 Q78 40 86 46 Q90 50 86 54" stroke="rgba(160,200,255,0.8)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              {/* Circuit dots */}
+              <circle cx="14" cy="54" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
+              <circle cx="86" cy="54" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
+              <circle cx="28" cy="82" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
+              <circle cx="72" cy="82" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
+              <circle cx="46" cy="88" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
+              <circle cx="56" cy="88" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
+            </svg>
             <div>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '-0.03em', color: 'var(--color-text)', lineHeight: 1 }}>GXC Systems</div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-green)', marginTop: '2px' }}>Systeme für KMU</div>
