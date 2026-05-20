@@ -26,7 +26,7 @@ export function Navigation() {
     <header
       className="sticky top-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? 'rgba(10, 11, 13, 0.92)' : 'rgba(10, 11, 13, 0.6)',
+        background: scrolled ? 'rgba(248, 246, 243, 0.95)' : 'rgba(248, 246, 243, 0.8)',
         backdropFilter: 'blur(12px)',
         borderBottom: '1px solid',
         borderColor: scrolled ? 'var(--color-border)' : 'transparent',
@@ -80,14 +80,14 @@ export function Navigation() {
               <div
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '0.52rem',
-                  letterSpacing: '0.18em',
+                  fontSize: '0.5rem',
+                  letterSpacing: '0.16em',
                   textTransform: 'uppercase',
-                  color: 'var(--color-text-3)',
+                  color: 'var(--color-blue)',
                   marginTop: '2px',
                 }}
               >
-                Operative Infrastruktur
+                Systeme für KMU
               </div>
             </div>
           </Link>

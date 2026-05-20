@@ -1,93 +1,64 @@
-'use client'
-
-import { useState } from 'react'
-import { AnimateIn } from '@/components/ui/AnimateIn'
 import { Container } from '@/components/ui/Container'
+import { AnimateIn } from '@/components/ui/AnimateIn'
 
-interface Module {
-  index: string
-  id: string
-  title: string
-  tagline: string
-  detail: string
-  outcomes: string[]
-}
-
-const MODULES: Module[] = [
+const modules = [
   {
+    id: 'm1',
     index: '01',
-    id: 'ai-agent-systems',
-    title: 'KI-Agenten-Systeme',
-    tagline: 'Dein Betrieb antwortet — auch wenn du nicht da bist.',
-    detail:
-      'KI-Agenten, die Leads qualifizieren, Anfragen weiterleiten, Abläufe auslösen und Standardkommunikation ohne menschlichen Eingriff abwickeln. Aufgebaut auf Ihrer Geschäftslogik, trainiert auf Ihren Prozessen.',
-    outcomes: [
-      'Reaktionszeit unter 2 Minuten',
-      'Rund um die Uhr erreichbar ohne Personalkosten',
-      'Jede Anfrage qualifiziert und priorisiert',
-    ],
+    iconPath: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9',
+    title: 'Website',
+    outcome: 'Deine Lead-Quelle ist strukturiert.',
+    not: 'Statt: verstreute Landing Pages, die nichts erfassen',
+    with: 'Mit: Eine Website, die Anfragen aktiv collected und sofort ins System leitet',
   },
   {
+    id: 'm2',
     index: '02',
-    id: 'workflow-automation',
-    title: 'Prozessautomatisierung',
-    tagline: 'Kein vergessenes Follow-up. Kein Koordinations-Chaos.',
-    detail:
-      'Mehrstufige Abläufe, die von der Anfrage bis zum Ergebnis laufen — Buchungsbestätigungen, Nachverfolgungssequenzen, Statusmeldungen und interne Benachrichtigungen — alle ausgelöst durch Geschäftsereignisse.',
-    outcomes: [
-      'Null verlorene Follow-ups',
-      '10+ Stunden Admin-Arbeit pro Woche eliminiert',
-      'Vollständiges Protokoll aller Vorgänge',
-    ],
+    iconPath: 'M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z',
+    title: 'Kontakt-Widget',
+    outcome: 'Anfragen entstehen überall auf deiner Website.',
+    not: 'Statt: nur eine Kontaktseite, die kaum jemand findet',
+    with: 'Mit: Das Widget auf jeder Unterseite — sofort sichtbar, sofort nutzbar',
   },
   {
+    id: 'm3',
     index: '03',
-    id: 'crm-lead-management',
-    title: 'CRM & Lead-Management',
-    tagline: 'Du weißt immer, wo jede Anfrage steht.',
-    detail:
-      'Jeder Lead wird erfasst, kategorisiert, zugewiesen und verfolgt. Automatische Statusübergänge, Nachverfolgungserinnerungen und Leistungsberichte sind vom ersten Tag an integriert.',
-    outcomes: [
-      '100 % Lead-Erfassungsrate',
-      'Pipeline-Übersicht in Echtzeit',
-      'Keine manuelle Dateneingabe',
-    ],
+    iconPath: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4',
+    title: 'CRM',
+    outcome: 'Du hast eine zentrale Übersicht über alles.',
+    not: 'Statt: Anfragen in verschiedenen Mails, Zetteln, Dokumenten',
+    with: 'Mit: Einem System, wo jeder Lead, Auftrag und Status sichtbar ist',
   },
   {
+    id: 'm4',
     index: '04',
-    id: 'websites-digital-presence',
-    title: 'Website & Digitale Präsenz',
-    tagline: 'Nicht schön — so gebaut, dass sie Aufträge bringt.',
-    detail:
-      'Websites, die als operative Systeme gebaut werden — nicht als Broschüren. Von Beginn an integriert mit Lead-Erfassung, CRM-Weiterleitung und Buchungssystemen.',
-    outcomes: [
-      'Leads werden automatisch erfasst',
-      'Reibungsloser Buchungsablauf',
-      'Google-Unternehmensprofil optimiert',
-    ],
+    iconPath: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z',
+    title: 'Automation',
+    outcome: 'Prozesse laufen von selbst — ohne manuelles Eingreifen.',
+    not: 'Statt: manuelles Weiterleiten, Erinnern, Koordinieren',
+    with: 'Mit: Workflows, die automatisch das Richtige tun — zur richtigen Zeit',
   },
   {
+    id: 'm5',
     index: '05',
-    id: 'integrations-infrastructure',
-    title: 'Integrationen & Infrastruktur',
-    tagline: 'Dein Kalender, deine E-Mail, dein Telefon — alles spricht miteinander.',
-    detail:
-      'API-Integrationen zwischen Ihren bestehenden Werkzeugen — Kalender, E-Mail, Zahlung, Kommunikation — orchestriert über eine zentrale Automatisierungsschicht.',
-    outcomes: [
-      'Manuelle Synchronisation entfällt',
-      'Einheitliche Datenquelle',
-      'Skalierbar ohne zusätzliches Personal',
-    ],
+    iconPath: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+    title: 'Follow-up',
+    outcome: 'Nichts wird vergessen. Kein Lead kühlt aus.',
+    not: 'Statt: „Hatten wir nicht noch einen Interessenten?"',
+    with: 'Mit: Automatische Reminder, Sequences und Status-Tracking',
+  },
+  {
+    id: 'm6',
+    index: '06',
+    iconPath: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    title: 'Reporting',
+    outcome: 'Du siehst jeden Monat, was funktioniert.',
+    not: 'Statt: keine Übersicht, kein Wissen wohin Aufträge gehen',
+    with: 'Mit: Klare Metriken, monatliche Reports, konkrete Empfehlungen',
   },
 ]
 
 export function ServicesSection() {
-  const [openId, setOpenId] = useState<string | null>(null)
-
-  const toggle = (id: string) => {
-    setOpenId((prev) => (prev === id ? null : id))
-  }
-
   return (
     <section
       id="leistungen"
@@ -96,230 +67,130 @@ export function ServicesSection() {
       aria-labelledby="services-heading"
     >
       <Container>
-        {/* Header */}
         <AnimateIn>
-          <div className="mb-14 max-w-2xl">
-            <span className="accent-line" aria-hidden="true" />
-            <p className="text-label mb-4">OPERATIVE MODULE</p>
+          <div style={{ maxWidth: '42rem', marginBottom: '3rem' }}>
+            <span className="accent-line" />
+            <p className="text-label mb-4">Das System besteht aus 6 Modulen</p>
             <h2
               id="services-heading"
-              className="text-display-sm mb-5"
-              style={{ color: 'var(--color-text)' }}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.875rem, 3.5vw, 3rem)',
+                fontWeight: 700,
+                color: 'var(--color-text)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.05,
+                marginBottom: '1rem',
+              }}
             >
-              Fünf Module.
+              Jedes Modul löst ein
               <br />
-              Ein Betriebssystem für Ihren Betrieb.
+              spezifisches Problem.
             </h2>
-            <p style={{ color: 'var(--color-text-2)', fontSize: '1rem', lineHeight: 1.7 }}>
-              Jedes Modul löst ein konkretes operatives Problem. Gemeinsam beseitigen sie die
-              Reibung zwischen Kundenabsicht und Geschäftsergebnis.
+            <p style={{ fontSize: '1rem', color: 'var(--color-text-2)', lineHeight: 1.7 }}>
+              Zusammen funktioniert dein Betrieb ohne Chaos. Statt eine weitere App —
+              ein System, das denkt.
             </p>
           </div>
         </AnimateIn>
 
-        {/* Module list */}
-        <div
-          role="list"
-          style={{ borderTop: '1px solid var(--color-border)' }}
-        >
-          {MODULES.map((mod, i) => {
-            const isOpen = openId === mod.id
-            return (
-              <AnimateIn key={mod.id} delay={i * 50}>
-                <div
-                  role="listitem"
-                  style={{
-                    borderBottom: '1px solid var(--color-border)',
-                    background: isOpen ? 'var(--color-bg-2)' : 'var(--color-bg-1)',
-                    borderLeft: isOpen
-                      ? '2px solid var(--color-blue)'
-                      : '2px solid transparent',
-                    transition: 'background 0.25s ease, border-color 0.2s ease',
-                  }}
-                >
-                  {/* Row trigger */}
-                  <button
-                    type="button"
-                    onClick={() => toggle(mod.id)}
-                    aria-expanded={isOpen}
-                    aria-controls={`module-detail-${mod.id}`}
-                    className="w-full text-left"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {modules.map((m, i) => (
+            <AnimateIn key={m.id} delay={i * 60}>
+              <div
+                style={{
+                  background: 'var(--color-bg)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '6px',
+                  padding: '1.75rem',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1rem',
+                }}
+              >
+                {/* Icon + index */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div
                     style={{
+                      width: '44px',
+                      height: '44px',
+                      background: 'rgba(37, 99, 235, 0.07)',
+                      border: '1px solid rgba(37, 99, 235, 0.14)',
+                      borderRadius: '8px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '1.5rem',
-                      padding: '1.5rem 1.5rem 1.5rem 1.25rem',
-                      cursor: 'pointer',
-                      background: 'none',
-                      border: 'none',
+                      justifyContent: 'center',
+                      flexShrink: 0,
                     }}
-                    onMouseEnter={(e) => {
-                      if (!isOpen) {
-                        ;(e.currentTarget.parentElement as HTMLElement).style.borderBottomColor =
-                          'var(--color-border-2)'
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isOpen) {
-                        ;(e.currentTarget.parentElement as HTMLElement).style.borderBottomColor =
-                          'var(--color-border)'
-                      }
-                    }}
+                    aria-hidden="true"
                   >
-                    {/* Index */}
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.72rem',
-                        color: 'var(--color-blue)',
-                        letterSpacing: '0.08em',
-                        flexShrink: 0,
-                        width: '2rem',
-                      }}
-                    >
-                      {mod.index}
-                    </span>
-
-                    {/* Title + tagline */}
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-display)',
-                          fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
-                          fontWeight: 600,
-                          color: 'var(--color-text)',
-                          letterSpacing: '-0.02em',
-                          marginBottom: '0.2rem',
-                        }}
-                      >
-                        {mod.title}
-                      </p>
-                      <p
-                        style={{
-                          fontSize: '0.85rem',
-                          color: 'var(--color-text-2)',
-                          lineHeight: 1.5,
-                        }}
-                      >
-                        {mod.tagline}
-                      </p>
-                    </div>
-
-                    {/* Expand arrow */}
-                    <span
-                      aria-hidden="true"
-                      style={{
-                        flexShrink: 0,
-                        color: 'var(--color-text-3)',
-                        fontSize: '1rem',
-                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M4 6l4 4 4-4" />
-                      </svg>
-                    </span>
-                  </button>
-
-                  {/* Expandable detail panel */}
-                  <div
-                    id={`module-detail-${mod.id}`}
-                    role="region"
-                    aria-hidden={!isOpen}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={m.iconPath} />
+                    </svg>
+                  </div>
+                  <span
                     style={{
-                      maxHeight: isOpen ? '600px' : '0',
-                      overflow: 'hidden',
-                      transition: 'max-height 0.45s cubic-bezier(0.16,1,0.3,1)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.6rem',
+                      color: 'var(--color-border-3)',
+                      letterSpacing: '0.1em',
                     }}
                   >
-                    <div
-                      style={{
-                        padding: '0 1.25rem 2rem 4.5rem',
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontSize: '0.9rem',
-                          color: 'var(--color-text-2)',
-                          lineHeight: 1.75,
-                          marginBottom: '1.5rem',
-                          maxWidth: '56rem',
-                        }}
-                      >
-                        {mod.detail}
-                      </p>
+                    {m.index}
+                  </span>
+                </div>
 
-                      {/* Outcomes */}
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '0.6rem',
-                        }}
-                      >
-                        {mod.outcomes.map((outcome) => (
-                          <div
-                            key={outcome}
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '0.75rem',
-                            }}
-                          >
-                            <span
-                              aria-hidden="true"
-                              style={{
-                                color: 'var(--color-green)',
-                                fontSize: '0.85rem',
-                                flexShrink: 0,
-                                display: 'flex',
-                                alignItems: 'center',
-                              }}
-                            >
-                              <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 14 14"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="M2 7l3.5 3.5L12 3" />
-                              </svg>
-                            </span>
-                            <span
-                              style={{
-                                fontSize: '0.85rem',
-                                color: 'var(--color-text)',
-                                fontWeight: 500,
-                              }}
-                            >
-                              {outcome}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                {/* Title + outcome */}
+                <div style={{ flex: 1 }}>
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '1.05rem',
+                      fontWeight: 600,
+                      color: 'var(--color-text)',
+                      letterSpacing: '-0.02em',
+                      marginBottom: '0.375rem',
+                    }}
+                  >
+                    {m.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: '0.9rem',
+                      fontWeight: 600,
+                      color: 'var(--color-text)',
+                      lineHeight: 1.45,
+                      marginBottom: '0.875rem',
+                      fontStyle: 'italic',
+                    }}
+                  >
+                    &bdquo;{m.outcome}&ldquo;
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    <p style={{ fontSize: '0.78rem', color: 'var(--color-red)', lineHeight: 1.5 }}>
+                      {m.not}
+                    </p>
+                    <p style={{ fontSize: '0.78rem', color: 'var(--color-text-2)', lineHeight: 1.5 }}>
+                      {m.with}
+                    </p>
                   </div>
                 </div>
-              </AnimateIn>
-            )
-          })}
+              </div>
+            </AnimateIn>
+          ))}
         </div>
+
+        <AnimateIn delay={180}>
+          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--color-text-3)', marginBottom: '1.25rem' }}>
+              Nicht alle 6 Module auf einmal — wir beginnen dort, wo dein größtes Leck ist.
+            </p>
+            <a href="#kontakt" className="btn-primary" style={{ fontSize: '0.9rem', padding: '0.9rem 2rem' }}>
+              Größtes Leck finden →
+            </a>
+          </div>
+        </AnimateIn>
       </Container>
     </section>
   )

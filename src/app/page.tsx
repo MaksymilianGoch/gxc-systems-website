@@ -1,10 +1,9 @@
 import { HeroSection } from '@/components/sections/HeroSection'
-import { CostSection } from '@/components/sections/CostSection'
+import { ProblemSection } from '@/components/sections/ProblemSection'
+import { WorkflowSection } from '@/components/sections/WorkflowSection'
 import { ServicesSection } from '@/components/sections/ServicesSection'
-import { InteractiveTimeline } from '@/components/sections/InteractiveTimeline'
-import { PipelineSection } from '@/components/sections/PipelineSection'
 import { LeadCalculatorSection } from '@/components/sections/LeadCalculatorSection'
-import { TrustSection } from '@/components/sections/TrustSection'
+import { ProcessSection } from '@/components/sections/ProcessSection'
 import { FoundersSection } from '@/components/sections/FoundersSection'
 import { CaseStudySection } from '@/components/sections/CaseStudySection'
 import { FaqSection } from '@/components/sections/FaqSection'
@@ -18,12 +17,11 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <CostSection />
+      <ProblemSection />
+      <WorkflowSection />
       <ServicesSection />
-      <InteractiveTimeline />
-      <PipelineSection />
       <LeadCalculatorSection />
-      <TrustSection />
+      <ProcessSection />
       <FoundersSection />
       <CaseStudySection />
       <FaqSection items={faqData as FaqItem[]} />

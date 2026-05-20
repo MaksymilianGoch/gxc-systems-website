@@ -12,12 +12,12 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
 interface ContactFormProps { dark?: boolean }
 
 const requestTypeOptions: { value: ContactFormData['requestType']; label: string }[] = [
-  { value: 'lead-engine', label: 'Lead-Engine' },
-  { value: 'terminbuchung', label: 'Terminbuchung' },
-  { value: 'online-praesenz', label: 'Online-Präsenz' },
-  { value: 'kommunikations-hub', label: 'Kommunikations-Hub' },
-  { value: 'vollpaket', label: 'Vollpaket (alle Module)' },
-  { value: 'sonstiges', label: 'Sonstiges / Frage' },
+  { value: 'lead-engine', label: 'Verpasste Anfragen — ich verliere Aufträge' },
+  { value: 'terminbuchung', label: 'Terminchaos — Koordination kostet zu viel Zeit' },
+  { value: 'kommunikations-hub', label: 'Langsame Reaktion — ich antworte zu spät' },
+  { value: 'online-praesenz', label: 'Zu viel Admin-Arbeit — ich brauche Struktur' },
+  { value: 'vollpaket', label: 'Fehlende Übersicht — ich weiß nicht wo was steht' },
+  { value: 'sonstiges', label: 'Weiß nicht genau — sagt mir, wo mein Leck ist' },
 ]
 
 const inputBase =
@@ -197,7 +197,7 @@ export function ContactForm({ dark = false }: ContactFormProps) {
         {/* Request Type */}
         <div className="md:col-span-2">
           <label htmlFor="requestType" className="block text-sm font-medium text-navy mb-1.5">
-            Ich interessiere mich für{' '}
+            Was beschäftigt dich gerade am meisten?{' '}
             <span className="text-red-500" aria-hidden="true">*</span>
           </label>
           <select
@@ -211,7 +211,7 @@ export function ContactForm({ dark = false }: ContactFormProps) {
             aria-invalid={!!errors.requestType}
           >
             <option value="" disabled>
-              Bitte wählen Sie ein Modul
+              Größtes Problem wählen
             </option>
             {requestTypeOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -225,17 +225,17 @@ export function ContactForm({ dark = false }: ContactFormProps) {
         {/* Description */}
         <div className="md:col-span-2">
           <label htmlFor="description" className="block text-sm font-medium text-navy mb-1.5">
-            Was beschäftigt Sie gerade?{' '}
+            Kurz beschreiben — wo siehst du den größten Schmerz?{' '}
             <span className="text-red-500" aria-hidden="true">*</span>
           </label>
           <textarea
             id="description"
             required
-            rows={5}
+            rows={4}
             value={formData.description ?? ''}
             onChange={(e) => update('description', e.target.value)}
             className={`${inputBase} resize-none ${errors.description ? inputError : ''}`}
-            placeholder="Kurze Beschreibung Ihrer Situation und was sich ändern soll..."
+            placeholder="z.B.: Ich bekomme täglich 5 Anfragen, verliere davon 2–3, und bin ständig am Koordinieren..."
             aria-invalid={!!errors.description}
           />
           <FieldError message={errors.description} />

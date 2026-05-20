@@ -1,65 +1,73 @@
 import { Container } from '@/components/ui/Container'
 import { AnimateIn } from '@/components/ui/AnimateIn'
 
-const pakete = [
+const tiers = [
   {
-    id: 'starter',
-    index: '01',
+    id: 't1',
     name: 'Starter',
-    preis: '1.490',
-    zeitraum: 'einmalig',
-    hinweis: null,
-    retainer: null,
-    zusammenfassung: 'Die zwei entscheidenden Bausteine für Betriebe, die mit Systemdenken anfangen wollen.',
-    leistungen: [
-      'Lead-Erfassung (Formular → CRM → Benachrichtigung)',
-      'Terminbuchungssystem mit automatischen Erinnerungen',
-      'Einfaches Airtable-CRM-Setup',
-      'Einführung und Übergabedokumentation',
-      '30 Tage Anpassungsphase nach Go-Live',
+    tagline: 'Dein erstes System, das funktioniert.',
+    price: '1.490 €',
+    priceNote: 'einmalig',
+    monthly: null,
+    badge: null,
+    for: 'Kleiner Betrieb, erster Einstieg, schnelle Wirkung',
+    features: [
+      'Kontakt-Widget auf deiner Website',
+      'CRM-Setup mit Echtdaten',
+      'Basis-Automation (Benachrichtigungen)',
+      'Terminbuchung automatisiert',
+      '30 Tage kostenlose Anpassungen',
+      '1x Onboarding-Session (30 Min.)',
     ],
+    roi: 'Mit 2 geretteten Anfragen à 800 € zahlt sich das in Woche 1.',
     cta: 'Starter anfragen',
-    hervorgehoben: false,
+    featured: false,
+    accentColor: '#64748B',
   },
   {
-    id: 'professional',
-    index: '02',
+    id: 't2',
     name: 'Professional',
-    preis: '2.990',
-    zeitraum: 'einmalig',
-    hinweis: 'Meistgewählt',
-    retainer: '+ 249 €/Monat',
-    zusammenfassung: 'Das vollständige System für Betriebe, die professionell wachsen wollen.',
-    leistungen: [
-      'Alles aus Starter',
-      'Professionelle Conversion-Landingpage',
-      'Google Business Profil vollständig aufgebaut',
-      'Lokale SEO-Optimierung für Ihr Einzugsgebiet',
-      'Kommunikations-Modul (Follow-up-Automatisierung)',
-      'Angebots-Erinnerung (Tag 3 und 7 automatisch)',
-      'Monatliches Leistungs-Reporting',
+    tagline: 'Das vollständige System für wachsende Betriebe.',
+    price: '2.990 €',
+    priceNote: 'einmalig',
+    monthly: '249 € / Monat Betreuung',
+    badge: 'Meistgewählt',
+    for: 'Mehrere Mitarbeiter, wachsender Betrieb, maximale Wirkung',
+    features: [
+      'Alles aus Starter, plus:',
+      'Landingpage optimiert für Anfragen',
+      'Google Business Profil verbunden',
+      'E-Mail + WhatsApp Automation',
+      'Follow-up Sequenzen',
+      'Monatliches Reporting',
     ],
+    roi: 'Amortisiert sich nach 1–2 Wochen. Ab dann ist das Geld dein Gewinn.',
     cta: 'Professional anfragen',
-    hervorgehoben: true,
+    featured: true,
+    accentColor: '#2563EB',
+    scarcity: 'Nächster freier Platz: Juli 2026',
   },
   {
-    id: 'vollsystem',
-    index: '03',
+    id: 't3',
     name: 'Vollsystem',
-    preis: '4.490',
-    zeitraum: 'einmalig',
-    hinweis: 'Enterprise',
-    retainer: '+ 399 €/Monat',
-    zusammenfassung: 'Das komplette operative System inklusive KI-Sprachagent und Priority-Support.',
-    leistungen: [
-      'Alles aus Professional',
-      'KI-Sprachagent (Anrufannahme rund um die Uhr)',
-      'Komplexe E-Mail-Klassifizierung mit KI',
-      'Priority Support (Reaktion unter 2 Stunden)',
-      'Vierteljährliches Strategie-Review',
+    tagline: 'Maximale Automatisierung für ambitionierte Betriebe.',
+    price: '4.490 €',
+    priceNote: 'einmalig',
+    monthly: '399 € / Monat Betreuung',
+    badge: 'Premium',
+    for: 'Höchste Automatisierung, Voice Agent, Priority Support',
+    features: [
+      'Alles aus Professional, plus:',
+      'Voice Agent (24/7 Telefonbearbeitung)',
+      'Erweiterte Workflow-Automatisierung',
+      'Priority Support (4h Reaktionszeit)',
+      'Quartalsweise Strategie-Review',
+      'Unbegrenzte Anpassungen',
     ],
+    roi: 'Ersetzt den Bedarf an einer Teilzeitkraft für Admin-Aufgaben.',
     cta: 'Vollsystem anfragen',
-    hervorgehoben: false,
+    featured: false,
+    accentColor: '#7C3AED',
   },
 ]
 
@@ -68,256 +76,265 @@ export function PricingSection() {
     <section
       id="preise"
       className="section-y"
-      style={{ background: 'var(--color-bg-1)' }}
-      aria-labelledby="preise-heading"
+      style={{ background: 'var(--color-bg)' }}
+      aria-labelledby="pricing-heading"
     >
-      {/* CSS 3D hover & layer-stack styles */}
       <style>{`
         .pricing-card {
-          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-          transform-style: preserve-3d;
+          transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
         }
         .pricing-card:hover {
-          transform: perspective(800px) rotateX(2deg) rotateY(-3deg) translateZ(6px);
-          box-shadow: 0 16px 48px -12px rgba(37, 99, 235, 0.25);
+          transform: translateY(-4px);
+          box-shadow: 0 12px 40px -12px rgba(0,0,0,0.12);
         }
-        .pricing-card-featured {
-          box-shadow: 0 0 40px -8px rgba(37, 99, 235, 0.35);
-          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-          transform-style: preserve-3d;
+        .pricing-featured {
+          transform: translateY(-6px);
+          box-shadow: 0 12px 48px -12px rgba(37,99,235,0.25);
         }
-        .pricing-card-featured:hover {
-          transform: perspective(800px) rotateX(2deg) rotateY(-3deg) translateZ(8px);
-          box-shadow: 0 20px 60px -12px rgba(37, 99, 235, 0.5);
+        .pricing-featured:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 20px 60px -12px rgba(37,99,235,0.35);
         }
-        .layer-stack {
-          position: absolute;
-          bottom: 1.5rem;
-          right: 1.5rem;
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-          opacity: 0.25;
-          pointer-events: none;
-        }
-        .layer-stack span {
-          display: block;
-          width: 28px;
-          height: 1px;
-          background: currentColor;
-        }
-        .layer-stack span:nth-child(1) { transform: translateX(4px); }
-        .layer-stack span:nth-child(2) { transform: translateX(2px); }
-        .layer-stack span:nth-child(3) { transform: translateX(0px); }
       `}</style>
 
       <Container>
-
         <AnimateIn>
-          <div className="mb-14">
-            <span className="accent-line" />
-            <p className="text-label mb-4">Investition</p>
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <h2
-                id="preise-heading"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2rem, 3.5vw, 3.25rem)',
-                  fontWeight: 700,
-                  color: 'var(--color-text)',
-                  letterSpacing: '-0.028em',
-                  lineHeight: 1.05,
-                }}
-              >
-                Transparent. Einmalig.
-                <br />
-                Ohne Überraschungen.
-              </h2>
-              <p
-                style={{
-                  fontSize: '0.875rem',
-                  color: 'var(--color-text-3)',
-                  maxWidth: '26rem',
-                }}
-              >
-                Bei einem durchschnittlichen Auftragswert von 800 € entgehen Ihnen monatlich 1.600–2.400 €. Das Starter-Paket amortisiert sich nach Auftrag Nummer zwei.
-              </p>
-            </div>
+          <div style={{ textAlign: 'center', maxWidth: '40rem', margin: '0 auto 3.5rem' }}>
+            <span className="accent-line" style={{ margin: '0 auto 1.25rem' }} />
+            <p className="text-label mb-4">Transparente Investition</p>
+            <h2
+              id="pricing-heading"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.875rem, 3.5vw, 3rem)',
+                fontWeight: 700,
+                color: 'var(--color-text)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.05,
+                marginBottom: '1rem',
+              }}
+            >
+              Zahlt sich nach 2–4 Wochen selbst.
+            </h2>
+            <p style={{ fontSize: '1rem', color: 'var(--color-text-2)', lineHeight: 1.7 }}>
+              Keine versteckten Kosten. Kein Vendor Lock-in. Du kannst jederzeit kündigen.
+            </p>
           </div>
         </AnimateIn>
 
-        {/* Drei gleich große Karten */}
-        <div
-          className="grid grid-cols-1 lg:grid-cols-3"
-          style={{ border: '1px solid var(--color-border)', alignItems: 'stretch' }}
-        >
-          {pakete.map((paket, i) => (
-            <AnimateIn key={paket.id} delay={i * 70}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          {tiers.map((tier, i) => (
+            <AnimateIn key={tier.id} delay={i * 80}>
               <div
-                className={`flex flex-col h-full ${paket.hervorgehoben ? 'pricing-card-featured' : 'pricing-card'}`}
+                className={`pricing-card ${tier.featured ? 'pricing-featured' : ''}`}
                 style={{
-                  background: paket.hervorgehoben ? 'var(--color-bg-3)' : 'var(--color-bg-2)',
+                  background: tier.featured ? 'var(--color-blue)' : 'var(--color-bg-1)',
+                  border: `1px solid ${tier.featured ? 'transparent' : 'var(--color-border)'}`,
+                  borderRadius: '8px',
+                  overflow: 'hidden',
                   position: 'relative',
-                  borderRight: i < pakete.length - 1 ? '1px solid var(--color-border)' : 'none',
-                  outline: paket.hervorgehoben ? '2px solid var(--color-blue)' : 'none',
-                  outlineOffset: '-2px',
-                  zIndex: paket.hervorgehoben ? 1 : 0,
                 }}
               >
-                {paket.hinweis && (
+                {/* Badge */}
+                {tier.badge && (
                   <div
                     style={{
                       position: 'absolute',
-                      top: '-1px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      background: paket.hervorgehoben ? 'var(--color-blue)' : 'var(--color-cyan)',
-                      color: 'white',
-                      fontSize: '0.62rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      padding: '0.2rem 0.75rem',
-                      fontFamily: 'var(--font-mono)',
-                      whiteSpace: 'nowrap',
+                      top: '1rem',
+                      right: '1rem',
+                      padding: '0.2rem 0.6rem',
+                      background: tier.featured ? 'rgba(255,255,255,0.2)' : `${tier.accentColor}14`,
+                      border: `1px solid ${tier.featured ? 'rgba(255,255,255,0.3)' : `${tier.accentColor}28`}`,
+                      borderRadius: '3px',
                     }}
                   >
-                    {paket.hinweis}
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.58rem',
+                        letterSpacing: '0.14em',
+                        textTransform: 'uppercase',
+                        color: tier.featured ? 'white' : tier.accentColor,
+                      }}
+                    >
+                      {tier.badge}
+                    </span>
                   </div>
                 )}
 
-                <div className="p-8 flex flex-col flex-1">
-                  <span
-                    className="block mb-4"
+                {/* Header */}
+                <div style={{ padding: '1.75rem 1.75rem 1.25rem' }}>
+                  <h3
                     style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.65rem',
-                      color: paket.hervorgehoben ? 'var(--color-text-2)' : 'var(--color-text-3)',
-                      letterSpacing: '0.08em',
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '1.1rem',
+                      fontWeight: 700,
+                      color: tier.featured ? 'white' : 'var(--color-text)',
+                      letterSpacing: '-0.025em',
+                      marginBottom: '0.25rem',
                     }}
                   >
-                    {paket.index} — {paket.name}
-                  </span>
+                    {tier.name}
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: '0.825rem',
+                      color: tier.featured ? 'rgba(255,255,255,0.75)' : 'var(--color-text-2)',
+                      lineHeight: 1.5,
+                      marginBottom: '1.25rem',
+                    }}
+                  >
+                    {tier.tagline}
+                  </p>
 
-                  <div className="mb-6">
-                    <div className="flex items-baseline gap-1.5 flex-wrap">
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
-                          fontWeight: 700,
-                          color: 'var(--color-text)',
-                          letterSpacing: '-0.03em',
-                          lineHeight: 1,
-                        }}
-                      >
-                        {paket.preis} €
-                      </span>
-                    </div>
+                  {/* Price */}
+                  <div style={{ marginBottom: '0.5rem' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 'clamp(1.75rem, 3vw, 2.25rem)',
+                        fontWeight: 700,
+                        color: tier.featured ? 'white' : 'var(--color-text)',
+                        letterSpacing: '-0.03em',
+                      }}
+                    >
+                      {tier.price}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.72rem',
+                        color: tier.featured ? 'rgba(255,255,255,0.6)' : 'var(--color-text-3)',
+                        marginLeft: '0.5rem',
+                      }}
+                    >
+                      {tier.priceNote}
+                    </span>
+                  </div>
+                  {tier.monthly && (
                     <p
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.7rem',
-                        color: 'var(--color-text-3)',
-                        marginTop: '0.4rem',
+                        fontSize: '0.72rem',
+                        color: tier.featured ? 'rgba(255,255,255,0.65)' : 'var(--color-text-3)',
+                        marginBottom: '0.25rem',
                       }}
                     >
-                      {paket.zeitraum}
-                      {paket.retainer && (
-                        <span style={{ display: 'block', color: paket.hervorgehoben ? 'var(--color-blue-glow)' : 'var(--color-cyan)', marginTop: '0.25rem' }}>
-                          {paket.retainer} Betreuung
-                        </span>
-                      )}
+                      + {tier.monthly}
                     </p>
-                  </div>
-
+                  )}
                   <p
                     style={{
-                      fontSize: '0.875rem',
-                      color: 'var(--color-text-2)',
-                      lineHeight: 1.65,
-                      marginBottom: '1.75rem',
+                      fontSize: '0.72rem',
+                      color: tier.featured ? 'rgba(255,255,255,0.55)' : 'var(--color-text-3)',
+                      fontStyle: 'italic',
+                      marginTop: '0.25rem',
                     }}
                   >
-                    {paket.zusammenfassung}
+                    Für: {tier.for}
                   </p>
+                </div>
 
-                  <ul className="flex-1" style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', marginBottom: '2rem' }}>
-                    {paket.leistungen.map((l) => (
-                      <li key={l} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
+                {/* Divider */}
+                <div style={{ height: '1px', background: tier.featured ? 'rgba(255,255,255,0.15)' : 'var(--color-border)', margin: '0 1.75rem' }} />
+
+                {/* Features */}
+                <div style={{ padding: '1.25rem 1.75rem' }}>
+                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', marginBottom: '1.25rem' }}>
+                    {tier.features.map((f) => (
+                      <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem' }}>
+                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ marginTop: '0.15rem', flexShrink: 0 }} aria-hidden="true">
+                          <path d="M3 8l4 4 6-6" stroke={tier.featured ? 'rgba(255,255,255,0.8)' : '#10B981'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                         <span
                           style={{
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: '0.7rem',
-                            color: paket.hervorgehoben ? 'var(--color-blue-glow)' : 'var(--color-cyan)',
-                            marginTop: '0.1rem',
-                            flexShrink: 0,
+                            fontSize: '0.825rem',
+                            color: tier.featured ? 'rgba(255,255,255,0.85)' : 'var(--color-text-2)',
+                            lineHeight: 1.5,
                           }}
                         >
-                          →
-                        </span>
-                        <span style={{ fontSize: '0.82rem', color: 'var(--color-text-2)', lineHeight: 1.55 }}>
-                          {l}
+                          {f}
                         </span>
                       </li>
                     ))}
                   </ul>
 
+                  {/* ROI */}
+                  <div
+                    style={{
+                      padding: '0.75rem',
+                      background: tier.featured ? 'rgba(255,255,255,0.1)' : 'rgba(16,185,129,0.06)',
+                      border: `1px solid ${tier.featured ? 'rgba(255,255,255,0.15)' : 'rgba(16,185,129,0.14)'}`,
+                      borderRadius: '4px',
+                      marginBottom: '1.25rem',
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: '0.78rem',
+                        color: tier.featured ? 'rgba(255,255,255,0.85)' : '#10B981',
+                        lineHeight: 1.55,
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      {tier.roi}
+                    </p>
+                  </div>
+
+                  {/* Scarcity */}
+                  {tier.scarcity && (
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.62rem',
+                        color: tier.featured ? 'rgba(255,255,255,0.55)' : 'var(--color-amber)',
+                        letterSpacing: '0.08em',
+                        marginBottom: '1rem',
+                      }}
+                    >
+                      ⚡ {tier.scarcity}
+                    </p>
+                  )}
+
+                  {/* CTA */}
                   <a
                     href="#kontakt"
                     style={{
-                      display: 'block',
-                      width: '100%',
-                      textAlign: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      padding: '0.875rem',
+                      background: tier.featured ? 'white' : 'transparent',
+                      color: tier.featured ? 'var(--color-blue)' : 'var(--color-text)',
+                      border: `1px solid ${tier.featured ? 'transparent' : 'var(--color-border-2)'}`,
+                      borderRadius: '4px',
                       fontFamily: 'var(--font-display)',
                       fontWeight: 600,
-                      fontSize: '0.825rem',
+                      fontSize: '0.875rem',
                       letterSpacing: '-0.01em',
-                      padding: '0.8rem',
-                      borderRadius: '3px',
-                      border: paket.hervorgehoben ? 'none' : '1px solid var(--color-border-2)',
-                      background: paket.hervorgehoben ? 'var(--color-blue)' : 'transparent',
-                      color: paket.hervorgehoben ? 'white' : 'var(--color-text)',
-                      transition: 'all 0.15s ease',
-                      marginTop: 'auto',
+                      transition: 'opacity 0.15s ease, border-color 0.15s ease',
+                      textAlign: 'center',
                     }}
                   >
-                    {paket.cta}
+                    {tier.cta}
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>
-                </div>
-
-                {/* Layer-stack decoration — 3 stacked lines bottom-right */}
-                <div className="layer-stack" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
                 </div>
               </div>
             </AnimateIn>
           ))}
         </div>
 
-        <AnimateIn delay={180}>
-          <div
-            className="mt-8 flex flex-col sm:flex-row justify-between items-start gap-4 pt-6"
-            style={{ borderTop: '1px solid var(--color-border)' }}
-          >
-            <p style={{ fontSize: '0.78rem', color: 'var(--color-text-3)' }}>
-              Jedes Paket amortisiert sich nach dem ersten geretteten Auftrag.
-              Die Systeme gehören Ihnen — kein Vendor Lock-in.
+        {/* Bottom note */}
+        <AnimateIn delay={200}>
+          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-3)', maxWidth: '36rem', margin: '0 auto' }}>
+              Nicht sicher, welches Paket passt? Im Erstgespräch sagen wir dir ehrlich,
+              womit du den größten Hebel hast — ohne Übertreibung.
             </p>
-            <a
-              href="#kontakt"
-              style={{
-                fontSize: '0.78rem',
-                fontWeight: 500,
-                color: 'var(--color-blue)',
-                whiteSpace: 'nowrap',
-                textDecoration: 'none',
-              }}
-            >
-              Paket im Erstgespräch klären →
-            </a>
           </div>
         </AnimateIn>
       </Container>

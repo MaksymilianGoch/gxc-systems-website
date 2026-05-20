@@ -2,10 +2,11 @@ import { AnimateIn } from '@/components/ui/AnimateIn'
 import { Container } from '@/components/ui/Container'
 import { ContactForm } from './ContactForm'
 
-const TRUST_SIGNALS = [
+const trustSignals = [
   '30 Minuten — strukturiert und effizient',
-  'Systemanalyse inklusive — kostenlos',
-  'Alle Systeme bleiben in Ihrem Besitz',
+  'Kein Pitch, keine Folien, kein Sales-Druck',
+  'Du behältst 100% Eigentum an deinen Daten & Systemen',
+  'Wenn es nicht passt, sagen wir das ehrlich',
 ]
 
 export function ContactSection() {
@@ -13,28 +14,32 @@ export function ContactSection() {
     <section
       id="kontakt"
       className="section-y"
-      style={{
-        background:
-          'radial-gradient(ellipse 100% 80% at 50% 0%, rgba(14,30,68,0.8) 0%, var(--color-bg) 60%)',
-      }}
+      style={{ background: 'var(--color-bg-1)' }}
       aria-labelledby="contact-heading"
     >
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
 
-          {/* LEFT: Copy + trust signals */}
+          {/* Left: Copy + trust signals */}
           <div>
             <AnimateIn>
               <span className="accent-line" aria-hidden="true" />
-              <p className="text-label mb-4">JETZT STARTEN</p>
+              <p className="text-label mb-4">Systemgespräch buchen</p>
               <h2
                 id="contact-heading"
-                className="text-display-sm mb-6"
-                style={{ color: 'var(--color-text)' }}
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(1.875rem, 3.5vw, 3rem)',
+                  fontWeight: 700,
+                  color: 'var(--color-text)',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.05,
+                  marginBottom: '1.25rem',
+                }}
               >
-                Bereit, das System zu installieren,
+                Lass uns über dein
                 <br />
-                bevor es Ihr Wettbewerber tut?
+                System sprechen.
               </h2>
               <p
                 style={{
@@ -44,83 +49,102 @@ export function ContactSection() {
                   marginBottom: '2.5rem',
                 }}
               >
-                Lassen Sie uns 30 Minuten reden — kein Pitch, keine Folien. Wir schauen uns
-                Ihren Betrieb an und sagen Ihnen ehrlich, wo das größte Leck ist.
-                <br />
-                <br />
-                Keine ungebetenen Angebote danach.
+                30 Minuten, unverbindlich, kostenlos.
+                Wir schauen uns deinen Betrieb an und sagen dir ehrlich, wo das größte Leck ist
+                und was realistisch möglich ist.
+                <br /><br />
+                Kein ungebetenes Angebot danach. Kein Druck.
+                Wenn es nicht passt, sagen wir das auch klar.
               </p>
             </AnimateIn>
 
             <AnimateIn delay={80}>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 0,
-                  borderTop: '1px solid var(--color-border)',
-                }}
-              >
-                {TRUST_SIGNALS.map((signal, i) => (
+              <div style={{ borderTop: '1px solid var(--color-border)' }}>
+                {trustSignals.map((signal, i) => (
                   <div
                     key={i}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.875rem',
-                      padding: '1rem 0',
+                      padding: '0.9rem 0',
                       borderBottom: '1px solid var(--color-border)',
                     }}
                   >
-                    {/* Check mark */}
                     <span
                       aria-hidden="true"
                       style={{
                         flexShrink: 0,
-                        color: 'var(--color-blue)',
+                        width: '20px',
+                        height: '20px',
+                        background: 'rgba(37,99,235,0.08)',
+                        border: '1px solid rgba(37,99,235,0.16)',
+                        borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M2 7l3.5 3.5L12 3" />
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 6l3 3 5-5" stroke="#2563EB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
-                    <p
-                      style={{
-                        fontSize: '0.875rem',
-                        color: 'var(--color-text-2)',
-                        lineHeight: 1.5,
-                      }}
-                    >
+                    <p style={{ fontSize: '0.875rem', color: 'var(--color-text-2)', lineHeight: 1.5 }}>
                       {signal}
                     </p>
                   </div>
                 ))}
               </div>
             </AnimateIn>
+
+            <AnimateIn delay={150}>
+              <div
+                style={{
+                  marginTop: '2rem',
+                  padding: '1.25rem',
+                  background: 'var(--color-bg-2)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '6px',
+                }}
+              >
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '0.5rem' }}>
+                  Reaktionszeit
+                </p>
+                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-2)', lineHeight: 1.6 }}>
+                  Innerhalb von <strong style={{ color: 'var(--color-text)' }}>4 Stunden</strong> an Werktagen.
+                  Falls dringend:{' '}
+                  <a href="mailto:office@gxc-systems.com" style={{ color: 'var(--color-blue)', textDecoration: 'underline' }}>
+                    office@gxc-systems.com
+                  </a>
+                </p>
+              </div>
+            </AnimateIn>
           </div>
 
-          {/* RIGHT: Form panel */}
+          {/* Right: Form panel */}
           <AnimateIn delay={120} direction="right">
             <div
               style={{
-                background: 'var(--color-bg-2)',
+                background: 'var(--color-bg)',
                 border: '1px solid var(--color-border)',
-                borderRadius: '4px',
-                padding: '2.5rem',
+                borderRadius: '8px',
+                padding: '2.25rem',
+                boxShadow: '0 4px 24px -8px rgba(0,0,0,0.06)',
               }}
             >
-              <ContactForm dark />
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  color: 'var(--color-text)',
+                  letterSpacing: '-0.025em',
+                  marginBottom: '1.5rem',
+                }}
+              >
+                Systemgespräch anfragen
+              </h3>
+              <ContactForm />
             </div>
           </AnimateIn>
         </div>
