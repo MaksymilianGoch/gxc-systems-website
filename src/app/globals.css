@@ -1,75 +1,103 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════════
+   GXC SYSTEMS — PRECISION DESIGN SYSTEM v3
+   Based on DESIGN.md — Corporate Modern + Glassmorphism + Ambient Depth
+   Container: 1440px · Section: 80px · Display: 72px · Radius: organic
+   ═══════════════════════════════════════════════════════════════════ */
+
 @theme {
-  /* ── Surfaces ─────────────────────────────────────────────────────── */
-  --color-bg:          #fbf9f8;
-  --color-bg-1:        #ffffff;
-  --color-bg-2:        #f5f3f3;
-  --color-bg-3:        #efeded;
+  /* ── Surface system ──────────────────────────────────────────── */
+  --color-bg:                   #fbf9f8;
+  --color-bg-1:                 #ffffff;
+  --color-bg-2:                 #f5f3f3;
+  --color-bg-3:                 #efeded;
+  --color-bg-4:                 #e9e8e7;
 
-  /* ── Borders ──────────────────────────────────────────────────────── */
-  --color-border:      rgba(196,198,207,0.35);
-  --color-border-2:    rgba(116,119,127,0.25);
-  --color-border-3:    rgba(116,119,127,0.45);
+  /* ── Borders (low contrast — shadow does the separation work) ── */
+  --color-border:               rgba(196, 198, 207, 0.3);
+  --color-border-2:             rgba(116, 119, 127, 0.2);
+  --color-border-3:             rgba(116, 119, 127, 0.4);
 
-  /* ── Text ─────────────────────────────────────────────────────────── */
-  --color-text:        #1b1c1c;
-  --color-text-2:      #44474e;
-  --color-text-3:      #74777f;
+  /* ── Text ────────────────────────────────────────────────────── */
+  --color-text:                 #1b1c1c;
+  --color-text-2:               #44474e;
+  --color-text-3:               #74777f;
 
-  /* ── Primary — Deep Navy ──────────────────────────────────────────── */
-  --color-blue:        #002045;
-  --color-blue-dim:    #00091b;
-  --color-blue-glow:   #465f87;
+  /* ── Primary: Deep Navy ──────────────────────────────────────── */
+  --color-blue:                 #002045;
+  --color-blue-dim:             #00091b;
+  --color-blue-mid:             #2e476e;
+  --color-blue-light:           #7089b3;
+  --color-blue-glass:           rgba(26, 54, 93, 0.95);
 
-  /* ── Accents ──────────────────────────────────────────────────────── */
-  --color-green:       #6eab8c;
-  --color-amber:       #745a25;
-  --color-amber-light: #ffdb9a;
-  --color-cyan:        #0f4c6b;
-  --color-red:         #ba1a1a;
-  --color-warning:     #c9822b;
+  /* ── Accents ─────────────────────────────────────────────────── */
+  --color-green:                #6eab8c;
+  --color-green-container:      #002617;
+  --color-green-on-container:   #579476;
+  --color-amber:                #745a25;
+  --color-amber-container:      #ffdb9a;
+  --color-red:                  #ba1a1a;
+  --color-gradient-start:       #d6e3ff;
+  --color-glass-light:          rgba(255, 255, 255, 0.85);
+  --color-glass-dark:           rgba(26, 54, 93, 0.95);
 
-  /* ── Typography ────────────────────────────────────────────────────── */
-  --font-display: var(--font-space-grotesk), 'Inter', system-ui, sans-serif;
-  --font-body:    var(--font-inter), system-ui, -apple-system, sans-serif;
+  /* ── Typography — Inter only ─────────────────────────────────── */
+  --font-display: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-body:    var(--font-inter), system-ui, sans-serif;
   --font-mono:    var(--font-jetbrains), 'Courier New', monospace;
 
-  /* ── Spacing ────────────────────────────────────────────────────────── */
-  --section-y:    clamp(5rem, 9vw, 8rem);
+  /* ── Spacing (8px base unit) ─────────────────────────────────── */
+  --space-xs:      4px;
+  --space-sm:      12px;
+  --space-md:      24px;
+  --space-lg:      48px;
+  --space-xl:      80px;
+  --space-gutter:  24px;
+  --section-y:     clamp(4rem, 6vw, 5rem);
+
+  /* ── Border radius ───────────────────────────────────────────── */
+  --radius-sm:     4px;
+  --radius-md:     12px;
+  --radius-lg:     16px;
+  --radius-xl:     24px;
+  --radius-2xl:    32px;
+  --radius-full:   9999px;
 }
 
-/* ── Keyframes ───────────────────────────────────────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes pulse-ring {
-  0%   { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(2); opacity: 0; }
-}
+/* ── Keyframes ──────────────────────────────────────────────────────── */
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
+  0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-14px); }
 }
-@keyframes pipelineFlow {
-  0%   { left: -5px; opacity: 0; }
-  6%   { opacity: 1; }
-  94%  { opacity: 1; }
-  100% { left: calc(100% + 5px); opacity: 0; }
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-20px) rotate(1deg); }
 }
-@keyframes packetTravel {
-  0%   { left: -4px; opacity: 0; }
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(110,171,140,0.3); }
+  50%       { box-shadow: 0 0 32px rgba(110,171,140,0.6); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pipelineFlow {
+  0%   { left: -6px; opacity: 0; }
   8%   { opacity: 1; }
   92%  { opacity: 1; }
-  100% { left: calc(100% + 4px); opacity: 0; }
+  100% { left: calc(100% + 6px); opacity: 0; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-/* ── Base ────────────────────────────────────────────────────────────────── */
+/* ── Base ────────────────────────────────────────────────────────────── */
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
 
@@ -77,22 +105,21 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
   }
 
   body {
     font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
     background-color: var(--color-bg);
     color: var(--color-text);
-    line-height: 1.6;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5 {
     font-family: var(--font-display);
     color: var(--color-text);
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 
@@ -100,40 +127,65 @@
   a { color: inherit; text-decoration: none; }
 }
 
-/* ── Utilities ────────────────────────────────────────────────────────────── */
+/* ── Utilities ────────────────────────────────────────────────────────── */
 @layer utilities {
 
-  /* Layout rhythm */
+  /* ── Section rhythm ──────────────────────────────────────────── */
   .section-y {
     padding-top: var(--section-y);
     padding-bottom: var(--section-y);
   }
+  .section-y-lg {
+    padding-top: clamp(5rem, 8vw, 7rem);
+    padding-bottom: clamp(5rem, 8vw, 7rem);
+  }
 
-  /* ── Typography ──────────────────────────────────────────── */
+  /* ── Typography scale ────────────────────────────────────────── */
   .text-display {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+    font-size: clamp(3rem, 5.5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+  }
+  .text-display-hero {
+    font-family: var(--font-display);
+    font-size: clamp(3.25rem, 6vw, 4.75rem);
     font-weight: 700;
     line-height: 1.0;
     letter-spacing: -0.04em;
   }
-
-  .text-display-sm {
+  .text-headline-lg {
     font-family: var(--font-display);
-    font-size: clamp(1.875rem, 3.5vw, 3rem);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
     font-weight: 600;
-    line-height: 1.05;
+    line-height: 1.15;
     letter-spacing: -0.03em;
   }
-
-  .text-title {
+  .text-headline-md {
     font-family: var(--font-display);
-    font-size: clamp(1.125rem, 1.8vw, 1.5rem);
-    font-weight: 600;
-    line-height: 1.2;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.3;
     letter-spacing: -0.02em;
   }
-
+  .text-body-lg {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-text-2);
+  }
+  .text-body-md {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-text-2);
+  }
+  .text-label-sm {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
   .text-label {
     font-family: var(--font-mono);
     font-size: 0.65rem;
@@ -142,134 +194,75 @@
     text-transform: uppercase;
     color: var(--color-green);
   }
-
-  .text-stat {
-    font-family: var(--font-mono);
-    font-size: clamp(1.875rem, 4vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.04em;
+  .text-caption {
+    font-size: 0.6875rem;
+    line-height: 1.4;
+    color: var(--color-text-3);
   }
 
-  .text-index {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--color-blue);
-  }
-
-  /* ── Scroll animation ────────────────────────────────────── */
+  /* ── Scroll animation ────────────────────────────────────────── */
   [data-animate] {
     opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  [data-animate="left"]  { transform: translateX(-18px); }
-  [data-animate="right"] { transform: translateX(18px); }
-  [data-animate="scale"] { transform: scale(0.95); opacity: 0; }
-  [data-visible=true] { opacity: 1 !important; transform: none !important; }
+  [data-animate="left"]  { transform: translateX(-24px); }
+  [data-animate="right"] { transform: translateX(24px); }
+  [data-animate="scale"] { transform: scale(0.94); opacity: 0; }
+  [data-visible=true]    { opacity: 1 !important; transform: none !important; }
 
-  /* ── Glass panel ─────────────────────────────────────────── */
-  .glass-panel {
-    backdrop-filter: blur(12px);
-    background: rgba(255,255,255,0.82);
-    border: 1px solid rgba(255,255,255,0.4);
+  /* ── Glass effects ───────────────────────────────────────────── */
+  .glass-light {
+    backdrop-filter: blur(16px) saturate(1.6);
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+  }
+  .glass-dark {
+    backdrop-filter: blur(16px) saturate(1.4);
+    background: rgba(26, 54, 93, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .glass-nav {
+    backdrop-filter: blur(20px) saturate(1.8);
+    background: rgba(251, 249, 248, 0.88);
+    border-bottom: 1px solid rgba(196, 198, 207, 0.25);
   }
 
-  /* ── Floating animation ──────────────────────────────────── */
-  .floating-anim {
-    animation: float 6s ease-in-out infinite;
-  }
-  .floating-anim-2 {
-    animation: float 7s ease-in-out 1s infinite;
-  }
-  .floating-anim-3 {
-    animation: float 8s ease-in-out 2s infinite;
-  }
-
-  /* ── Mesh background ─────────────────────────────────────── */
+  /* ── Ambient mesh background ─────────────────────────────────── */
   .bg-mesh {
-    background-image:
-      radial-gradient(at 0% 0%, #d6e3ff 0px, transparent 55%),
-      radial-gradient(at 100% 0%, rgba(110,171,140,0.12) 0px, transparent 50%),
-      radial-gradient(at 50% 100%, #f0f0f0 0px, transparent 50%);
     background-color: var(--color-bg);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 0% 0%, rgba(214, 227, 255, 0.55) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 0%, rgba(110, 171, 140, 0.12) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(237, 235, 232, 0.5) 0%, transparent 60%);
   }
 
-  /* ── System panel ────────────────────────────────────────── */
-  .panel {
-    background: var(--color-bg-2);
-    border: 1px solid var(--color-border);
-    transition: border-color 0.2s ease;
+  /* ── Decorative orbs ─────────────────────────────────────────── */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
   }
-  .panel:hover { border-color: var(--color-border-2); }
+  .orb-blue  { background: radial-gradient(circle, rgba(174, 199, 245, 0.45), transparent 70%); }
+  .orb-teal  { background: radial-gradient(circle, rgba(110, 171, 140, 0.25), transparent 70%); }
 
-  /* ── Accent line ─────────────────────────────────────────── */
-  .accent-line {
-    display: block;
-    width: 2rem;
-    height: 2px;
-    background: var(--color-green);
-    margin-bottom: 1.25rem;
-    border-radius: 2px;
-  }
+  /* ── Floating animations ─────────────────────────────────────── */
+  .floating     { animation: float 6s ease-in-out infinite; }
+  .floating-2   { animation: float 7.5s ease-in-out 1.2s infinite; }
+  .floating-3   { animation: float-slow 9s ease-in-out 2.5s infinite; }
 
-  /* ── CTAs ────────────────────────────────────────────────── */
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--color-blue);
-    color: white;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: -0.01em;
-    padding: 0.875rem 1.75rem;
-    border-radius: 10px;
-    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 16px -4px rgba(0,32,69,0.25);
-  }
-  .btn-primary:hover {
-    background: var(--color-blue-dim);
-    box-shadow: 0 8px 32px -8px rgba(0,32,69,0.35);
-    transform: translateY(-1px);
-  }
-  .btn-primary:active { transform: scale(0.98); }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: transparent;
-    color: var(--color-text-2);
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.875rem;
-    letter-spacing: -0.01em;
-    padding: 0.875rem 1.75rem;
-    border: 1px solid var(--color-border-2);
-    border-radius: 10px;
-    transition: border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
-  }
-  .btn-secondary:hover {
-    border-color: var(--color-border-3);
-    color: var(--color-text);
-    transform: translateY(-1px);
-  }
-  .btn-secondary:active { transform: scale(0.98); }
-
-  /* ── Live pulse dot ──────────────────────────────────────── */
+  /* ── Live dot ────────────────────────────────────────────────── */
   .live-dot {
     position: relative;
     display: inline-block;
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--color-green);
     flex-shrink: 0;
+    animation: glow-pulse 2.5s ease-in-out infinite;
   }
   .live-dot::after {
     content: '';
@@ -280,116 +273,209 @@
     animation: pulse-ring 2s ease-out infinite;
   }
 
-  /* ── Pipeline connectors ─────────────────────────────────── */
-  .pipeline-connector {
-    position: relative;
-    flex: 1;
-    height: 1px;
-    background: var(--color-border-2);
-    align-self: center;
-    margin-top: -1.5rem;
-    min-width: 10px;
-    overflow: visible;
-  }
-  .pipeline-connector::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -5px;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--color-blue);
-    transform: translateY(-50%);
-    animation: pipelineFlow 3.2s ease-in-out infinite;
+  /* ── Accent line ─────────────────────────────────────────────── */
+  .accent-line {
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    background: var(--color-green);
+    border-radius: var(--radius-full);
+    margin-bottom: 1.5rem;
   }
 
-  /* ── Dashboard sidebar ───────────────────────────────────── */
-  .dash-sidebar {
-    background: var(--color-blue);
-    color: white;
-  }
-  .dash-nav-item {
-    padding: 0.5rem 0.75rem;
-    border-radius: 8px;
-    display: flex;
+  /* ── Buttons ─────────────────────────────────────────────────── */
+  .btn-primary {
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.82rem;
-    color: rgba(255,255,255,0.6);
+    background: var(--color-blue);
+    color: white;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-xl);
+    transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.22s ease;
+    box-shadow: 0 4px 20px -4px rgba(0, 32, 69, 0.3), 0 1px 4px rgba(0, 32, 69, 0.15);
+    white-space: nowrap;
+  }
+  .btn-primary:hover {
+    background: var(--color-blue-dim);
+    box-shadow: 0 12px 40px -8px rgba(0, 32, 69, 0.4), 0 2px 8px rgba(0, 32, 69, 0.2);
+    transform: translateY(-2px);
+  }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(196, 198, 207, 0.5);
+    border-radius: var(--radius-xl);
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+    white-space: nowrap;
+  }
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(116, 119, 127, 0.4);
+    transform: translateY(-2px);
+  }
+  .btn-secondary:active { transform: scale(0.98); }
+
+  /* ── Cards ───────────────────────────────────────────────────── */
+  .card {
+    background: var(--color-bg-1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 4px 24px -8px rgba(0, 32, 69, 0.06);
+    transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 48px -12px rgba(0, 32, 69, 0.12);
+  }
+
+  /* ── Workspace panel (dark navy glass) ───────────────────────── */
+  .workspace {
+    background: var(--color-blue);
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 32px 64px -16px rgba(0, 32, 69, 0.18);
+  }
+
+  /* ── Status chips ────────────────────────────────────────────── */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .chip-teal    { background: rgba(110,171,140,0.12); color: #3d9070; border: 1px solid rgba(110,171,140,0.3); }
+  .chip-navy    { background: rgba(0,32,69,0.08);     color: var(--color-blue-mid); border: 1px solid rgba(0,32,69,0.15); }
+  .chip-amber   { background: rgba(116,90,37,0.1);    color: var(--color-amber); border: 1px solid rgba(116,90,37,0.2); }
+  .chip-red     { background: rgba(186,26,26,0.08);   color: var(--color-red);   border: 1px solid rgba(186,26,26,0.18); }
+  .chip-white   { background: rgba(255,255,255,0.12); color: white;              border: 1px solid rgba(255,255,255,0.2); }
+
+  /* ── Dashboard sidebar nav ───────────────────────────────────── */
+  .dash-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: var(--radius-lg);
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.55);
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease;
   }
   .dash-nav-item.active {
     background: rgba(255,255,255,0.12);
     color: white;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .dash-nav-item:not(.active):hover {
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.75);
   }
 
-  /* ── Section divider ─────────────────────────────────────── */
-  .h-rule {
-    height: 1px;
-    background: var(--color-border);
-  }
-
-  /* ── Reduced motion ──────────────────────────────────────── */
-  @media (prefers-reduced-motion: reduce) {
-    [data-animate] { transition: none; }
-    .live-dot::after { animation: none; }
-    .floating-anim, .floating-anim-2, .floating-anim-3 { animation: none; }
-    .pipeline-connector::after { animation: none; opacity: 0; }
-  }
-
-  /* ── Mobile pipeline ─────────────────────────────────────── */
-  @media (max-width: 700px) {
-    .pipeline-flow { flex-direction: column !important; align-items: center !important; }
-    .pipeline-connector {
-      width: 1px; height: 20px; flex: none;
-      align-self: center; margin-top: 0; min-width: unset;
-    }
-    .pipeline-connector::after { animation: none; opacity: 0; }
-  }
-}
-
-/* ── Backwards compat aliases (used by LeadCalculator) ─────────────────── */
-@layer base {
-  :root {
-    --color-charcoal:    var(--color-bg);
-    --color-navy:        var(--color-blue);
-    --color-gold:        var(--color-amber);
-    --color-gold-light:  var(--color-amber-light);
-    --color-teal:        var(--color-green);
-    --color-surface:     var(--color-bg-2);
-    --color-text-secondary: var(--color-text-2);
-    --color-text-muted:  var(--color-text-3);
-    --color-line:        var(--color-border);
-  }
-}
-
-/* ── CSS hover utilities ────────────────────────────────────────────────── */
-@layer utilities {
-  .link-dim {
-    color: var(--color-text-3);
-    transition: color 0.15s ease;
-  }
-  .link-dim:hover { color: var(--color-text-2); }
-
+  /* ── Nav hover utilities ─────────────────────────────────────── */
   .nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
     color: var(--color-text-3);
     transition: color 0.15s ease;
-    font-size: 0.875rem;
-    font-weight: 500;
+    letter-spacing: -0.01em;
   }
   .nav-link:hover { color: var(--color-text); }
 
   .nav-cta {
     background: var(--color-blue);
     color: white;
-    border-radius: 8px;
-    transition: background 0.15s ease;
-    font-size: 0.875rem;
+    border-radius: var(--radius-lg);
+    font-size: 0.9rem;
     font-weight: 600;
-    padding: 0.5rem 1.1rem;
+    padding: 0.55rem 1.25rem;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 2px 12px -2px rgba(0,32,69,0.25);
   }
-  .nav-cta:hover { background: var(--color-blue-dim); }
+  .nav-cta:hover {
+    background: var(--color-blue-dim);
+    box-shadow: 0 4px 20px -4px rgba(0,32,69,0.35);
+  }
+
+  .link-dim { color: var(--color-text-3); transition: color 0.15s ease; }
+  .link-dim:hover { color: var(--color-text-2); }
+
+  /* ── Section divider ─────────────────────────────────────────── */
+  .h-rule { height: 1px; background: var(--color-border); }
+
+  /* ── Pipeline connector ──────────────────────────────────────── */
+  .pipeline-connector {
+    position: relative;
+    flex: 1;
+    height: 1px;
+    background: var(--color-border-2);
+    align-self: center;
+    margin-top: -2rem;
+    min-width: 12px;
+    overflow: visible;
+  }
+  .pipeline-connector::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-blue);
+    transform: translateY(-50%);
+    animation: pipelineFlow 3.2s ease-in-out infinite;
+  }
+
+  /* ── Reduced motion ──────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    [data-animate]        { transition: none; }
+    .live-dot             { animation: none; }
+    .live-dot::after      { animation: none; }
+    .floating, .floating-2, .floating-3 { animation: none; }
+    .pipeline-connector::after { animation: none; opacity: 0; }
+  }
+
+  /* ── Pipeline mobile ─────────────────────────────────────────── */
+  @media (max-width: 767px) {
+    .pipeline-connector { width: 1px; height: 24px; flex: none; margin-top: 0; min-width: unset; }
+    .pipeline-connector::after { animation: none; opacity: 0; }
+  }
+}
+
+/* ── Backwards compatibility aliases ────────────────────────────────── */
+@layer base {
+  :root {
+    --color-charcoal:       var(--color-blue-dim);
+    --color-navy:           var(--color-blue);
+    --color-gold:           var(--color-amber);
+    --color-gold-light:     var(--color-amber-container);
+    --color-teal:           var(--color-green);
+    --color-surface:        var(--color-bg-2);
+    --color-text-secondary: var(--color-text-2);
+    --color-text-muted:     var(--color-text-3);
+    --color-line:           var(--color-border);
+    --color-warning:        #c9822b;
+    --color-blue-glow:      var(--color-blue-mid);
+  }
 }
