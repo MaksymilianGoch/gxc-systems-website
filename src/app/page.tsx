@@ -6,6 +6,7 @@ import { PipelineSection } from '@/components/sections/PipelineSection'
 import { LeadCalculatorSection } from '@/components/sections/LeadCalculatorSection'
 import { TrustSection } from '@/components/sections/TrustSection'
 import { FoundersSection } from '@/components/sections/FoundersSection'
+import { CaseStudySection } from '@/components/sections/CaseStudySection'
 import { FaqSection } from '@/components/sections/FaqSection'
 import { PricingSection } from '@/components/sections/PricingSection'
 import { ContactSection } from '@/components/sections/ContactSection'
@@ -24,6 +25,7 @@ export default function HomePage() {
       <LeadCalculatorSection />
       <TrustSection />
       <FoundersSection />
+      <CaseStudySection />
       <FaqSection items={faqData as FaqItem[]} />
       <PricingSection />
       <ContactSection />

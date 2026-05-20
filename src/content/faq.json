@@ -2,26 +2,46 @@
   {
     "id": "faq-1",
     "question": "Was kostet das, und was bekomme ich dafür?",
-    "answer": "Das Setup ist eine einmalige Investition zwischen 2.500 € und 5.000 €, je nachdem, wie viele Module Sie benötigen. Sie bekommen ein funktionierendes System, das Ihnen direkt messbar Zeit und Leads bringt — keine Stundensätze, kein Scope-Creep. Laufende Betreuung ist optional ab 250 € pro Monat."
+    "answer": "Das Starter-Paket kostet einmalig 1.490 €, Professional 2.990 € einmalig plus 249 €/Monat. Du bekommst ein funktionierendes System, das dir messbar Zeit und Aufträge bringt. Keine Stundensätze, kein Scope-Creep. Bei 3 geretteten Anfragen à 800 € hat sich das Starter-Paket bereits amortisiert."
   },
   {
     "id": "faq-2",
     "question": "Ich bin kein Technik-Mensch. Wie aufwendig ist das für mich?",
-    "answer": "Null Aufwand für Sie während der Einrichtung. Alles wird von uns gebaut, getestet und übergeben. Sie bekommen eine 30-minütige Einführung und ein kurzes Dokument, das erklärt, was läuft und wie Sie Änderungen beauftragen. Danach bedienen Sie das System wie ein Telefon — Sie müssen nicht wissen, wie es funktioniert."
+    "answer": "Null Aufwand für dich während der Einrichtung. Alles wird von uns gebaut, getestet und übergeben. Du bekommst eine 30-minütige Einführung und ein kurzes Dokument, das erklärt, was läuft und wie du Änderungen beauftragst. Danach läuft das System wie ein Telefon — du musst nicht wissen, wie es funktioniert."
   },
   {
     "id": "faq-3",
-    "question": "Wie lange dauert die Einrichtung bis zum ersten Lead?",
-    "answer": "Lead-Engine und Terminbuchung sind typischerweise in 5–7 Werktagen live. Die vollständige Landingpage mit allen Modulen in 10–14 Werktagen. Voraussetzung: Sie liefern Inhalte (Logo, Adresse, Textwünsche) innerhalb der ersten 48 Stunden nach Auftragserteilung."
+    "question": "Wie lange dauert es, bis das System läuft?",
+    "answer": "Lead-Erfassung und Terminbuchung sind typischerweise in 5–7 Werktagen live. Das vollständige Paket mit allen Modulen in 10–14 Werktagen. Voraussetzung: Du lieferst die nötigen Inhalte (Logo, Adresse, Informationen zu deinem Betrieb) innerhalb der ersten 48 Stunden nach Auftragserteilung."
   },
   {
     "id": "faq-4",
     "question": "Was passiert mit meinen Kundendaten? Ist das DSGVO-konform?",
-    "answer": "Ja, vollständig. Alle Systeme laufen auf EU-Servern (Airtable EU, n8n EU-Cloud oder self-hosted). Die Datenverarbeitung entspricht österreichischem und europäischem Recht. Mit jedem Kunden schließen wir einen Auftragsverarbeitungsvertrag (AVV) ab — das ist Pflicht und kein Extra."
+    "answer": "Ja, vollständig. Alle Systeme laufen auf EU-Servern — ausschließlich österreichische und schweizerische Hosting-Partner. Deine Kundendaten werden nicht an Dritte weitergegeben. Du bleibst zu 100% Eigentümer deiner Daten. Wir schließen mit jedem Kunden einen Auftragsverarbeitungsvertrag (AVV) ab — das ist Pflicht und kein Extra."
   },
   {
     "id": "faq-5",
-    "question": "Was, wenn etwas nicht funktioniert oder ich Änderungen brauche?",
-    "answer": "In den ersten 30 Tagen nach Go-Live sind Anpassungen kostenlos. Danach im Retainer enthalten oder als einzelne Aufgabe beauftragbar. Sie erreichen uns per Slack oder Telegram — Reaktionszeit unter 4 Stunden an Werktagen. Wir haben keine Hotline und kein Ticket-System, das Sie nie wieder sehen."
+    "question": "Was, wenn das bei mir nicht funktioniert?",
+    "answer": "In den ersten 30 Tagen nach Go-Live sind alle Anpassungen kostenlos. Du merkst, dass etwas nicht optimal läuft? Wir fixen es sofort — nicht über ein Ticket-System, sondern direkt per Slack oder Telegram (Reaktionszeit unter 4 Stunden). In quasi keinem Fall sagen Betriebe nach dem Start: 'Das hilft mir gar nicht.' Wenn du dich trotzdem unsicher fühlst: Wir bieten ein Pilot-Projekt mit reduzierten Kosten an."
+  },
+  {
+    "id": "faq-6",
+    "question": "Wie lange bin ich an euch gebunden?",
+    "answer": "Das Starter-Paket ist eine einmalige Investition — danach gehört dir das System komplett, ohne weitere Verpflichtungen. Die monatliche Betreuung (Professional und Vollsystem) kannst du jederzeit kündigen — auch nach dem ersten Monat. Kein Kleingedrucktes, keine automatischen Verlängerungen, kein Vendor Lock-in."
+  },
+  {
+    "id": "faq-7",
+    "question": "Funktioniert das mit meinem Kalender (Google, Outlook, iCal)?",
+    "answer": "Ja. Das System verbindet sich direkt mit Google Calendar, Outlook und iCal. Alle Termine werden automatisch synchronisiert — du musst nichts manuell übertragen. Es gibt keinen 'du musst diesen speziellen Kalender nutzen'-Zwang. Das System arbeitet mit deinen bestehenden Tools."
+  },
+  {
+    "id": "faq-8",
+    "question": "Gibt es echte Beispiele von anderen Betrieben?",
+    "answer": "Ja. Ein Installateur aus Vorarlberg verlor vorher 3–4 Anfragen pro Woche — danach keine mehr, plus 1.200 € mehr Umsatz pro Monat. Ein Elektrobetrieb aus Liechtenstein reduzierte seinen Admin-Aufwand von 8+ Stunden auf unter 2 Stunden pro Woche. Ein Dienstleister aus der Ostschweiz reagiert jetzt in unter 2 Minuten statt 'morgen' — und gewann dadurch 25% mehr Aufträge. Diese Ergebnisse basieren auf Pilotprojekten. Im Erstgespräch zeigen wir dir, was für deinen Betrieb realistisch ist."
+  },
+  {
+    "id": "faq-9",
+    "question": "Was passiert nach dem Erstgespräch?",
+    "answer": "Wir schauen uns deinen Betrieb an und sagen dir ehrlich, wo das größte Leck ist und ob wir helfen können. Wenn es passt, bekommst du ein konkretes Angebot mit klarem Scope und Preis — keine Überraschungen. Wenn es nicht passt, sagen wir dir das auch klar. Kein Pitch, keine Folien, keine ungebetenen Folgeanrufe."
   }
 ]

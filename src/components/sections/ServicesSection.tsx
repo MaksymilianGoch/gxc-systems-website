@@ -18,25 +18,25 @@ const MODULES: Module[] = [
     index: '01',
     id: 'ai-agent-systems',
     title: 'KI-Agenten-Systeme',
-    tagline: 'Intelligente Prozessautomatisierung mit eigenständiger Entscheidungsfähigkeit',
+    tagline: 'Dein Betrieb antwortet — auch wenn du nicht da bist.',
     detail:
       'KI-Agenten, die Leads qualifizieren, Anfragen weiterleiten, Abläufe auslösen und Standardkommunikation ohne menschlichen Eingriff abwickeln. Aufgebaut auf Ihrer Geschäftslogik, trainiert auf Ihren Prozessen.',
     outcomes: [
-      'Lead-Qualifizierung vollständig automatisiert',
-      'Reaktionszeit unter 60 Sekunden',
-      'Rund-um-die-Uhr-Verfügbarkeit ohne Personalkosten',
+      'Reaktionszeit unter 2 Minuten',
+      'Rund um die Uhr erreichbar ohne Personalkosten',
+      'Jede Anfrage qualifiziert und priorisiert',
     ],
   },
   {
     index: '02',
     id: 'workflow-automation',
     title: 'Prozessautomatisierung',
-    tagline: 'Durchgängige Prozessausführung ohne manuelle Koordination',
+    tagline: 'Kein vergessenes Follow-up. Kein Koordinations-Chaos.',
     detail:
       'Mehrstufige Abläufe, die von der Anfrage bis zum Ergebnis laufen — Buchungsbestätigungen, Nachverfolgungssequenzen, Statusmeldungen und interne Benachrichtigungen — alle ausgelöst durch Geschäftsereignisse.',
     outcomes: [
-      'Keine Nachverfolgung geht verloren',
-      'Über 8 Stunden Verwaltungsaufwand pro Woche eingespart',
+      'Null verlorene Follow-ups',
+      '10+ Stunden Admin-Arbeit pro Woche eliminiert',
       'Vollständiges Protokoll aller Vorgänge',
     ],
   },
@@ -44,7 +44,7 @@ const MODULES: Module[] = [
     index: '03',
     id: 'crm-lead-management',
     title: 'CRM & Lead-Management',
-    tagline: 'Strukturierte Pipeline vom Erstkontakt bis zum Abschluss',
+    tagline: 'Du weißt immer, wo jede Anfrage steht.',
     detail:
       'Jeder Lead wird erfasst, kategorisiert, zugewiesen und verfolgt. Automatische Statusübergänge, Nachverfolgungserinnerungen und Leistungsberichte sind vom ersten Tag an integriert.',
     outcomes: [
@@ -57,7 +57,7 @@ const MODULES: Module[] = [
     index: '04',
     id: 'websites-digital-presence',
     title: 'Website & Digitale Präsenz',
-    tagline: 'Auf Konversion ausgelegte digitale Infrastruktur',
+    tagline: 'Nicht schön — so gebaut, dass sie Aufträge bringt.',
     detail:
       'Websites, die als operative Systeme gebaut werden — nicht als Broschüren. Von Beginn an integriert mit Lead-Erfassung, CRM-Weiterleitung und Buchungssystemen.',
     outcomes: [
@@ -70,7 +70,7 @@ const MODULES: Module[] = [
     index: '05',
     id: 'integrations-infrastructure',
     title: 'Integrationen & Infrastruktur',
-    tagline: 'Alle Ihre Systeme — verbunden und koordiniert',
+    tagline: 'Dein Kalender, deine E-Mail, dein Telefon — alles spricht miteinander.',
     detail:
       'API-Integrationen zwischen Ihren bestehenden Werkzeugen — Kalender, E-Mail, Zahlung, Kommunikation — orchestriert über eine zentrale Automatisierungsschicht.',
     outcomes: [
