@@ -2,11 +2,11 @@ import Link from 'next/link'
 
 const links = {
   system: [
-    { label: 'KI-Agenten-Systeme', href: '/#leistungen' },
-    { label: 'Prozessautomatisierung', href: '/#leistungen' },
-    { label: 'CRM & Lead-Management', href: '/#leistungen' },
-    { label: 'Website & Digitale Präsenz', href: '/#leistungen' },
-    { label: 'Integrationen', href: '/#leistungen' },
+    { label: 'Wie das System arbeitet', href: '/#wie-es-funktioniert' },
+    { label: 'Live-Demo', href: '/#demo' },
+    { label: 'Umsetzungsablauf', href: '/#ablauf' },
+    { label: 'Modellrechnung', href: '/#rechner' },
+    { label: 'Preise', href: '/#preise' },
   ],
   company: [
     { label: 'Ablauf', href: '/#ablauf' },
