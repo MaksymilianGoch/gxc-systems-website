@@ -86,10 +86,10 @@ export function ContactForm({ dark = false }: ContactFormProps) {
       <div className="flex flex-col items-center gap-4 py-16 text-center">
         <CheckCircle size={48} className="text-teal" aria-hidden="true" />
         <h3 className="text-xl font-heading font-medium text-navy">
-          Ihre Nachricht ist angekommen.
+          Deine Nachricht ist angekommen.
         </h3>
         <p className="text-text-secondary text-sm max-w-sm">
-          Wir melden uns innerhalb von 4 Stunden an Werktagen. Bitte prüfen Sie auch Ihren
+          Wir melden uns innerhalb von 4 Stunden an Werktagen. Bitte prüfe auch deinen
           Spam-Ordner.
         </p>
       </div>

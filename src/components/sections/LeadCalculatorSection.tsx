@@ -2,8 +2,9 @@
 
 import { useState, useCallback } from 'react'
 import { Container } from '@/components/ui/Container'
+import { AnimateIn } from '@/components/ui/AnimateIn'
 
-// ── Types ────────────────────────────────────────────────────────────────────
+// ── Types ─────────────────────────────────────────────────────────────────────
 
 interface SliderConfig {
   id: keyof CalcState
@@ -22,7 +23,7 @@ interface CalcState {
   abschlussrate: number
 }
 
-// ── Slider configuration ─────────────────────────────────────────────────────
+// ── Slider configuration ──────────────────────────────────────────────────────
 
 const sliders: SliderConfig[] = [
   {
@@ -70,7 +71,7 @@ const DEFAULTS: CalcState = {
   abschlussrate: 20,
 }
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
 function calcResults(state: CalcState) {
   const wöchentlich = state.verpassteAnfragen * state.auftragswert * (state.abschlussrate / 100)
@@ -93,7 +94,7 @@ function formatValue(config: SliderConfig, value: number): string {
   return config.unitPosition === 'prefix' ? `${config.unit} ${raw}` : `${raw} ${config.unit}`
 }
 
-// ── Slider component ─────────────────────────────────────────────────────────
+// ── Slider component ──────────────────────────────────────────────────────────
 
 interface SliderRowProps {
   config: SliderConfig
@@ -109,22 +110,17 @@ function SliderRow({ config, value, onChange }: SliderRowProps) {
       <div className="flex items-baseline justify-between mb-2">
         <label
           htmlFor={`slider-${config.id}`}
-          style={{
-            fontSize: '0.82rem',
-            fontWeight: 500,
-            color: 'rgba(255,255,255,0.65)',
-            letterSpacing: '0.01em',
-          }}
+          style={{ fontSize: '0.82rem', fontWeight: 500, color: 'var(--color-text-2)', letterSpacing: '0.01em' }}
         >
           {config.label}
         </label>
         <span
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: '0.9rem',
-            fontWeight: 600,
-            color: 'var(--color-gold)',
-            letterSpacing: '0.02em',
+            fontSize: '0.875rem',
+            fontWeight: 700,
+            color: 'var(--color-blue)',
+            letterSpacing: '-0.01em',
             minWidth: '5rem',
             textAlign: 'right',
           }}
@@ -140,7 +136,7 @@ function SliderRow({ config, value, onChange }: SliderRowProps) {
             position: 'absolute',
             inset: 0,
             borderRadius: '2px',
-            background: 'rgba(255,255,255,0.12)',
+            background: 'var(--color-border)',
           }}
         />
         {/* Filled portion */}
@@ -152,7 +148,7 @@ function SliderRow({ config, value, onChange }: SliderRowProps) {
             height: '100%',
             width: `${pct}%`,
             borderRadius: '2px',
-            background: 'linear-gradient(90deg, var(--color-teal), var(--color-gold))',
+            background: 'var(--color-blue)',
             transition: 'width 0.08s ease',
           }}
         />
@@ -186,26 +182,20 @@ function SliderRow({ config, value, onChange }: SliderRowProps) {
             width: '14px',
             height: '14px',
             borderRadius: '50%',
-            background: 'var(--color-gold)',
-            border: '2px solid var(--color-charcoal)',
-            boxShadow: '0 0 0 3px rgba(200, 164, 74, 0.25)',
+            background: 'var(--color-blue)',
+            border: '2px solid var(--color-bg-1)',
+            boxShadow: '0 0 0 3px rgba(23,59,92,0.15)',
             transition: 'left 0.08s ease',
             pointerEvents: 'none',
           }}
         />
       </div>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginTop: '4px',
-        }}
-      >
-        <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.28)', fontFamily: 'var(--font-mono)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px' }}>
+        <span style={{ fontSize: '0.62rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>
           {formatValue(config, config.min)}
         </span>
-        <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.28)', fontFamily: 'var(--font-mono)' }}>
+        <span style={{ fontSize: '0.62rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>
           {formatValue(config, config.max)}
         </span>
       </div>
@@ -227,283 +217,158 @@ export function LeadCalculatorSection() {
   return (
     <section
       id="rechner"
-      className="section-y dark-section"
+      className="section-y"
+      style={{ background: 'var(--color-bg-2)' }}
       aria-labelledby="calc-heading"
     >
-      <Container className="relative">
-
-        {/* ── Section header ─────────────────────────────────── */}
-        <div style={{ marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-          <p className="text-label" style={{ color: 'var(--color-gold)', marginBottom: '1rem' }}>
-            ANALYSE
-          </p>
-          <div className="rule-gold" style={{ marginBottom: '1.5rem' }} aria-hidden="true" />
-          <h2
-            id="calc-heading"
-            className="text-display-sm"
-            style={{ color: 'white', maxWidth: '34rem', marginBottom: '1rem' }}
-          >
-            Was kostet dich das fehlende System?
-          </h2>
-          <p style={{ color: 'rgba(255,255,255,0.50)', maxWidth: '30rem', fontSize: '1rem', lineHeight: 1.65 }}>
-            Berechne deinen jährlichen Umsatzverlust durch manuelle Prozesse.
-          </p>
-        </div>
-
-        {/* ── Two-column grid ─────────────────────────────────── */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
-            gap: 'clamp(2rem, 5vw, 4rem)',
-            alignItems: 'start',
-          }}
-        >
-
-          {/* Left: Sliders ─────────────────────────────────────── */}
-          <div
-            style={{
-              background: 'rgba(255,255,255,0.035)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              padding: 'clamp(1.5rem, 3vw, 2.5rem)',
-            }}
-          >
-            <p
+      <Container>
+        <AnimateIn>
+          <div style={{ maxWidth: '38rem', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
+            <span className="accent-line" />
+            <p className="text-label mb-4">Modellrechnung</p>
+            <h2
+              id="calc-heading"
               style={{
-                fontSize: '0.7rem',
-                fontWeight: 600,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.35)',
-                marginBottom: '2rem',
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+                fontWeight: 700,
+                color: 'var(--color-text)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.08,
+                marginBottom: '0.75rem',
               }}
             >
-              Parameter einstellen
+              Was kostet dich das fehlende System?
+            </h2>
+            <p style={{ color: 'var(--color-text-2)', fontSize: '0.95rem', lineHeight: 1.65 }}>
+              Berechne deinen jährlichen Umsatzverlust. Die Werte basieren auf deinen Eingaben — keine Garantien, nur eine Orientierung.
             </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              {sliders.map((config) => (
-                <SliderRow
-                  key={config.id}
-                  config={config}
-                  value={state[config.id]}
-                  onChange={handleChange}
-                />
-              ))}
-            </div>
           </div>
+        </AnimateIn>
 
-          {/* Right: Result panel ────────────────────────────────── */}
+        {/* ── Two-column grid ───────────────────────────────── */}
+        <AnimateIn delay={80}>
           <div
             style={{
-              position: 'sticky',
-              top: '6rem',
-              background: 'linear-gradient(135deg, rgba(25,100,112,0.18) 0%, rgba(10,31,68,0.25) 100%)',
-              border: '1px solid rgba(200, 164, 74, 0.28)',
-              padding: 'clamp(1.75rem, 3.5vw, 3rem)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.75rem',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+              gap: 'clamp(1.5rem, 4vw, 3rem)',
+              alignItems: 'start',
             }}
           >
-            {/* Gold accent top bar */}
+            {/* Left: Sliders */}
             <div
-              aria-hidden="true"
               style={{
-                height: '2px',
-                background: 'linear-gradient(90deg, var(--color-gold), transparent)',
-                margin: '-clamp(1.75rem, 3.5vw, 3rem)',
-                marginBottom: 0,
-              }}
-            />
-
-            {/* Label */}
-            <p
-              style={{
-                fontSize: '0.68rem',
-                fontWeight: 600,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: 'var(--color-gold)',
+                background: 'var(--color-bg-1)',
+                border: '1px solid var(--color-border)',
+                borderRadius: '8px',
+                padding: 'clamp(1.25rem, 3vw, 2rem)',
               }}
             >
-              Geschätzte Jahresverluste durch fehlende Automation
-            </p>
+              <p style={{ fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '1.75rem' }}>
+                Deine Parameter
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+                {sliders.map((config) => (
+                  <SliderRow
+                    key={config.id}
+                    config={config}
+                    value={state[config.id]}
+                    onChange={handleChange}
+                  />
+                ))}
+              </div>
+            </div>
 
-            {/* Primary number */}
-            <div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'baseline',
-                  gap: '0.4rem',
-                  flexWrap: 'wrap',
-                }}
-              >
+            {/* Right: Result panel */}
+            <div
+              style={{
+                position: 'sticky',
+                top: '6rem',
+                background: 'var(--color-bg-1)',
+                border: '1px solid var(--color-border)',
+                borderTop: '3px solid var(--color-blue)',
+                borderRadius: '8px',
+                padding: 'clamp(1.25rem, 3vw, 2rem)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.5rem',
+              }}
+            >
+              {/* Label */}
+              <p style={{ fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
+                Geschätzter Jahresverlust
+              </p>
+
+              {/* Primary number */}
+              <div>
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: 'clamp(2.4rem, 5.5vw, 4rem)',
+                    fontSize: 'clamp(2.25rem, 5vw, 3.5rem)',
                     fontWeight: 700,
                     lineHeight: 1,
                     letterSpacing: '-0.03em',
-                    color: 'white',
+                    color: 'var(--color-text)',
                   }}
                   aria-live="polite"
                   aria-label={`${formatEuro(jährlich)} Euro Jahresverlust`}
                 >
                   € {formatEuro(jährlich)}
                 </span>
+                <p style={{ fontSize: '0.78rem', color: 'var(--color-text-3)', marginTop: '0.35rem' }}>
+                  pro Jahr entgangener Umsatz (Modellrechnung)
+                </p>
               </div>
-              <p
+
+              <div style={{ height: '1px', background: 'var(--color-border)' }} aria-hidden="true" />
+
+              {/* Recoverable amount */}
+              <div
                 style={{
-                  fontSize: '0.8rem',
-                  color: 'rgba(255,255,255,0.42)',
-                  marginTop: '0.4rem',
-                  letterSpacing: '0.01em',
+                  background: 'rgba(47,125,90,0.06)',
+                  border: '1px solid rgba(47,125,90,0.18)',
+                  borderRadius: '6px',
+                  padding: '1rem 1.25rem',
                 }}
               >
-                pro Jahr entgangener Umsatz
-              </p>
-            </div>
-
-            {/* Divider */}
-            <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)' }} aria-hidden="true" />
-
-            {/* Recoverable amount */}
-            <div
-              style={{
-                background: 'rgba(25, 100, 112, 0.20)',
-                border: '1px solid rgba(25, 100, 112, 0.35)',
-                padding: '1.25rem 1.5rem',
-              }}
-            >
-              <p
-                style={{
-                  fontSize: '0.68rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(255,255,255,0.45)',
-                  marginBottom: '0.5rem',
-                }}
-              >
-                davon rückgewinnbar mit GXC System
-              </p>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.35rem' }}>
+                <p style={{ fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '0.4rem' }}>
+                  Davon strukturierbar mit GXC System
+                </p>
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
+                    fontSize: 'clamp(1.375rem, 3vw, 2rem)',
                     fontWeight: 700,
                     lineHeight: 1,
                     letterSpacing: '-0.02em',
-                    color: 'var(--color-gold)',
-                    transition: 'color 0.15s ease',
+                    color: 'var(--color-green)',
                   }}
                   aria-live="polite"
-                  aria-label={`${formatEuro(rückgewinnbar)} Euro rückgewinnbar`}
+                  aria-label={`${formatEuro(rückgewinnbar)} Euro strukturierbar`}
                 >
                   € {formatEuro(rückgewinnbar)}
                 </span>
+                <p style={{ fontSize: '0.7rem', color: 'var(--color-text-3)', marginTop: '0.3rem' }}>
+                  geschätzter Richtwert — Grundlage: 65% der verpassten Anfragen strukturierbar
+                </p>
               </div>
-              <p
-                style={{
-                  fontSize: '0.72rem',
-                  color: 'rgba(255,255,255,0.35)',
-                  marginTop: '0.35rem',
-                }}
-              >
-                bei 65% Lead-Rückgewinnung (Branchendurchschnitt)
+
+              {/* CTA */}
+              <a href="#kontakt" className="btn-primary" style={{ fontSize: '0.875rem', padding: '0.875rem 1.5rem', justifyContent: 'center' }}>
+                System besprechen
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+
+              {/* Disclaimer */}
+              <p style={{ fontSize: '0.65rem', color: 'var(--color-text-3)', lineHeight: 1.5 }}>
+                Modellrechnung auf Basis deiner Eingaben. Tatsächliche Ergebnisse hängen von Betrieb, Branche und Ausgangssituation ab.
               </p>
             </div>
-
-            {/* CTA */}
-            <a
-              href="#kontakt"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.5rem',
-                background: 'var(--color-gold)',
-                color: 'var(--color-charcoal)',
-                fontWeight: 700,
-                fontSize: '0.9rem',
-                letterSpacing: '0.02em',
-                padding: '0.9rem 1.75rem',
-                textDecoration: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'background 0.15s ease, transform 0.15s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--color-gold-light)'
-                e.currentTarget.style.transform = 'translateY(-1px)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--color-gold)'
-                e.currentTarget.style.transform = 'translateY(0)'
-              }}
-            >
-              Verluste stoppen
-              <span aria-hidden="true" style={{ fontWeight: 400 }}>→</span>
-            </a>
-
-            {/* Disclaimer */}
-            <p
-              style={{
-                fontSize: '0.65rem',
-                color: 'rgba(255,255,255,0.25)',
-                lineHeight: 1.5,
-              }}
-            >
-              Schätzung basierend auf Branchendurchschnittswerten. Tatsächliche Ergebnisse können abweichen.
-            </p>
           </div>
-        </div>
-
-        {/* ── Trust note ──────────────────────────────────────── */}
-        <div
-          style={{
-            marginTop: 'clamp(2.5rem, 5vw, 4rem)',
-            paddingTop: '1.5rem',
-            borderTop: '1px solid rgba(255,255,255,0.07)',
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '2rem',
-            alignItems: 'center',
-          }}
-        >
-          {[
-            { value: '4–8 Std.', label: 'Verwaltungszeit gespart pro Woche' },
-            { value: '< 30 Sek.', label: 'Reaktionszeit nach Anfrage' },
-            { value: '0', label: 'Anfragen gehen verloren' },
-          ].map((stat) => (
-            <div key={stat.label} style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '1.1rem',
-                  fontWeight: 700,
-                  color: 'var(--color-gold)',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                {stat.value}
-              </span>
-              <span
-                style={{
-                  fontSize: '0.72rem',
-                  color: 'rgba(255,255,255,0.40)',
-                  letterSpacing: '0.01em',
-                }}
-              >
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </div>
+        </AnimateIn>
       </Container>
     </section>
   )
