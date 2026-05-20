@@ -6,30 +6,31 @@
    ══════════════════════════════════════════════════════════════════════ */
 
 @theme {
-  /* ── Foundation — Warm Off-White, Premium Hell ──────────────────── */
-  --color-bg:          #F8F6F3;   /* primär: warm off-white */
-  --color-bg-1:        #FFFFFF;   /* section surface: reines Weiß */
-  --color-bg-2:        #F1EFEc;   /* card surface: warmes Grau */
-  --color-bg-3:        #E8E5E1;   /* elevated surface */
+  /* ── Foundation — Bright Operational System ─────────────────────── */
+  --color-bg:          #F7F3EA;   /* main background: warm papery off-white */
+  --color-bg-1:        #FFFFFF;   /* section surface: pure white */
+  --color-bg-2:        #EFE7DA;   /* muted surface: warm card background */
+  --color-bg-3:        #E3D9CB;   /* elevated surface */
 
   /* ── Borders — warm-neutral ────────────────────────────────────── */
-  --color-border:      #E2DDD8;   /* hairlines */
-  --color-border-2:    #D4CFC9;   /* dividers */
-  --color-border-3:    #C6C0BA;   /* active/hover */
+  --color-border:      #DDD5C5;   /* hairlines */
+  --color-border-2:    #CEC5B2;   /* dividers */
+  --color-border-3:    #BFB59F;   /* active/hover */
 
-  /* ── Text — Deep, Readable ─────────────────────────────────────── */
-  --color-text:        #1A1A1A;   /* primär — tiefes Schwarz */
-  --color-text-2:      #4A4A4A;   /* sekundär — dunkles Grau */
-  --color-text-3:      #787878;   /* gedämpft — mittleres Grau */
+  /* ── Text — Deep graphite, warm tone ───────────────────────────── */
+  --color-text:        #171717;   /* primär — near-black */
+  --color-text-2:      #5F5B53;   /* sekundär — warm dark grey */
+  --color-text-3:      #8B8679;   /* gedämpft — warm mid grey */
 
-  /* ── EIN Akzentton — Steel Blue ────────────────────────────────── */
-  --color-blue:        #2563EB;   /* einziger Akzent */
-  --color-blue-dim:    #1D4ED8;   /* dunkler */
-  --color-blue-glow:   #3B82F6;   /* heller (hover/glow) */
-  --color-cyan:        #0891B2;   /* sparsam */
-  --color-amber:       #D97706;   /* sparsam: Warning */
-  --color-green:       #10B981;   /* Erfolg/Check */
-  --color-red:         #DC2626;   /* Fehler/Verlust */
+  /* ── Deep Navy CTA + Gold Accent System ────────────────────────── */
+  --color-blue:        #173B5C;   /* primary CTA: deep navy */
+  --color-blue-dim:    #102A42;   /* CTA hover: darker navy */
+  --color-blue-glow:   #1E4E73;   /* interactive tint: lighter navy */
+  --color-cyan:        #0F4C6B;   /* secondary navy accent */
+  --color-amber:       #C6A15B;   /* premium gold accent (use at 5% max) */
+  --color-green:       #2F7D5A;   /* success / active system state */
+  --color-warning:     #C9822B;   /* warning / attention */
+  --color-red:         #DC2626;   /* error / loss */
 
   /* ── Typography ────────────────────────────────────────────────── */
   --font-display: var(--font-space-grotesk), 'Inter', system-ui, sans-serif;
@@ -223,11 +224,11 @@
     padding: 0.875rem 1.75rem;
     border-radius: 4px;
     transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.2s ease;
-    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    box-shadow: 0 0 0 0 rgba(23, 59, 92, 0);
   }
   .btn-primary:hover {
-    background: var(--color-blue-glow);
-    box-shadow: 0 8px 32px -8px rgba(59, 130, 246, 0.5);
+    background: var(--color-blue-dim);
+    box-shadow: 0 8px 32px -8px rgba(23, 59, 92, 0.35);
     transform: translateY(-1px);
   }
   .btn-primary:active { transform: scale(0.98); }
@@ -284,7 +285,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba(23, 59, 92, 0.1), transparent);
     animation: scan-line 4s linear infinite;
     pointer-events: none;
   }
@@ -328,8 +329,8 @@
     --color-navy-mid:    var(--color-bg-3);
     --color-teal:        var(--color-cyan);
     --color-teal-light:  var(--color-blue-glow);
-    --color-gold:        var(--color-amber);
-    --color-gold-light:  #FBBF24;
+    --color-gold:        var(--color-amber);   /* → #C6A15B premium gold */
+    --color-gold-light:  #D4B577;
     --color-offwhite:    var(--color-bg-1);
     --color-surface:     var(--color-bg-2);
     --color-surface-2:   var(--color-bg-1);
@@ -337,8 +338,8 @@
     --color-text-muted:  var(--color-text-3);
     --color-line:        var(--color-border);
     --color-border:      var(--color-border);
-    --color-blue-50:     rgba(59,130,246,0.08);
-    --color-blue-100:    rgba(59,130,246,0.12);
+    --color-blue-50:     rgba(23,59,92,0.06);
+    --color-blue-100:    rgba(23,59,92,0.10);
     --color-blue-500:    var(--color-blue);
     --font-heading:      var(--font-display);
     --spacing-section:   var(--section-y);
@@ -365,5 +366,5 @@
     border-radius: 4px;
     transition: background 0.15s ease;
   }
-  .nav-cta:hover { background: var(--color-blue-glow); }
+  .nav-cta:hover { background: var(--color-blue-dim); }
 }
