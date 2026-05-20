@@ -2,46 +2,46 @@
   {
     "id": "faq-1",
     "question": "Was kostet das, und was bekomme ich dafür?",
-    "answer": "Das Starter-Paket kostet einmalig 1.490 €, Professional 2.990 € einmalig plus 249 €/Monat. Du bekommst ein funktionierendes System, das dir messbar Zeit und Aufträge bringt. Keine Stundensätze, kein Scope-Creep. Bei 3 geretteten Anfragen à 800 € hat sich das Starter-Paket bereits amortisiert."
+    "answer": "Starter 1.490 € einmalig, Professional 2.990 € + 249 €/Monat. Du bekommst ein System, das messbar Zeit und Aufträge bringt. Keine Stundensätze, kein Scope-Creep."
   },
   {
     "id": "faq-2",
     "question": "Ich bin kein Technik-Mensch. Wie aufwendig ist das für mich?",
-    "answer": "Null Aufwand für dich während der Einrichtung. Alles wird von uns gebaut, getestet und übergeben. Du bekommst eine 30-minütige Einführung und ein kurzes Dokument, das erklärt, was läuft und wie du Änderungen beauftragst. Danach läuft das System wie ein Telefon — du musst nicht wissen, wie es funktioniert."
+    "answer": "Null Aufwand. Wir bauen, testen, übergeben. Du bekommst eine 30-minütige Einführung plus ein kurzes Dokument. Danach läuft es wie ein Telefon — du musst nicht wissen, wie es funktioniert."
   },
   {
     "id": "faq-3",
     "question": "Wie lange dauert es, bis das System läuft?",
-    "answer": "Lead-Erfassung und Terminbuchung sind typischerweise in 5–7 Werktagen live. Das vollständige Paket mit allen Modulen in 10–14 Werktagen. Voraussetzung: Du lieferst die nötigen Inhalte (Logo, Adresse, Informationen zu deinem Betrieb) innerhalb der ersten 48 Stunden nach Auftragserteilung."
+    "answer": "Lead-Erfassung und Terminbuchung: typischerweise 5–7 Werktage. Vollsystem: 10–14 Werktage. Voraussetzung: Du lieferst Logo, Adresse und Betriebsinfos in den ersten 48 Stunden."
   },
   {
     "id": "faq-4",
     "question": "Was passiert mit meinen Kundendaten? Ist das DSGVO-konform?",
-    "answer": "Ja, vollständig. Alle Systeme laufen auf EU-Servern — ausschließlich österreichische und schweizerische Hosting-Partner. Deine Kundendaten werden nicht an Dritte weitergegeben. Du bleibst zu 100% Eigentümer deiner Daten. Wir schließen mit jedem Kunden einen Auftragsverarbeitungsvertrag (AVV) ab — das ist Pflicht und kein Extra."
+    "answer": "Ja, vollständig. EU-Server — ausschließlich österreichische und schweizerische Partner. Deine Daten werden nicht weitergegeben, du bleibst 100% Eigentümer. Wir schließen mit jedem Kunden einen AVV ab."
   },
   {
     "id": "faq-5",
     "question": "Was, wenn das bei mir nicht funktioniert?",
-    "answer": "In den ersten 30 Tagen nach Go-Live sind alle Anpassungen kostenlos. Du merkst, dass etwas nicht optimal läuft? Wir fixen es sofort — nicht über ein Ticket-System, sondern direkt per Slack oder Telegram (Reaktionszeit unter 4 Stunden). In quasi keinem Fall sagen Betriebe nach dem Start: 'Das hilft mir gar nicht.' Wenn du dich trotzdem unsicher fühlst: Wir bieten ein Pilot-Projekt mit reduzierten Kosten an."
+    "answer": "Erste 30 Tage nach Go-Live: alle Anpassungen kostenlos. Fixes direkt per Slack oder Telegram — Reaktionszeit unter 4 Stunden. Bei Unsicherheit vorab: Wir bieten ein Pilot-Projekt mit reduzierten Kosten an."
   },
   {
     "id": "faq-6",
     "question": "Wie lange bin ich an euch gebunden?",
-    "answer": "Das Starter-Paket ist eine einmalige Investition — danach gehört dir das System komplett, ohne weitere Verpflichtungen. Die monatliche Betreuung (Professional und Vollsystem) kannst du jederzeit kündigen — auch nach dem ersten Monat. Kein Kleingedrucktes, keine automatischen Verlängerungen, kein Vendor Lock-in."
+    "answer": "Starter ist eine Einmalinvestition — danach gehört dir das System komplett. Monatliche Betreuung (Professional, Vollsystem) ist jederzeit kündbar. Kein Kleingedrucktes, keine automatischen Verlängerungen."
   },
   {
     "id": "faq-7",
     "question": "Funktioniert das mit meinem Kalender (Google, Outlook, iCal)?",
-    "answer": "Ja. Das System verbindet sich direkt mit Google Calendar, Outlook und iCal. Alle Termine werden automatisch synchronisiert — du musst nichts manuell übertragen. Es gibt keinen 'du musst diesen speziellen Kalender nutzen'-Zwang. Das System arbeitet mit deinen bestehenden Tools."
+    "answer": "Ja. Direkte Verbindung zu Google Calendar, Outlook und iCal. Termine synchronisieren automatisch. Das System arbeitet mit deinen bestehenden Tools — kein Zwang zu speziellen Apps."
   },
   {
     "id": "faq-8",
-    "question": "Gibt es echte Beispiele von anderen Betrieben?",
-    "answer": "Ja. Ein Installateur aus Vorarlberg verlor vorher 3–4 Anfragen pro Woche — danach keine mehr, plus 1.200 € mehr Umsatz pro Monat. Ein Elektrobetrieb aus Liechtenstein reduzierte seinen Admin-Aufwand von 8+ Stunden auf unter 2 Stunden pro Woche. Ein Dienstleister aus der Ostschweiz reagiert jetzt in unter 2 Minuten statt 'morgen' — und gewann dadurch 25% mehr Aufträge. Diese Ergebnisse basieren auf Pilotprojekten. Im Erstgespräch zeigen wir dir, was für deinen Betrieb realistisch ist."
+    "question": "Gibt es Ergebnisse aus echten Betrieben?",
+    "answer": "Ja. Installateur Vorarlberg: 0 verpasste Anfragen, +1.200 €/Monat. Elektrobetrieb Liechtenstein: 8+ Stunden Admin auf unter 2 Stunden/Woche. Dienstleister Ostschweiz: Reaktion unter 2 Minuten, 25% mehr Aufträge. Ergebnisse aus Pilotprojekten — was für deinen Betrieb realistisch ist, klären wir im Erstgespräch."
   },
   {
     "id": "faq-9",
     "question": "Was passiert nach dem Erstgespräch?",
-    "answer": "Wir schauen uns deinen Betrieb an und sagen dir ehrlich, wo das größte Leck ist und ob wir helfen können. Wenn es passt, bekommst du ein konkretes Angebot mit klarem Scope und Preis — keine Überraschungen. Wenn es nicht passt, sagen wir dir das auch klar. Kein Pitch, keine Folien, keine ungebetenen Folgeanrufe."
+    "answer": "Wir analysieren deinen Betrieb und sagen dir ehrlich, wo das größte Leck ist. Wenn es passt: konkretes Angebot mit klarem Scope und Preis. Wenn nicht: klare Absage. Kein Pitch, keine Folgeanrufe."
   }
 ]

@@ -1,7 +1,6 @@
 import { Container } from '@/components/ui/Container'
 import { AnimateIn } from '@/components/ui/AnimateIn'
 
-// Content generiert von gemma4, reviewt und integriert
 interface Founder {
   initials: string
   name: string
@@ -37,16 +36,16 @@ const founders: Founder[] = [
 ]
 
 const sharedBelief =
-  'Die meisten KMU brauchen keine Software. Sie brauchen ein System, das funktioniert — das ihnen Zeit spart, das ihnen Aufträge bringt. Nicht cool. Nicht innovativ. Sondern verdammt praktisch.'
+  'Die meisten KMU brauchen keine Software. Sie brauchen ein System, das funktioniert — das Zeit spart und Aufträge bringt. Nicht cool. Sondern verdammt praktisch.'
 
 const pilotCards = [
   {
     index: '01',
-    headline: 'Was Sie bekommen',
+    headline: 'Was du bekommst',
     items: [
-      'Vollständige Systemanalyse Ihres Betriebs',
+      'Vollständige Systemanalyse deines Betriebs',
       'Aufbau des ersten operativen Moduls',
-      'CRM-Setup mit Echtdaten aus Ihrem Betrieb',
+      'CRM-Setup mit Echtdaten',
       'Monatliches Reporting während des Pilots',
       'Persönliche Begleitung durch beide Gründer',
     ],
@@ -59,8 +58,7 @@ const pilotCards = [
       'Ehrliches Feedback während der Umsetzung',
       'Bereitschaft, Prozesse zu überdenken',
       'Einen Ansprechpartner mit Entscheidungskompetenz',
-      'Bei messbarem Erfolg: eine dokumentierte Referenz',
-      'Keine weiteren Anforderungen',
+      'Bei Erfolg: eine dokumentierte Referenz',
     ],
     accent: 'var(--color-cyan)',
   },
@@ -68,11 +66,10 @@ const pilotCards = [
     index: '03',
     headline: 'Was es kostet',
     items: [
-      'Reduzierte Pilotinvestition: ab 790 €',
+      'Pilotinvestition: ab 790 €',
       'Kein Retainer während des Pilots',
-      'Volle Transparenz über Aufwand und Ergebnis',
-      'Kein Vendor Lock-in — die Systeme gehören Ihnen',
-      'Weiterer Ausbau optional, nie automatisch',
+      'Volle Kostentransparenz',
+      'Kein Vendor Lock-in — das System gehört dir',
     ],
     accent: 'var(--color-amber)',
   },
