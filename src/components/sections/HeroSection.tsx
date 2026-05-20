@@ -1,151 +1,208 @@
 import { AnimateIn } from '@/components/ui/AnimateIn'
 
-// ── Product Mockup — pure JSX, no images, no 3D ──────────────────────────
-function ProductMockup() {
+// ── Status badge ──────────────────────────────────────────────────────────
+function Badge({
+  label,
+  state,
+}: {
+  label: string
+  state: 'done' | 'active' | 'pending'
+}) {
+  const colors = {
+    done:    { bg: 'rgba(47,125,90,0.08)',   border: 'rgba(47,125,90,0.22)',   text: 'var(--color-green)', dot: 'var(--color-green)' },
+    active:  { bg: 'rgba(23,59,92,0.07)',    border: 'rgba(23,59,92,0.18)',    text: 'var(--color-blue)',  dot: 'var(--color-blue)' },
+    pending: { bg: 'rgba(198,161,91,0.08)',  border: 'rgba(198,161,91,0.22)', text: 'var(--color-amber)', dot: 'var(--color-amber)' },
+  }
+  const c = colors[state]
   return (
-    <div
-      aria-label="GXC System Vorschau"
+    <span
       style={{
-        background: 'var(--color-bg-2)',
-        border: '1px solid var(--color-border)',
-        borderRadius: '12px',
-        padding: '1.25rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.75rem',
-        fontFamily: 'var(--font-body)',
-        maxWidth: '440px',
-        width: '100%',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '0.3rem',
+        padding: '0.18rem 0.5rem',
+        background: c.bg,
+        border: `1px solid ${c.border}`,
+        borderRadius: '3px',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.6rem',
+        color: c.text,
+        letterSpacing: '0.04em',
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
       }}
     >
-      {/* ── Incoming inquiry card ──────────────────────────── */}
+      <span style={{ width: 5, height: 5, borderRadius: '50%', background: c.dot, flexShrink: 0, display: 'inline-block' }} aria-hidden="true" />
+      {label}
+    </span>
+  )
+}
+
+// ── Operations Desk Preview ───────────────────────────────────────────────
+function OperationsDesk() {
+  return (
+    <div
+      aria-label="GXC Operations Desk — Systemvorschau"
+      style={{
+        background: 'var(--color-bg-1)',
+        border: '1px solid var(--color-border)',
+        borderRadius: '10px',
+        overflow: 'hidden',
+        boxShadow: '0 4px 32px -8px rgba(23,59,92,0.12), 0 1px 4px rgba(23,59,92,0.06)',
+        maxWidth: '500px',
+        width: '100%',
+        fontFamily: 'var(--font-body)',
+      }}
+    >
+
+      {/* ── Window chrome ──────────────────────────────────── */}
       <div
         style={{
-          background: 'var(--color-bg-1)',
-          border: '1px solid var(--color-border)',
-          borderRadius: '8px',
-          padding: '1rem',
-          boxShadow: '0 1px 4px rgba(23,59,92,0.06)',
+          background: 'var(--color-bg-2)',
+          borderBottom: '1px solid var(--color-border)',
+          padding: '0.625rem 1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.625rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--color-green)', display: 'inline-block', flexShrink: 0 }} />
-            <span style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--color-text)', letterSpacing: '0.01em' }}>
-              Neue Anfrage
-            </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+          {/* Traffic-light dots */}
+          <div style={{ display: 'flex', gap: '0.3rem' }} aria-hidden="true">
+            {['#E8B4B8', '#F5CBA7', '#A9DFBF'].map((c) => (
+              <span key={c} style={{ width: 9, height: 9, borderRadius: '50%', background: c, display: 'block' }} />
+            ))}
           </div>
-          <span style={{ fontSize: '0.65rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>14:23</span>
-        </div>
-        <p style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text)', marginBottom: '0.25rem' }}>
-          Thomas M. — Elektrobetrieb, Feldkirch
-        </p>
-        <p style={{ fontSize: '0.78rem', color: 'var(--color-text-2)', lineHeight: 1.5, marginBottom: '0.75rem', fontStyle: 'italic' }}>
-          &bdquo;Brauche kurzfristig Unterstützung — möglichst diese Woche.&ldquo;
-        </p>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <span style={{ fontSize: '0.65rem', padding: '0.2rem 0.55rem', background: 'rgba(23,59,92,0.07)', border: '1px solid rgba(23,59,92,0.14)', borderRadius: '3px', color: 'var(--color-blue)', fontFamily: 'var(--font-mono)' }}>
-            Termin vorschlagen
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', fontWeight: 600, color: 'var(--color-text-2)', letterSpacing: '0.06em' }}>
+            GXC Operations
           </span>
-          <span style={{ fontSize: '0.65rem', padding: '0.2rem 0.55rem', background: 'var(--color-bg-2)', border: '1px solid var(--color-border)', borderRadius: '3px', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>
-            Sofort antworten
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-green)', display: 'inline-block' }} aria-hidden="true" />
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: 'var(--color-text-3)', letterSpacing: '0.08em' }}>
+            SYSTEM AKTIV
           </span>
         </div>
       </div>
 
-      {/* ── Connector arrow ────────────────────────────────── */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', paddingLeft: '0.75rem' }}>
-        <div style={{ width: 1, height: 16, background: 'var(--color-border-2)' }} />
-        <span style={{ fontSize: '0.6rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>
-          automatisch verarbeitet
+      {/* ── Inbox strip ────────────────────────────────────── */}
+      <div
+        style={{
+          background: 'rgba(23,59,92,0.03)',
+          borderBottom: '1px solid var(--color-border)',
+          padding: '0.5rem 1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-3)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M22 13V6a2 2 0 00-2-2H4a2 2 0 00-2 2v12c0 1.1.9 2 2 2h8" />
+            <path d="M22 13l-8.97 5.7a1.94 1.94 0 01-2.06 0L2 13" />
+          </svg>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--color-text-3)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+            Eingang
+          </span>
+        </div>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', padding: '0.1rem 0.45rem', background: 'var(--color-blue)', color: 'white', borderRadius: '10px' }}>
+          2 offen
         </span>
       </div>
 
-      {/* ── CRM + Notification row ─────────────────────────── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-        <div
-          style={{
-            background: 'var(--color-bg-1)',
-            border: '1px solid var(--color-border)',
-            borderRadius: '8px',
-            padding: '0.875rem',
-            boxShadow: '0 1px 4px rgba(23,59,92,0.06)',
-          }}
-        >
-          <p style={{ fontSize: '0.62rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
-            CRM
-          </p>
-          <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-text)', marginBottom: '0.4rem' }}>Thomas M.</p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <span style={{ fontSize: '0.62rem', padding: '0.15rem 0.45rem', background: 'rgba(47,125,90,0.08)', border: '1px solid rgba(47,125,90,0.2)', borderRadius: '2px', color: 'var(--color-green)', fontFamily: 'var(--font-mono)', alignSelf: 'flex-start' }}>
-              ● Erfasst
+      {/* ── Incoming inquiry ───────────────────────────────── */}
+      <div style={{ padding: '0.875rem 1rem', borderBottom: '1px solid var(--color-border)' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '0.375rem', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--color-green)', display: 'inline-block', flexShrink: 0 }} aria-hidden="true" />
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.01em' }}>
+              Thomas M.
             </span>
-            <span style={{ fontSize: '0.62rem', padding: '0.15rem 0.45rem', background: 'rgba(23,59,92,0.06)', border: '1px solid rgba(23,59,92,0.14)', borderRadius: '2px', color: 'var(--color-blue)', fontFamily: 'var(--font-mono)', alignSelf: 'flex-start' }}>
-              Priorität: Hoch
+            <span style={{ fontSize: '0.7rem', color: 'var(--color-text-3)' }}>— Elektrobetrieb, Feldkirch</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>
+            <span style={{ fontSize: '0.6rem', padding: '0.12rem 0.4rem', background: 'rgba(220,38,38,0.07)', border: '1px solid rgba(220,38,38,0.18)', borderRadius: '2px', color: 'var(--color-red)', fontFamily: 'var(--font-mono)' }}>
+              Hoch
             </span>
+            <span style={{ fontSize: '0.6rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>14:23</span>
           </div>
         </div>
-
-        <div
-          style={{
-            background: 'var(--color-bg-1)',
-            border: '1px solid var(--color-border)',
-            borderRadius: '8px',
-            padding: '0.875rem',
-            boxShadow: '0 1px 4px rgba(23,59,92,0.06)',
-          }}
-        >
-          <p style={{ fontSize: '0.62rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
-            Team
-          </p>
-          <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-text)', marginBottom: '0.3rem' }}>Maks G. — 14:23</p>
-          <p style={{ fontSize: '0.72rem', color: 'var(--color-text-2)', lineHeight: 1.45 }}>
-            &bdquo;Neue Anfrage — bitte heute noch zurückrufen.&ldquo;
-          </p>
+        <p style={{ fontSize: '0.78rem', color: 'var(--color-text-2)', lineHeight: 1.5, marginBottom: '0.625rem', fontStyle: 'italic', paddingLeft: '1rem' }}>
+          &bdquo;Brauche kurzfristig Unterstützung mit einer Anlage — möglichst diese Woche.&ldquo;
+        </p>
+        <div style={{ display: 'flex', gap: '0.5rem', paddingLeft: '1rem' }}>
+          <span style={{ fontSize: '0.65rem', padding: '0.22rem 0.6rem', background: 'var(--color-blue)', color: 'white', borderRadius: '3px', fontFamily: 'var(--font-mono)', fontWeight: 500 }}>
+            Termin vorschlagen ↗
+          </span>
+          <span style={{ fontSize: '0.65rem', padding: '0.22rem 0.6rem', background: 'var(--color-bg-2)', border: '1px solid var(--color-border)', borderRadius: '3px', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>
+            Antworten
+          </span>
         </div>
       </div>
 
-      {/* ── Appointment + Follow-up row ────────────────────── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-        <div
-          style={{
-            background: 'var(--color-bg-1)',
-            border: '1px solid var(--color-border)',
-            borderRadius: '8px',
-            padding: '0.875rem',
-            boxShadow: '0 1px 4px rgba(23,59,92,0.06)',
-          }}
-        >
-          <p style={{ fontSize: '0.62rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+      {/* ── Auto-processing indicator ───────────────────────── */}
+      <div
+        style={{
+          padding: '0.4rem 1rem',
+          background: 'rgba(47,125,90,0.04)',
+          borderBottom: '1px solid var(--color-border)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+        }}
+      >
+        <div style={{ display: 'flex', gap: '2px' }} aria-hidden="true">
+          {[0.2, 0.4, 0.6, 0.8, 1].map((o, i) => (
+            <span key={i} style={{ width: 3, height: 10, background: 'var(--color-green)', borderRadius: '1px', opacity: o }} />
+          ))}
+        </div>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--color-green)', letterSpacing: '0.08em' }}>
+          Automatisch verarbeitet — &lt; 30 Sek.
+        </span>
+      </div>
+
+      {/* ── CRM lead card ──────────────────────────────────── */}
+      <div style={{ padding: '0.875rem 1rem', borderBottom: '1px solid var(--color-border)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.625rem' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
+            CRM-Lead
+          </span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--color-text-3)' }}>#00847</span>
+        </div>
+        <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-text)', letterSpacing: '-0.01em', marginBottom: '0.625rem' }}>
+          Thomas M. — Elektrobetrieb Feldkirch
+        </p>
+        {/* Status badges */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem' }}>
+          <Badge label="Erfasst" state="done" />
+          <Badge label="Priorisiert" state="done" />
+          <Badge label="Team informiert" state="done" />
+          <Badge label="Follow-up bereit" state="pending" />
+        </div>
+      </div>
+
+      {/* ── Appointment + Follow-up ────────────────────────── */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+        <div style={{ padding: '0.75rem 1rem', borderRight: '1px solid var(--color-border)' }}>
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '0.4rem' }}>
             Termin
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-            <div style={{ fontSize: '0.72rem', padding: '0.25rem 0.5rem', background: 'rgba(23,59,92,0.07)', border: '1px solid rgba(23,59,92,0.18)', borderRadius: '3px', color: 'var(--color-blue)', fontWeight: 500 }}>
-              ✓ Mo 15.01 — 09:00
-            </div>
-            <div style={{ fontSize: '0.72rem', padding: '0.25rem 0.5rem', background: 'var(--color-bg-2)', border: '1px solid var(--color-border)', borderRadius: '3px', color: 'var(--color-text-3)' }}>
-              Di 16.01 — 14:00
-            </div>
+          <div style={{ fontSize: '0.72rem', padding: '0.22rem 0.5rem', background: 'rgba(23,59,92,0.07)', border: '1px solid rgba(23,59,92,0.16)', borderRadius: '3px', color: 'var(--color-blue)', fontFamily: 'var(--font-mono)', fontWeight: 500, marginBottom: '0.25rem' }}>
+            ✓ Mo 09:00
+          </div>
+          <div style={{ fontSize: '0.7rem', color: 'var(--color-text-3)', paddingLeft: '0.25rem' }}>
+            Di 14:00
           </div>
         </div>
-
-        <div
-          style={{
-            background: 'var(--color-bg-1)',
-            border: '1px solid var(--color-border)',
-            borderRadius: '8px',
-            padding: '0.875rem',
-            boxShadow: '0 1px 4px rgba(23,59,92,0.06)',
-          }}
-        >
-          <p style={{ fontSize: '0.62rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+        <div style={{ padding: '0.75rem 1rem' }}>
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '0.4rem' }}>
             Follow-up
           </p>
-          <span style={{ fontSize: '0.65rem', padding: '0.2rem 0.5rem', background: 'rgba(198,161,91,0.1)', border: '1px solid rgba(198,161,91,0.25)', borderRadius: '2px', color: 'var(--color-amber)', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: '0.35rem' }}>
-            In 48 Std.
+          <span style={{ fontSize: '0.65rem', padding: '0.2rem 0.5rem', background: 'rgba(198,161,91,0.08)', border: '1px solid rgba(198,161,91,0.22)', borderRadius: '2px', color: 'var(--color-amber)', fontFamily: 'var(--font-mono)', display: 'inline-block', marginBottom: '0.25rem' }}>
+            ● In 48 Std.
           </span>
-          <p style={{ fontSize: '0.7rem', color: 'var(--color-text-3)', lineHeight: 1.4 }}>
-            Automatische Erinnerung aktiv
+          <p style={{ fontSize: '0.68rem', color: 'var(--color-text-3)', lineHeight: 1.4 }}>
+            Automatisch aktiv
           </p>
         </div>
       </div>
@@ -166,11 +223,11 @@ export function HeroSection() {
       aria-label="GXC Systems — Operative Systeme für KMU"
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+        {/* Asymmetric: text 5/12, product 7/12 */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-center">
 
-          {/* ── Left: Copy ───────────────────────────────── */}
-          <div>
-            {/* Eyebrow */}
+          {/* ── Left: Copy — 5 cols ──────────────────────── */}
+          <div className="lg:col-span-5">
             <AnimateIn delay={0}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '1.75rem' }}>
                 <span className="live-dot" aria-hidden="true" />
@@ -180,12 +237,11 @@ export function HeroSection() {
               </div>
             </AnimateIn>
 
-            {/* H1 */}
             <AnimateIn delay={60}>
               <h1
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2.25rem, 4.5vw, 3.75rem)',
+                  fontSize: 'clamp(2.25rem, 4vw, 3.5rem)',
                   fontWeight: 700,
                   lineHeight: 1.05,
                   letterSpacing: '-0.035em',
@@ -194,28 +250,26 @@ export function HeroSection() {
                 }}
               >
                 Aus Anfragen werden Aufträge.{' '}
-                <span style={{ color: 'var(--color-blue)' }}>Aus Chaos wird ein System.</span>
+                <span style={{ color: 'var(--color-blue)' }}>
+                  Aus Chaos wird ein System.
+                </span>
               </h1>
             </AnimateIn>
 
-            {/* Subheadline */}
             <AnimateIn delay={130}>
               <p
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '0.975rem',
                   lineHeight: 1.75,
                   color: 'var(--color-text-2)',
-                  maxWidth: '36rem',
-                  marginBottom: '1.75rem',
+                  marginBottom: '1.5rem',
                 }}
               >
-                GXC Systems baut Websites, Anfrage-Widgets, CRM-Workflows und Automationen
-                für Betriebe, die schneller reagieren und Anfragen strukturiert in Termine
-                und Aufträge verwandeln wollen.
+                GXC baut das System, das Anfragen erfasst, zuordnet, beantwortet,
+                nachverfolgt und in Termine und Aufträge verwandelt.
               </p>
             </AnimateIn>
 
-            {/* Trust line */}
             <AnimateIn delay={190}>
               <p
                 style={{
@@ -235,7 +289,6 @@ export function HeroSection() {
               </p>
             </AnimateIn>
 
-            {/* CTAs */}
             <AnimateIn delay={240}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center' }}>
                 <a
@@ -265,18 +318,12 @@ export function HeroSection() {
             </AnimateIn>
           </div>
 
-          {/* ── Right: Product mockup ─────────────────────── */}
-          <AnimateIn delay={150} direction="right">
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                paddingLeft: '0',
-              }}
-            >
-              <ProductMockup />
-            </div>
-          </AnimateIn>
+          {/* ── Right: Operations Desk — 7 cols ────────────── */}
+          <div className="lg:col-span-7">
+            <AnimateIn delay={120} direction="right">
+              <OperationsDesk />
+            </AnimateIn>
+          </div>
 
         </div>
       </div>
