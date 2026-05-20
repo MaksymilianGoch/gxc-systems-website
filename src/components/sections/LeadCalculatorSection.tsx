@@ -243,10 +243,10 @@ export function LeadCalculatorSection() {
             className="text-display-sm"
             style={{ color: 'white', maxWidth: '34rem', marginBottom: '1rem' }}
           >
-            Was kostet Sie das fehlende System?
+            Was kostet dich das fehlende System?
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.50)', maxWidth: '30rem', fontSize: '1rem', lineHeight: 1.65 }}>
-            Berechnen Sie Ihren jährlichen Umsatzverlust durch manuelle Prozesse.
+            Berechne deinen jährlichen Umsatzverlust durch manuelle Prozesse.
           </p>
         </div>
 

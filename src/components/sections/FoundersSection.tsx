@@ -22,7 +22,7 @@ const founders: Founder[] = [
     realization: 'Das Problem ist nicht schlechte Arbeit. Das Problem ist fehlende Systeminfrastruktur.',
     focus: 'Wie bauen wir ein System, das echte, alltägliche Probleme von Betrieben löst?',
     tags: ['Strategie', 'Systemdesign', 'Vertrieb'],
-    photo: null, // → Foto-Pfad eintragen wenn vorhanden: '/images/maksymilian.jpg'
+    photo: null,
   },
   {
     initials: 'AC',
@@ -32,7 +32,7 @@ const founders: Founder[] = [
     realization: 'Ihn interessiert nicht schöne Code-Architektur — ihn interessiert: Funktioniert das im Alltag des Betriebsinhabers?',
     focus: 'Wie bauen wir das, was nötig ist, so dass es wirklich läuft?',
     tags: ['KI-Systeme', 'Automatisierung', 'Infrastruktur'],
-    photo: null, // → Foto-Pfad eintragen wenn vorhanden: '/images/ariel.jpg'
+    photo: null,
   },
 ]
 
@@ -91,17 +91,18 @@ function FounderCard({ founder }: { founder: Founder }) {
         height: '100%',
       }}
     >
-      {/* Foto oder Initialen-Platzhalter */}
+      {/* Photo or clean monogram avatar */}
       <div
         style={{
           width: '100%',
           aspectRatio: '4/3',
-          background: 'var(--color-bg-3)',
+          background: 'var(--color-bg-2)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
           overflow: 'hidden',
+          borderBottom: '1px solid var(--color-border)',
         }}
         aria-hidden="true"
       >
@@ -113,31 +114,29 @@ function FounderCard({ founder }: { founder: Founder }) {
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         ) : (
-          <div style={{ textAlign: 'center' }}>
+          <div
+            style={{
+              width: '72px',
+              height: '72px',
+              borderRadius: '50%',
+              background: 'rgba(37,99,235,0.08)',
+              border: '1.5px solid rgba(37,99,235,0.18)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <span
               style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '3rem',
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.5rem',
                 fontWeight: 700,
-                color: 'var(--color-text-3)',
-                display: 'block',
+                color: 'var(--color-blue)',
+                letterSpacing: '-0.03em',
                 lineHeight: 1,
               }}
             >
               {founder.initials}
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.6rem',
-                color: 'var(--color-text-3)',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                marginTop: '0.5rem',
-                display: 'block',
-              }}
-            >
-              Foto folgt
             </span>
           </div>
         )}
