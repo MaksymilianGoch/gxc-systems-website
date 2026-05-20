@@ -48,8 +48,8 @@ export function Navigation() {
               style={{
                 width: '30px',
                 height: '30px',
-                border: '1px solid rgba(37,99,235,0.4)',
-                background: 'rgba(37,99,235,0.08)',
+                border: '1px solid rgba(23,59,92,0.25)',
+                background: 'rgba(23,59,92,0.07)',
                 borderRadius: '4px',
                 display: 'flex',
                 alignItems: 'center',
@@ -58,10 +58,10 @@ export function Navigation() {
               }}
             >
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <rect x="2" y="2" width="5" height="5" fill="#2563EB" opacity="0.9" />
-                <rect x="9" y="2" width="5" height="5" fill="#06B6D4" opacity="0.6" />
-                <rect x="2" y="9" width="5" height="5" fill="#06B6D4" opacity="0.6" />
-                <rect x="9" y="9" width="5" height="5" fill="#2563EB" opacity="0.9" />
+                <rect x="2" y="2" width="5" height="5" fill="#173B5C" opacity="0.9" />
+                <rect x="9" y="2" width="5" height="5" fill="#C6A15B" opacity="0.7" />
+                <rect x="2" y="9" width="5" height="5" fill="#C6A15B" opacity="0.7" />
+                <rect x="9" y="9" width="5" height="5" fill="#173B5C" opacity="0.9" />
               </svg>
             </div>
 

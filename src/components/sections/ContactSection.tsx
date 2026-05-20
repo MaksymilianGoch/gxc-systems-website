@@ -77,8 +77,8 @@ export function ContactSection() {
                         flexShrink: 0,
                         width: '20px',
                         height: '20px',
-                        background: 'rgba(37,99,235,0.08)',
-                        border: '1px solid rgba(37,99,235,0.16)',
+                        background: 'rgba(23,59,92,0.07)',
+                        border: '1px solid rgba(23,59,92,0.14)',
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
@@ -86,7 +86,7 @@ export function ContactSection() {
                       }}
                     >
                       <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                        <path d="M2 6l3 3 5-5" stroke="#2563EB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2 6l3 3 5-5" stroke="var(--color-blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
                     <p style={{ fontSize: '0.875rem', color: 'var(--color-text-2)', lineHeight: 1.5 }}>

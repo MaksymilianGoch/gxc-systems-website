@@ -43,17 +43,17 @@ export function Footer() {
               <div
                 style={{
                   width: 28, height: 28,
-                  border: '1px solid rgba(59,130,246,0.35)',
-                  background: 'rgba(59,130,246,0.07)',
+                  border: '1px solid rgba(23,59,92,0.22)',
+                  background: 'rgba(23,59,92,0.06)',
                   borderRadius: '3px',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <rect x="2" y="2" width="5" height="5" fill="#3B82F6" opacity="0.8" />
-                  <rect x="9" y="2" width="5" height="5" fill="#06B6D4" opacity="0.5" />
-                  <rect x="2" y="9" width="5" height="5" fill="#06B6D4" opacity="0.5" />
-                  <rect x="9" y="9" width="5" height="5" fill="#3B82F6" opacity="0.8" />
+                  <rect x="2" y="2" width="5" height="5" fill="#173B5C" opacity="0.9" />
+                  <rect x="9" y="2" width="5" height="5" fill="#C6A15B" opacity="0.7" />
+                  <rect x="2" y="9" width="5" height="5" fill="#C6A15B" opacity="0.7" />
+                  <rect x="9" y="9" width="5" height="5" fill="#173B5C" opacity="0.9" />
                 </svg>
               </div>
               <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-text)', letterSpacing: '-0.02em' }}>

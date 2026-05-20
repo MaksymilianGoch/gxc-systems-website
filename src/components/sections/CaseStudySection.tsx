@@ -155,7 +155,7 @@ export function CaseStudySection() {
                         fontSize: '0.58rem',
                         letterSpacing: '0.14em',
                         textTransform: 'uppercase',
-                        color: '#EF4444',
+                        color: 'var(--color-red)',
                         marginBottom: '0.75rem',
                       }}
                     >
@@ -164,7 +164,7 @@ export function CaseStudySection() {
                     <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                       {c.vorher.map((item, j) => (
                         <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
-                          <span style={{ color: '#EF4444', fontSize: '0.6rem', marginTop: '0.2rem', flexShrink: 0 }}>✕</span>
+                          <span style={{ color: 'var(--color-red)', fontSize: '0.6rem', marginTop: '0.2rem', flexShrink: 0 }}>✕</span>
                           <span style={{ fontSize: '0.78rem', color: 'var(--color-text-2)', lineHeight: 1.5 }}>{item}</span>
                         </li>
                       ))}

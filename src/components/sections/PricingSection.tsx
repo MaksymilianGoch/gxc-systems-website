@@ -22,7 +22,7 @@ const tiers = [
     roi: 'Modellrechnung: Bereits wenige gerettete Anfragen können die Investition ausgleichen.',
     cta: 'Starter anfragen',
     featured: false,
-    accentColor: '#64748B',
+    accentColor: '#5F5B53',
   },
   {
     id: 't2',
@@ -67,7 +67,7 @@ const tiers = [
     roi: 'Ersetzt den Bedarf an einer Teilzeitkraft für Admin-Aufgaben.',
     cta: 'Vollsystem anfragen',
     featured: false,
-    accentColor: '#7C3AED',
+    accentColor: '#102A42',
   },
 ]
 
@@ -89,11 +89,11 @@ export function PricingSection() {
         }
         .pricing-featured {
           transform: translateY(-6px);
-          box-shadow: 0 12px 48px -12px rgba(37,99,235,0.25);
+          box-shadow: 0 12px 48px -12px rgba(23,59,92,0.22);
         }
         .pricing-featured:hover {
           transform: translateY(-10px);
-          box-shadow: 0 20px 60px -12px rgba(37,99,235,0.35);
+          box-shadow: 0 20px 60px -12px rgba(23,59,92,0.30);
         }
       `}</style>
 
@@ -244,7 +244,7 @@ export function PricingSection() {
                     {tier.features.map((f) => (
                       <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem' }}>
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ marginTop: '0.15rem', flexShrink: 0 }} aria-hidden="true">
-                          <path d="M3 8l4 4 6-6" stroke={tier.featured ? 'rgba(255,255,255,0.8)' : '#10B981'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M3 8l4 4 6-6" stroke={tier.featured ? 'rgba(255,255,255,0.8)' : 'var(--color-green)'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         <span
                           style={{
@@ -272,7 +272,7 @@ export function PricingSection() {
                     <p
                       style={{
                         fontSize: '0.78rem',
-                        color: tier.featured ? 'rgba(255,255,255,0.85)' : '#10B981',
+                        color: tier.featured ? 'rgba(255,255,255,0.85)' : 'var(--color-green)',
                         lineHeight: 1.55,
                         fontStyle: 'italic',
                       }}
