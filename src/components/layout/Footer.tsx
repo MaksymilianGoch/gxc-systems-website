@@ -2,18 +2,18 @@ import Link from 'next/link'
 
 const links = {
   system: [
-    { label: 'AI Agent Systems', href: '/#leistungen' },
-    { label: 'Workflow Automation', href: '/#leistungen' },
-    { label: 'CRM & Lead Management', href: '/#leistungen' },
-    { label: 'Websites & Digital Presence', href: '/#leistungen' },
-    { label: 'Integrations', href: '/#leistungen' },
+    { label: 'KI-Agenten-Systeme', href: '/#leistungen' },
+    { label: 'Prozessautomatisierung', href: '/#leistungen' },
+    { label: 'CRM & Lead-Management', href: '/#leistungen' },
+    { label: 'Website & Digitale Präsenz', href: '/#leistungen' },
+    { label: 'Integrationen', href: '/#leistungen' },
   ],
   company: [
-    { label: 'Architecture', href: '/#ablauf' },
-    { label: 'Results', href: '/#ergebnisse' },
-    { label: 'About', href: '/#ueber-uns' },
-    { label: 'Pricing', href: '/#preise' },
-    { label: 'Book a Demo', href: '/#kontakt' },
+    { label: 'Ablauf', href: '/#ablauf' },
+    { label: 'Pilotprogramm', href: '/#ergebnisse' },
+    { label: 'Über uns', href: '/#ueber-uns' },
+    { label: 'Preise', href: '/#preise' },
+    { label: 'Erstgespräch buchen', href: '/#kontakt' },
   ],
   legal: [
     { label: 'Impressum', href: '/impressum' },
@@ -61,12 +61,12 @@ export function Footer() {
               </span>
             </Link>
             <p style={{ fontSize: '0.82rem', color: 'var(--color-text-3)', lineHeight: 1.65, marginBottom: '1.25rem', maxWidth: '18rem' }}>
-              AI-powered operational infrastructure for businesses where inefficiency is no longer affordable.
+              Operative Infrastruktur für Betriebe, die wachsen — ohne mehr Personal einzustellen.
             </p>
             <div className="flex items-center gap-2">
               <span className="live-dot" style={{ width: 5, height: 5 }} aria-hidden="true" />
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--color-text-3)', letterSpacing: '0.1em' }}>
-                SYSTEMS ONLINE
+                SYSTEME AKTIV
               </span>
             </div>
           </div>

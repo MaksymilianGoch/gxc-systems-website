@@ -20,8 +20,8 @@ const founders: Founder[] = [
     tags: ['Strategie', 'Systemdesign', 'Vertrieb'],
   },
   {
-    initials: 'AG',
-    name: 'Alessio Gaudio',
+    initials: 'AC',
+    name: 'Ariel Creuz',
     role: 'Co-Gründer & Technologie',
     bio: 'Technologie-Lead mit Fokus auf KI-gestützte Prozessarchitektur, Automatisierungssysteme und skalierbare Integrationen. Verantwortlich für die technische Umsetzung aller GXC-Systeme.',
     tags: ['KI-Systeme', 'Automatisierung', 'Infrastruktur'],

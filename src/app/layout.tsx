@@ -47,7 +47,7 @@ const schemaOrg = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'GXC Systems',
-  description: 'AI-powered operational infrastructure — workflow automation, CRM systems, AI agents.',
+  description: 'Operative Infrastruktur für KMU — Lead-Erfassung, CRM, Prozessautomatisierung und intelligente Abläufe als verbundenes System.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://gxc-systems.com',
   areaServed: ['Vorarlberg', 'Ostschweiz', 'Liechtenstein', 'Bodenseeraum'],
 }
