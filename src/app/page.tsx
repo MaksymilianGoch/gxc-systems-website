@@ -3,6 +3,7 @@ import { SystemFlowSection } from '@/components/sections/SystemFlowSection'
 import { ProblemSection } from '@/components/sections/ProblemSection'
 import { WidgetDemoSection } from '@/components/sections/WidgetDemoSection'
 import { WorkflowSection } from '@/components/sections/WorkflowSection'
+import { DashboardSection } from '@/components/sections/DashboardSection'
 import { LeadCalculatorSection } from '@/components/sections/LeadCalculatorSection'
 import { ProcessSection } from '@/components/sections/ProcessSection'
 import { FoundersSection } from '@/components/sections/FoundersSection'
@@ -22,6 +23,7 @@ export default function HomePage() {
       <ProblemSection />
       <WidgetDemoSection />
       <WorkflowSection />
+      <DashboardSection />
       <LeadCalculatorSection />
       <ProcessSection />
       <FoundersSection />

@@ -1,47 +1,45 @@
 @import "tailwindcss";
 
-/* ═══════════════════════════════════════════════════════════════════════
-   GXC SYSTEMS — OPERATIONAL COMMAND DESIGN SYSTEM
-   Discipline: Precision × Control × Intelligence
-   ══════════════════════════════════════════════════════════════════════ */
-
 @theme {
-  /* ── Foundation — Bright Operational System ─────────────────────── */
-  --color-bg:          #F7F3EA;   /* main background: warm papery off-white */
-  --color-bg-1:        #FFFFFF;   /* section surface: pure white */
-  --color-bg-2:        #EFE7DA;   /* muted surface: warm card background */
-  --color-bg-3:        #E3D9CB;   /* elevated surface */
+  /* ── Surfaces ─────────────────────────────────────────────────────── */
+  --color-bg:          #fbf9f8;
+  --color-bg-1:        #ffffff;
+  --color-bg-2:        #f5f3f3;
+  --color-bg-3:        #efeded;
 
-  /* ── Borders — warm-neutral ────────────────────────────────────── */
-  --color-border:      #DDD5C5;   /* hairlines */
-  --color-border-2:    #CEC5B2;   /* dividers */
-  --color-border-3:    #BFB59F;   /* active/hover */
+  /* ── Borders ──────────────────────────────────────────────────────── */
+  --color-border:      rgba(196,198,207,0.35);
+  --color-border-2:    rgba(116,119,127,0.25);
+  --color-border-3:    rgba(116,119,127,0.45);
 
-  /* ── Text — Deep graphite, warm tone ───────────────────────────── */
-  --color-text:        #171717;   /* primär — near-black */
-  --color-text-2:      #5F5B53;   /* sekundär — warm dark grey */
-  --color-text-3:      #8B8679;   /* gedämpft — warm mid grey */
+  /* ── Text ─────────────────────────────────────────────────────────── */
+  --color-text:        #1b1c1c;
+  --color-text-2:      #44474e;
+  --color-text-3:      #74777f;
 
-  /* ── Deep Navy CTA + Gold Accent System ────────────────────────── */
-  --color-blue:        #173B5C;   /* primary CTA: deep navy */
-  --color-blue-dim:    #102A42;   /* CTA hover: darker navy */
-  --color-blue-glow:   #1E4E73;   /* interactive tint: lighter navy */
-  --color-cyan:        #0F4C6B;   /* secondary navy accent */
-  --color-amber:       #C6A15B;   /* premium gold accent (use at 5% max) */
-  --color-green:       #2F7D5A;   /* success / active system state */
-  --color-warning:     #C9822B;   /* warning / attention */
-  --color-red:         #DC2626;   /* error / loss */
+  /* ── Primary — Deep Navy ──────────────────────────────────────────── */
+  --color-blue:        #002045;
+  --color-blue-dim:    #00091b;
+  --color-blue-glow:   #465f87;
 
-  /* ── Typography ────────────────────────────────────────────────── */
+  /* ── Accents ──────────────────────────────────────────────────────── */
+  --color-green:       #6eab8c;
+  --color-amber:       #745a25;
+  --color-amber-light: #ffdb9a;
+  --color-cyan:        #0f4c6b;
+  --color-red:         #ba1a1a;
+  --color-warning:     #c9822b;
+
+  /* ── Typography ────────────────────────────────────────────────────── */
   --font-display: var(--font-space-grotesk), 'Inter', system-ui, sans-serif;
   --font-body:    var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-mono:    var(--font-jetbrains), 'Courier New', monospace;
 
-  /* ── Spacing ────────────────────────────────────────────────────── */
+  /* ── Spacing ────────────────────────────────────────────────────────── */
   --section-y:    clamp(5rem, 9vw, 8rem);
 }
 
-/* ─── Keyframes ──────────────────────────────────────────────────────── */
+/* ── Keyframes ───────────────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -50,32 +48,28 @@
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-@keyframes slideRight {
-  from { opacity: 0; transform: translateX(-16px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
 @keyframes pulse-ring {
   0%   { transform: scale(1); opacity: 0.6; }
   100% { transform: scale(2); opacity: 0; }
 }
-@keyframes scan-line {
-  0%   { transform: translateY(-100%); }
-  100% { transform: translateY(400%); }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
 }
-@keyframes data-flow {
-  0%   { stroke-dashoffset: 100; }
-  100% { stroke-dashoffset: 0; }
+@keyframes pipelineFlow {
+  0%   { left: -5px; opacity: 0; }
+  6%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { left: calc(100% + 5px); opacity: 0; }
 }
-@keyframes counter-pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
-}
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50%       { background-position: 100% 50%; }
+@keyframes packetTravel {
+  0%   { left: -4px; opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { left: calc(100% + 4px); opacity: 0; }
 }
 
-/* ─── Base ────────────────────────────────────────────────────────────── */
+/* ── Base ────────────────────────────────────────────────────────────────── */
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
 
@@ -106,51 +100,49 @@
   a { color: inherit; text-decoration: none; }
 }
 
-/* ─── Utility Layer ───────────────────────────────────────────────────── */
+/* ── Utilities ────────────────────────────────────────────────────────────── */
 @layer utilities {
 
-  /* Section rhythm */
+  /* Layout rhythm */
   .section-y {
     padding-top: var(--section-y);
     padding-bottom: var(--section-y);
   }
 
-  /* ── Typography ──────────────────────────────────────────────── */
+  /* ── Typography ──────────────────────────────────────────── */
   .text-display {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5.5vw, 5.25rem);
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
     font-weight: 700;
-    line-height: 0.96;
+    line-height: 1.0;
     letter-spacing: -0.04em;
   }
 
   .text-display-sm {
     font-family: var(--font-display);
-    font-size: clamp(1.875rem, 3.5vw, 3.25rem);
+    font-size: clamp(1.875rem, 3.5vw, 3rem);
     font-weight: 600;
-    line-height: 1.03;
+    line-height: 1.05;
     letter-spacing: -0.03em;
   }
 
   .text-title {
     font-family: var(--font-display);
-    font-size: clamp(1.125rem, 1.8vw, 1.625rem);
+    font-size: clamp(1.125rem, 1.8vw, 1.5rem);
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.02em;
   }
 
-  /* Mono uppercase label */
   .text-label {
     font-family: var(--font-mono);
     font-size: 0.65rem;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-blue);
+    color: var(--color-green);
   }
 
-  /* Large mono stat/data number */
   .text-stat {
     font-family: var(--font-mono);
     font-size: clamp(1.875rem, 4vw, 3.5rem);
@@ -159,7 +151,6 @@
     letter-spacing: -0.04em;
   }
 
-  /* Index / step number */
   .text-index {
     font-family: var(--font-mono);
     font-size: 0.62rem;
@@ -168,7 +159,7 @@
     color: var(--color-blue);
   }
 
-  /* ── Scroll Animation ────────────────────────────────────────── */
+  /* ── Scroll animation ────────────────────────────────────── */
   [data-animate] {
     opacity: 0;
     transform: translateY(18px);
@@ -180,7 +171,34 @@
   [data-animate="scale"] { transform: scale(0.95); opacity: 0; }
   [data-visible=true] { opacity: 1 !important; transform: none !important; }
 
-  /* ── System panel ────────────────────────────────────────────── */
+  /* ── Glass panel ─────────────────────────────────────────── */
+  .glass-panel {
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.82);
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+
+  /* ── Floating animation ──────────────────────────────────── */
+  .floating-anim {
+    animation: float 6s ease-in-out infinite;
+  }
+  .floating-anim-2 {
+    animation: float 7s ease-in-out 1s infinite;
+  }
+  .floating-anim-3 {
+    animation: float 8s ease-in-out 2s infinite;
+  }
+
+  /* ── Mesh background ─────────────────────────────────────── */
+  .bg-mesh {
+    background-image:
+      radial-gradient(at 0% 0%, #d6e3ff 0px, transparent 55%),
+      radial-gradient(at 100% 0%, rgba(110,171,140,0.12) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, #f0f0f0 0px, transparent 50%);
+    background-color: var(--color-bg);
+  }
+
+  /* ── System panel ────────────────────────────────────────── */
   .panel {
     background: var(--color-bg-2);
     border: 1px solid var(--color-border);
@@ -188,29 +206,17 @@
   }
   .panel:hover { border-color: var(--color-border-2); }
 
-  .panel-active {
-    background: var(--color-bg-3);
-    border-color: var(--color-border-2);
-  }
-
-  /* ── Accent line ─────────────────────────────────────────────── */
+  /* ── Accent line ─────────────────────────────────────────── */
   .accent-line {
     display: block;
     width: 2rem;
-    height: 1px;
-    background: var(--color-blue);
+    height: 2px;
+    background: var(--color-green);
     margin-bottom: 1.25rem;
+    border-radius: 2px;
   }
 
-  /* ── Blue gradient text — single accent, tiefes Blau ────────── */
-  .gradient-text {
-    background: linear-gradient(135deg, var(--color-blue-glow) 0%, var(--color-blue) 60%, var(--color-blue-dim) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* ── CTA buttons ─────────────────────────────────────────────── */
+  /* ── CTAs ────────────────────────────────────────────────── */
   .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -219,16 +225,16 @@
     color: white;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     letter-spacing: -0.01em;
     padding: 0.875rem 1.75rem;
-    border-radius: 4px;
+    border-radius: 10px;
     transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.2s ease;
-    box-shadow: 0 0 0 0 rgba(23, 59, 92, 0);
+    box-shadow: 0 2px 16px -4px rgba(0,32,69,0.25);
   }
   .btn-primary:hover {
     background: var(--color-blue-dim);
-    box-shadow: 0 8px 32px -8px rgba(23, 59, 92, 0.35);
+    box-shadow: 0 8px 32px -8px rgba(0,32,69,0.35);
     transform: translateY(-1px);
   }
   .btn-primary:active { transform: scale(0.98); }
@@ -245,7 +251,7 @@
     letter-spacing: -0.01em;
     padding: 0.875rem 1.75rem;
     border: 1px solid var(--color-border-2);
-    border-radius: 4px;
+    border-radius: 10px;
     transition: border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
   }
   .btn-secondary:hover {
@@ -255,12 +261,12 @@
   }
   .btn-secondary:active { transform: scale(0.98); }
 
-  /* ── Live pulse dot ──────────────────────────────────────────── */
+  /* ── Live pulse dot ──────────────────────────────────────── */
   .live-dot {
     position: relative;
     display: inline-block;
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--color-green);
     flex-shrink: 0;
@@ -274,79 +280,93 @@
     animation: pulse-ring 2s ease-out infinite;
   }
 
-  /* ── Scanline effect ─────────────────────────────────────────── */
-  .scanline {
+  /* ── Pipeline connectors ─────────────────────────────────── */
+  .pipeline-connector {
     position: relative;
-    overflow: hidden;
+    flex: 1;
+    height: 1px;
+    background: var(--color-border-2);
+    align-self: center;
+    margin-top: -1.5rem;
+    min-width: 10px;
+    overflow: visible;
   }
-  .scanline::after {
+  .pipeline-connector::after {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(23, 59, 92, 0.1), transparent);
-    animation: scan-line 4s linear infinite;
-    pointer-events: none;
+    top: 50%;
+    left: -5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-blue);
+    transform: translateY(-50%);
+    animation: pipelineFlow 3.2s ease-in-out infinite;
   }
 
-  /* ── Grid decoration ─────────────────────────────────────────── */
-  .grid-bg {
-    background-image:
-      linear-gradient(var(--color-border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
-    background-size: 60px 60px;
-    opacity: 0.6;
+  /* ── Dashboard sidebar ───────────────────────────────────── */
+  .dash-sidebar {
+    background: var(--color-blue);
+    color: white;
+  }
+  .dash-nav-item {
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .dash-nav-item.active {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
   }
 
-  /* ── Section divider ─────────────────────────────────────────── */
+  /* ── Section divider ─────────────────────────────────────── */
   .h-rule {
     height: 1px;
     background: var(--color-border);
   }
 
-  /* ── Number mono display ─────────────────────────────────────── */
-  .mono-num {
-    font-family: var(--font-mono);
-    color: var(--color-blue);
-  }
-
-  /* ── Reduced motion fallback ─────────────────────────────────── */
+  /* ── Reduced motion ──────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
     [data-animate] { transition: none; }
     .live-dot::after { animation: none; }
-    .scanline::after { animation: none; }
+    .floating-anim, .floating-anim-2, .floating-anim-3 { animation: none; }
+    .pipeline-connector::after { animation: none; opacity: 0; }
+  }
+
+  /* ── Mobile pipeline ─────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .pipeline-flow { flex-direction: column !important; align-items: center !important; }
+    .pipeline-connector {
+      width: 1px; height: 20px; flex: none;
+      align-self: center; margin-top: 0; min-width: unset;
+    }
+    .pipeline-connector::after { animation: none; opacity: 0; }
   }
 }
 
-/* ── Backwards compatibility aliases (old sections) ────────────── */
+/* ── Backwards compat aliases (used by LeadCalculator) ─────────────────── */
 @layer base {
   :root {
-    --color-cream:       var(--color-bg-1);
     --color-charcoal:    var(--color-bg);
-    --color-navy:        var(--color-bg-2);
-    --color-navy-deep:   var(--color-bg);
-    --color-navy-mid:    var(--color-bg-3);
-    --color-teal:        var(--color-cyan);
-    --color-teal-light:  var(--color-blue-glow);
-    --color-gold:        var(--color-amber);   /* → #C6A15B premium gold */
-    --color-gold-light:  #D4B577;
-    --color-offwhite:    var(--color-bg-1);
+    --color-navy:        var(--color-blue);
+    --color-gold:        var(--color-amber);
+    --color-gold-light:  var(--color-amber-light);
+    --color-teal:        var(--color-green);
     --color-surface:     var(--color-bg-2);
-    --color-surface-2:   var(--color-bg-1);
     --color-text-secondary: var(--color-text-2);
     --color-text-muted:  var(--color-text-3);
     --color-line:        var(--color-border);
-    --color-border:      var(--color-border);
-    --color-blue-50:     rgba(23,59,92,0.06);
-    --color-blue-100:    rgba(23,59,92,0.10);
-    --color-blue-500:    var(--color-blue);
-    --font-heading:      var(--font-display);
-    --spacing-section:   var(--section-y);
   }
 }
 
-/* ── CSS hover utilities (avoid onMouse* in Server Components) ── */
+/* ── CSS hover utilities ────────────────────────────────────────────────── */
 @layer utilities {
   .link-dim {
     color: var(--color-text-3);
@@ -357,14 +377,19 @@
   .nav-link {
     color: var(--color-text-3);
     transition: color 0.15s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
   }
   .nav-link:hover { color: var(--color-text); }
 
   .nav-cta {
     background: var(--color-blue);
     color: white;
-    border-radius: 4px;
+    border-radius: 8px;
     transition: background 0.15s ease;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.5rem 1.1rem;
   }
   .nav-cta:hover { background: var(--color-blue-dim); }
 }

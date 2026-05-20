@@ -89,11 +89,11 @@ export function PricingSection() {
         }
         .pricing-featured {
           transform: translateY(-6px);
-          box-shadow: 0 12px 48px -12px rgba(23,59,92,0.22);
+          box-shadow: 0 12px 48px -12px rgba(0,32,69,0.28);
         }
         .pricing-featured:hover {
           transform: translateY(-10px);
-          box-shadow: 0 20px 60px -12px rgba(23,59,92,0.30);
+          box-shadow: 0 20px 60px -12px rgba(0,32,69,0.36);
         }
       `}</style>
 
@@ -101,7 +101,7 @@ export function PricingSection() {
         <AnimateIn>
           <div style={{ textAlign: 'center', maxWidth: '40rem', margin: '0 auto 3.5rem' }}>
             <span className="accent-line" style={{ margin: '0 auto 1.25rem' }} />
-            <p className="text-label mb-4">Transparente Investition</p>
+            <p className="text-label mb-4">System-Ausbaustufen</p>
             <h2
               id="pricing-heading"
               style={{
@@ -114,10 +114,10 @@ export function PricingSection() {
                 marginBottom: '1rem',
               }}
             >
-              Zahlt sich nach 2–4 Wochen selbst.
+              Wähle, wie weit dein Anfrage-System ausgebaut wird.
             </h2>
             <p style={{ fontSize: '1rem', color: 'var(--color-text-2)', lineHeight: 1.7 }}>
-              Keine versteckten Kosten. Kein Vendor Lock-in. Du kannst jederzeit kündigen.
+              Vom einfachen Erfassungssystem bis zum vollständigen Betriebs-Cockpit. Eine Modellrechnung zeigt, ab wann sich das System für deinen Betrieb rechnet.
             </p>
           </div>
         </AnimateIn>
