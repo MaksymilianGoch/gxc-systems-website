@@ -1,374 +1,94 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { Container } from '@/components/ui/Container'
 import { AnimateIn } from '@/components/ui/AnimateIn'
 
-// ── Types ─────────────────────────────────────────────────────────────────────
-
-interface SliderConfig {
-  id: keyof CalcState
-  label: string
-  min: number
-  max: number
-  step: number
-  unit: string
-  unitPosition: 'prefix' | 'suffix'
+function formatEuro(v: number) {
+  return new Intl.NumberFormat('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Math.round(v))
 }
-
-interface CalcState {
-  verpassteAnfragen: number
-  auftragswert: number
-  antwortzeit: number
-  abschlussrate: number
-}
-
-// ── Slider configuration ──────────────────────────────────────────────────────
-
-const sliders: SliderConfig[] = [
-  {
-    id: 'verpassteAnfragen',
-    label: 'Verpasste Anfragen pro Woche',
-    min: 0,
-    max: 50,
-    step: 1,
-    unit: '',
-    unitPosition: 'suffix',
-  },
-  {
-    id: 'auftragswert',
-    label: 'Durchschnittlicher Auftragswert',
-    min: 100,
-    max: 5000,
-    step: 50,
-    unit: '€',
-    unitPosition: 'prefix',
-  },
-  {
-    id: 'antwortzeit',
-    label: 'Aktuelle Antwortzeit',
-    min: 1,
-    max: 72,
-    step: 1,
-    unit: 'Std.',
-    unitPosition: 'suffix',
-  },
-  {
-    id: 'abschlussrate',
-    label: 'Abschlussrate ohne System',
-    min: 5,
-    max: 80,
-    step: 1,
-    unit: '%',
-    unitPosition: 'suffix',
-  },
-]
-
-const DEFAULTS: CalcState = {
-  verpassteAnfragen: 8,
-  auftragswert: 800,
-  antwortzeit: 24,
-  abschlussrate: 20,
-}
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-
-function calcResults(state: CalcState) {
-  const wöchentlich = state.verpassteAnfragen * state.auftragswert * (state.abschlussrate / 100)
-  const jährlich = wöchentlich * 52
-  const rückgewinnbar = jährlich * 0.65
-  return { jährlich, rückgewinnbar }
-}
-
-function formatEuro(value: number): string {
-  return new Intl.NumberFormat('de-DE', {
-    style: 'decimal',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(Math.round(value))
-}
-
-function formatValue(config: SliderConfig, value: number): string {
-  const raw = config.id === 'auftragswert' ? formatEuro(value) : String(value)
-  if (!config.unit) return raw
-  return config.unitPosition === 'prefix' ? `${config.unit} ${raw}` : `${raw} ${config.unit}`
-}
-
-// ── Slider component ──────────────────────────────────────────────────────────
-
-interface SliderRowProps {
-  config: SliderConfig
-  value: number
-  onChange: (id: keyof CalcState, value: number) => void
-}
-
-function SliderRow({ config, value, onChange }: SliderRowProps) {
-  const pct = ((value - config.min) / (config.max - config.min)) * 100
-
-  return (
-    <div>
-      <div className="flex items-baseline justify-between mb-2">
-        <label
-          htmlFor={`slider-${config.id}`}
-          style={{ fontSize: '0.82rem', fontWeight: 500, color: 'var(--color-text-2)', letterSpacing: '0.01em' }}
-        >
-          {config.label}
-        </label>
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.875rem',
-            fontWeight: 700,
-            color: 'var(--color-blue)',
-            letterSpacing: '-0.01em',
-            minWidth: '5rem',
-            textAlign: 'right',
-          }}
-        >
-          {formatValue(config, value)}
-        </span>
-      </div>
-
-      <div style={{ position: 'relative', height: '4px', marginBottom: '0.25rem' }}>
-        {/* Track background */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: '2px',
-            background: 'var(--color-border)',
-          }}
-        />
-        {/* Filled portion */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: `${pct}%`,
-            borderRadius: '2px',
-            background: 'var(--color-blue)',
-            transition: 'width 0.08s ease',
-          }}
-        />
-        <input
-          id={`slider-${config.id}`}
-          type="range"
-          min={config.min}
-          max={config.max}
-          step={config.step}
-          value={value}
-          onChange={(e) => onChange(config.id, Number(e.target.value))}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            opacity: 0,
-            cursor: 'pointer',
-            height: '100%',
-            margin: 0,
-            padding: 0,
-          }}
-          aria-label={config.label}
-        />
-        {/* Thumb */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: `${pct}%`,
-            transform: 'translate(-50%, -50%)',
-            width: '14px',
-            height: '14px',
-            borderRadius: '50%',
-            background: 'var(--color-blue)',
-            border: '2px solid var(--color-bg-1)',
-            boxShadow: '0 0 0 3px rgba(23,59,92,0.15)',
-            transition: 'left 0.08s ease',
-            pointerEvents: 'none',
-          }}
-        />
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px' }}>
-        <span style={{ fontSize: '0.62rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>
-          {formatValue(config, config.min)}
-        </span>
-        <span style={{ fontSize: '0.62rem', color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>
-          {formatValue(config, config.max)}
-        </span>
-      </div>
-    </div>
-  )
-}
-
-// ── Main component ────────────────────────────────────────────────────────────
 
 export function LeadCalculatorSection() {
-  const [state, setState] = useState<CalcState>(DEFAULTS)
+  const [anfragen, setAnfragen] = useState(8)
+  const [auftragswert, setAuftragswert] = useState(800)
 
-  const handleChange = useCallback((id: keyof CalcState, value: number) => {
-    setState((prev) => ({ ...prev, [id]: value }))
-  }, [])
-
-  const { jährlich, rückgewinnbar } = calcResults(state)
+  const jaehrlich = anfragen * auftragswert * 0.2 * 52
+  const rueckgewinnbar = jaehrlich * 0.65
 
   return (
-    <section
-      id="rechner"
-      className="section-y"
-      style={{ background: 'var(--color-bg-2)' }}
-      aria-labelledby="calc-heading"
-    >
+    <section id="rechner" className="section-y" style={{ background: 'var(--color-bg-1)' }}>
       <Container>
-        <AnimateIn>
-          <div style={{ maxWidth: '38rem', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-            <span className="accent-line" />
-            <p className="text-label mb-4">Modellrechnung</p>
-            <h2
-              id="calc-heading"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-                fontWeight: 700,
-                color: 'var(--color-text)',
-                letterSpacing: '-0.03em',
-                lineHeight: 1.08,
-                marginBottom: '0.75rem',
-              }}
-            >
-              Was kostet dich das fehlende System?
-            </h2>
-            <p style={{ color: 'var(--color-text-2)', fontSize: '0.95rem', lineHeight: 1.65 }}>
-              Berechne deinen jährlichen Umsatzverlust. Die Werte basieren auf deinen Eingaben — keine Garantien, nur eine Orientierung.
-            </p>
-          </div>
-        </AnimateIn>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
-        {/* ── Two-column grid ───────────────────────────────── */}
-        <AnimateIn delay={80}>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
-              gap: 'clamp(1.5rem, 4vw, 3rem)',
-              alignItems: 'start',
-            }}
-          >
-            {/* Left: Sliders */}
-            <div
-              style={{
-                background: 'var(--color-bg-1)',
-                border: '1px solid var(--color-border)',
-                borderRadius: '8px',
-                padding: 'clamp(1.25rem, 3vw, 2rem)',
-              }}
-            >
-              <p style={{ fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '1.75rem' }}>
-                Deine Parameter
+          {/* Left: Sliders */}
+          <AnimateIn direction="left">
+            <div>
+              <span className="accent-line" />
+              <p className="text-label mb-3">Modellrechnung</p>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem, 3vw, 2.25rem)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em', marginBottom: '1rem' }}>
+                Was kostet dich das fehlende System?
+              </h2>
+              <p style={{ fontSize: '1rem', color: 'var(--color-text-2)', lineHeight: 1.7, marginBottom: '2.5rem' }}>
+                Berechne deinen jährlichen Umsatzverlust. Die Werte basieren auf deinen Eingaben — eine Orientierung für deinen Betrieb.
               </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-                {sliders.map((config) => (
-                  <SliderRow
-                    key={config.id}
-                    config={config}
-                    value={state[config.id]}
-                    onChange={handleChange}
-                  />
-                ))}
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.625rem' }}>
+                    <label style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-text)' }}>Verpasste Anfragen / Woche</label>
+                    <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--color-blue)', fontFamily: 'var(--font-mono)' }}>{anfragen}</span>
+                  </div>
+                  <input type="range" min={1} max={50} value={anfragen} onChange={(e) => setAnfragen(Number(e.target.value))}
+                    style={{ width: '100%', height: '6px', appearance: 'none', background: `linear-gradient(to right, var(--color-blue) ${(anfragen/50)*100}%, var(--color-border-2) ${(anfragen/50)*100}%)`, borderRadius: 'var(--radius-full)', outline: 'none', cursor: 'pointer' }} />
+                </div>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.625rem' }}>
+                    <label style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-text)' }}>Ø Auftragswert</label>
+                    <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--color-blue)', fontFamily: 'var(--font-mono)' }}>€ {formatEuro(auftragswert)}</span>
+                  </div>
+                  <input type="range" min={100} max={5000} step={50} value={auftragswert} onChange={(e) => setAuftragswert(Number(e.target.value))}
+                    style={{ width: '100%', height: '6px', appearance: 'none', background: `linear-gradient(to right, var(--color-blue) ${((auftragswert-100)/4900)*100}%, var(--color-border-2) ${((auftragswert-100)/4900)*100}%)`, borderRadius: 'var(--radius-full)', outline: 'none', cursor: 'pointer' }} />
+                </div>
               </div>
             </div>
+          </AnimateIn>
 
-            {/* Right: Result panel */}
-            <div
-              style={{
-                position: 'sticky',
-                top: '6rem',
-                background: 'var(--color-bg-1)',
-                border: '1px solid var(--color-border)',
-                borderTop: '3px solid var(--color-blue)',
-                borderRadius: '8px',
-                padding: 'clamp(1.25rem, 3vw, 2rem)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1.5rem',
-              }}
-            >
-              {/* Label */}
-              <p style={{ fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
+          {/* Right: Dark navy result card */}
+          <AnimateIn delay={100} direction="right">
+            <div style={{ background: 'var(--color-blue)', borderRadius: 'var(--radius-2xl)', padding: '2.5rem', color: 'white', position: 'relative', overflow: 'hidden', boxShadow: '0 32px 64px -16px rgba(0,32,69,0.35)' }}>
+              {/* Decorative orb */}
+              <div style={{ position: 'absolute', top: '-3rem', right: '-3rem', width: '12rem', height: '12rem', borderRadius: '50%', background: 'rgba(110,171,140,0.08)', filter: 'blur(40px)', pointerEvents: 'none' }} aria-hidden="true" />
+
+              <p style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-blue-light)', marginBottom: '1rem' }}>
                 Geschätzter Jahresverlust
               </p>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1, marginBottom: '0.5rem' }}
+                aria-live="polite">
+                € {formatEuro(jaehrlich)}
+              </div>
+              <p style={{ fontSize: '0.82rem', color: 'var(--color-blue-light)', marginBottom: '2rem' }}>Pro Jahr entgangener Umsatz (Modellrechnung)</p>
 
-              {/* Primary number */}
-              <div>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 'clamp(2.25rem, 5vw, 3.5rem)',
-                    fontWeight: 700,
-                    lineHeight: 1,
-                    letterSpacing: '-0.03em',
-                    color: 'var(--color-text)',
-                  }}
-                  aria-live="polite"
-                  aria-label={`${formatEuro(jährlich)} Euro Jahresverlust`}
-                >
-                  € {formatEuro(jährlich)}
-                </span>
-                <p style={{ fontSize: '0.78rem', color: 'var(--color-text-3)', marginTop: '0.35rem' }}>
-                  pro Jahr entgangener Umsatz (Modellrechnung)
+              <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: 'var(--radius-xl)', padding: '1.25rem', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '1.75rem' }}>
+                <p style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-green)', marginBottom: '0.375rem' }}>
+                  Davon strukturierbar mit GXC
+                </p>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 700, letterSpacing: '-0.025em', marginBottom: '0.375rem' }}
+                  aria-live="polite">
+                  € {formatEuro(rueckgewinnbar)}
+                </div>
+                <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>
+                  Grundlage: 65% der verpassten Anfragen strukturierbar
                 </p>
               </div>
 
-              <div style={{ height: '1px', background: 'var(--color-border)' }} aria-hidden="true" />
-
-              {/* Recoverable amount */}
-              <div
-                style={{
-                  background: 'rgba(47,125,90,0.06)',
-                  border: '1px solid rgba(47,125,90,0.18)',
-                  borderRadius: '6px',
-                  padding: '1rem 1.25rem',
-                }}
-              >
-                <p style={{ fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: '0.4rem' }}>
-                  Davon strukturierbar mit GXC System
-                </p>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 'clamp(1.375rem, 3vw, 2rem)',
-                    fontWeight: 700,
-                    lineHeight: 1,
-                    letterSpacing: '-0.02em',
-                    color: 'var(--color-green)',
-                  }}
-                  aria-live="polite"
-                  aria-label={`${formatEuro(rückgewinnbar)} Euro strukturierbar`}
-                >
-                  € {formatEuro(rückgewinnbar)}
-                </span>
-                <p style={{ fontSize: '0.7rem', color: 'var(--color-text-3)', marginTop: '0.3rem' }}>
-                  geschätzter Richtwert — Grundlage: 65% der verpassten Anfragen strukturierbar
-                </p>
-              </div>
-
-              {/* CTA */}
-              <a href="#kontakt" className="btn-primary" style={{ fontSize: '0.875rem', padding: '0.875rem 1.5rem', justifyContent: 'center' }}>
+              <a href="#kontakt" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: 'white', color: 'var(--color-blue)', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem', padding: '1rem', borderRadius: 'var(--radius-xl)', transition: 'background 0.15s ease' }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-amber-container)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'white'; }}>
                 System besprechen
-                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
               </a>
-
-              {/* Disclaimer */}
-              <p style={{ fontSize: '0.65rem', color: 'var(--color-text-3)', lineHeight: 1.5 }}>
-                Modellrechnung auf Basis deiner Eingaben. Tatsächliche Ergebnisse hängen von Betrieb, Branche und Ausgangssituation ab.
-              </p>
             </div>
-          </div>
-        </AnimateIn>
+          </AnimateIn>
+        </div>
       </Container>
     </section>
   )
