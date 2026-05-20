@@ -71,6 +71,46 @@ export function PricingSection() {
       style={{ background: 'var(--color-bg-1)' }}
       aria-labelledby="preise-heading"
     >
+      {/* CSS 3D hover & layer-stack styles */}
+      <style>{`
+        .pricing-card {
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+          transform-style: preserve-3d;
+        }
+        .pricing-card:hover {
+          transform: perspective(800px) rotateX(2deg) rotateY(-3deg) translateZ(6px);
+          box-shadow: 0 16px 48px -12px rgba(37, 99, 235, 0.25);
+        }
+        .pricing-card-featured {
+          box-shadow: 0 0 40px -8px rgba(37, 99, 235, 0.35);
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+          transform-style: preserve-3d;
+        }
+        .pricing-card-featured:hover {
+          transform: perspective(800px) rotateX(2deg) rotateY(-3deg) translateZ(8px);
+          box-shadow: 0 20px 60px -12px rgba(37, 99, 235, 0.5);
+        }
+        .layer-stack {
+          position: absolute;
+          bottom: 1.5rem;
+          right: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          opacity: 0.25;
+          pointer-events: none;
+        }
+        .layer-stack span {
+          display: block;
+          width: 28px;
+          height: 1px;
+          background: currentColor;
+        }
+        .layer-stack span:nth-child(1) { transform: translateX(4px); }
+        .layer-stack span:nth-child(2) { transform: translateX(2px); }
+        .layer-stack span:nth-child(3) { transform: translateX(0px); }
+      `}</style>
+
       <Container>
 
         <AnimateIn>
@@ -114,7 +154,7 @@ export function PricingSection() {
           {pakete.map((paket, i) => (
             <AnimateIn key={paket.id} delay={i * 70}>
               <div
-                className="flex flex-col h-full"
+                className={`flex flex-col h-full ${paket.hervorgehoben ? 'pricing-card-featured' : 'pricing-card'}`}
                 style={{
                   background: paket.hervorgehoben ? 'var(--color-bg-3)' : 'var(--color-bg-2)',
                   position: 'relative',
@@ -244,6 +284,13 @@ export function PricingSection() {
                   >
                     {paket.cta}
                   </a>
+                </div>
+
+                {/* Layer-stack decoration — 3 stacked lines bottom-right */}
+                <div className="layer-stack" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
                 </div>
               </div>
             </AnimateIn>

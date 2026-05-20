@@ -6,31 +6,30 @@
    ══════════════════════════════════════════════════════════════════════ */
 
 @theme {
-  /* ── Foundation ────────────────────────────────────────────────── */
-  --color-bg:          #07090F;   /* command background */
-  --color-bg-1:        #0C1018;   /* section surface */
-  --color-bg-2:        #111827;   /* card surface */
-  --color-bg-3:        #162033;   /* elevated surface */
+  /* ── Foundation — warmes Schwarz, nicht blau-kalt ──────────────── */
+  --color-bg:          #0A0B0D;   /* primär: fast schwarz, leicht warm */
+  --color-bg-1:        #111316;   /* section surface */
+  --color-bg-2:        #1A1D21;   /* card surface */
+  --color-bg-3:        #22262C;   /* elevated surface */
 
-  /* ── Borders ───────────────────────────────────────────────────── */
-  --color-border:      #1C2840;   /* structural border */
-  --color-border-2:    #263552;   /* visible border */
-  --color-border-3:    #334D70;   /* active/hover border */
+  /* ── Borders — neutral, kein Blau-Stich ───────────────────────── */
+  --color-border:      #1F2328;   /* hairlines */
+  --color-border-2:    #2A2F36;   /* dividers */
+  --color-border-3:    #353B45;   /* active/hover */
 
-  /* ── Text ──────────────────────────────────────────────────────── */
-  --color-text:        #E8EFF8;   /* primary */
-  --color-text-2:      #7D93B5;   /* secondary */
-  --color-text-3:      #3D5070;   /* muted */
+  /* ── Text — neutral, nicht blau-grau ──────────────────────────── */
+  --color-text:        #F5F6F7;   /* primär — crisp white */
+  --color-text-2:      #9CA3AF;   /* sekundär — neutrales Grau */
+  --color-text-3:      #6B7280;   /* gedämpft */
 
-  /* ── Accents ───────────────────────────────────────────────────── */
-  --color-blue:        #3B82F6;   /* electric blue — primary accent */
-  --color-blue-dim:    #1D4ED8;   /* deeper blue */
-  --color-blue-glow:   #60A5FA;   /* light blue */
-  --color-cyan:        #06B6D4;   /* operational teal/cyan */
-  --color-cyan-dim:    #0E7490;   /* deep cyan */
-  --color-amber:       #F59E0B;   /* data/highlight amber */
-  --color-green:       #10B981;   /* success/positive */
-  --color-red:         #EF4444;   /* error/critical */
+  /* ── EIN Akzentton — Industrial Steel Blue ─────────────────────── */
+  --color-blue:        #2563EB;   /* einziger Akzent */
+  --color-blue-dim:    #1D4ED8;   /* dunkler */
+  --color-blue-glow:   #3B82F6;   /* heller (hover/glow) */
+  --color-cyan:        #06B6D4;   /* sparsam: nur für 3D/Live-Elemente */
+  --color-amber:       #F59E0B;   /* sparsam: Daten/Highlight */
+  --color-green:       #00D67D;   /* sparsamst: Live-Status-Beweis */
+  --color-red:         #EF4444;   /* Fehler/Kritisch */
 
   /* ── Typography ────────────────────────────────────────────────── */
   --font-display: var(--font-space-grotesk), 'Inter', system-ui, sans-serif;
@@ -118,43 +117,54 @@
   /* ── Typography ──────────────────────────────────────────────── */
   .text-display {
     font-family: var(--font-display);
-    font-size: clamp(2.75rem, 5.5vw, 5rem);
+    font-size: clamp(2.5rem, 5.5vw, 5.25rem);
     font-weight: 700;
-    line-height: 1.0;
-    letter-spacing: -0.035em;
+    line-height: 0.96;
+    letter-spacing: -0.04em;
   }
 
   .text-display-sm {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 3.25rem);
+    font-size: clamp(1.875rem, 3.5vw, 3.25rem);
     font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -0.028em;
+    line-height: 1.03;
+    letter-spacing: -0.03em;
   }
 
   .text-title {
     font-family: var(--font-display);
-    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-size: clamp(1.125rem, 1.8vw, 1.625rem);
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.02em;
   }
 
+  /* Mono uppercase label */
   .text-label {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--color-blue);
   }
 
+  /* Large mono stat/data number */
   .text-stat {
     font-family: var(--font-mono);
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: clamp(1.875rem, 4vw, 3.5rem);
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.04em;
+  }
+
+  /* Index / step number */
+  .text-index {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--color-blue);
   }
 
   /* ── Scroll Animation ────────────────────────────────────────── */
@@ -191,9 +201,9 @@
     margin-bottom: 1.25rem;
   }
 
-  /* ── Blue gradient text ──────────────────────────────────────── */
+  /* ── Blue gradient text — single accent, tiefes Blau ────────── */
   .gradient-text {
-    background: linear-gradient(135deg, var(--color-blue-glow) 0%, var(--color-cyan) 100%);
+    background: linear-gradient(135deg, var(--color-blue-glow) 0%, var(--color-blue) 60%, var(--color-blue-dim) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

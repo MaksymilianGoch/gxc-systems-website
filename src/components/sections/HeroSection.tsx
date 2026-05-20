@@ -88,7 +88,7 @@ export function HeroSection() {
                 <br />
                 <span
                   style={{
-                    background: 'linear-gradient(135deg, #60A5FA, #06B6D4)',
+                    background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 60%, #1D4ED8 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',

@@ -1,9 +1,8 @@
 import { HeroSection } from '@/components/sections/HeroSection'
 import { CostSection } from '@/components/sections/CostSection'
-import { ArchitectureSection } from '@/components/sections/ArchitectureSection'
 import { ServicesSection } from '@/components/sections/ServicesSection'
-import { BeforeAfterSection } from '@/components/sections/BeforeAfterSection'
 import { InteractiveTimeline } from '@/components/sections/InteractiveTimeline'
+import { PipelineSection } from '@/components/sections/PipelineSection'
 import { LeadCalculatorSection } from '@/components/sections/LeadCalculatorSection'
 import { TrustSection } from '@/components/sections/TrustSection'
 import { FoundersSection } from '@/components/sections/FoundersSection'
@@ -19,10 +18,9 @@ export default function HomePage() {
     <>
       <HeroSection />
       <CostSection />
-      <ArchitectureSection />
       <ServicesSection />
-      <BeforeAfterSection />
       <InteractiveTimeline />
+      <PipelineSection />
       <LeadCalculatorSection />
       <TrustSection />
       <FoundersSection />
