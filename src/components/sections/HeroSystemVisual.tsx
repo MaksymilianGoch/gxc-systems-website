@@ -286,7 +286,7 @@ export function HeroSystemVisual() {
   return (
     <div
       ref={containerRef}
-      style={{ position: 'relative', width: '100%', height: 'clamp(500px, 54vw, 680px)', overflow: 'hidden', background: 'linear-gradient(145deg, #060c1c 0%, #0a1428 55%, #070e22 100%)', borderRadius: 20, border: '1px solid rgba(140,182,255,0.09)', boxShadow: '0 28px 72px -16px rgba(0,0,0,0.55)' }}
+      style={{ position: 'relative', width: '100%', height: 'clamp(500px, 54vw, 680px)', overflow: 'hidden' }}
     >
       <style>{`
         @keyframes scanTravel { from{stroke-dashoffset:1260} to{stroke-dashoffset:0} }
@@ -297,12 +297,6 @@ export function HeroSystemVisual() {
         @keyframes sysDot { 0%,100%{opacity:1} 50%{opacity:0.28} }
       `}</style>
 
-      {/* Dot grid */}
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.042) 1px, transparent 1px)', backgroundSize: '28px 28px', pointerEvents: 'none', zIndex: 1 }} aria-hidden="true" />
-      {/* Ambient orbs */}
-      <div style={{ position: 'absolute', top: '-18%', left: '-10%', width: '50%', height: '50%', borderRadius: '50%', background: 'radial-gradient(circle, rgba(100,148,240,0.05) 0%, transparent 70%)', filter: 'blur(44px)', pointerEvents: 'none', zIndex: 1 }} aria-hidden="true" />
-      <div style={{ position: 'absolute', bottom: '-12%', right: '-8%', width: '40%', height: '40%', borderRadius: '50%', background: 'radial-gradient(circle, rgba(100,190,155,0.04) 0%, transparent 70%)', filter: 'blur(44px)', pointerEvents: 'none', zIndex: 1 }} aria-hidden="true" />
-
       {/* SVG rails */}
       <svg aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 14, overflow: 'visible' }}>
         {LEADS.map((_, i) => {
@@ -310,8 +304,8 @@ export function HeroSystemVisual() {
           return (
             <line key={i} ref={el => { lineRefs.current[i] = el }}
               x1="0" y1="0" x2="0" y2="0"
-              stroke={active ? 'rgba(174,199,245,0.35)' : 'rgba(174,199,245,0.05)'}
-              strokeWidth={active ? 1.1 : 0.45}
+              stroke={active ? 'rgba(0,32,69,0.28)' : 'rgba(0,32,69,0.06)'}
+              strokeWidth={active ? 1.0 : 0.4}
               strokeDasharray={phases[i] === 'moving' ? '4 5' : '2 12'}
               style={{ transition: 'stroke 0.5s ease, stroke-width 0.4s ease' }}
             />
@@ -332,22 +326,20 @@ export function HeroSystemVisual() {
             style={{
               position: 'absolute', left: 0, top: 0,
               width: CARD_W, willChange: 'transform',
-              background: isActive
-                ? 'rgba(12,22,52,0.92)'
-                : 'rgba(10,18,44,0.80)',
-              borderTop: `1px solid ${isActive ? lead.accent + '60' : 'rgba(174,199,245,0.12)'}`,
-              borderRight: `1px solid ${isActive ? lead.accent + '30' : 'rgba(174,199,245,0.08)'}`,
-              borderBottom: `1px solid ${isActive ? lead.accent + '20' : 'rgba(174,199,245,0.06)'}`,
-              borderLeft: `2px solid ${isActive ? lead.accent : lead.accent + '55'}`,
-              borderRadius: 3,
+              backdropFilter: 'blur(14px) saturate(1.4)',
+              background: isActive ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.82)',
+              borderTop: `1px solid ${isActive ? lead.accent + 'cc' : 'rgba(196,210,240,0.55)'}`,
+              borderRight: '1px solid rgba(196,210,240,0.35)',
+              borderBottom: '1px solid rgba(196,210,240,0.25)',
+              borderLeft: `2.5px solid ${isActive ? lead.accent : lead.accent + 'aa'}`,
+              borderRadius: 6,
               boxShadow: isActive
-                ? `0 0 20px -5px ${lead.accent}25, inset 0 1px 0 rgba(255,255,255,0.04)`
-                : 'inset 0 1px 0 rgba(255,255,255,0.03)',
+                ? `0 8px 28px -6px rgba(0,32,69,0.14), 0 0 0 2px ${lead.accent}1a`
+                : '0 4px 16px -4px rgba(0,32,69,0.09)',
               padding: '0.44rem 0.62rem',
               zIndex: isActive ? 25 : isDone ? 5 : 12,
               opacity: isDone ? 0 : 1,
               transition: 'opacity 0.18s ease, border-color 0.35s ease, box-shadow 0.35s ease',
-              backdropFilter: 'blur(10px)',
             }}
           >
             {/* Top row: type + signal status */}
@@ -359,16 +351,16 @@ export function HeroSystemVisual() {
                   boxShadow: isActive ? '0 0 5px #4ade80' : 'none',
                   animation: isActive ? 'capturePulse 0.8s ease-in-out infinite' : 'none',
                 }} />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', fontWeight: 700, color: isActive ? lead.accent : lead.accent + 'bb', letterSpacing: '0.08em' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', fontWeight: 700, color: lead.accent, letterSpacing: '0.08em' }}>
                   {lead.type}
                 </span>
               </div>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.42rem', color: isMoving ? '#4ade80cc' : 'rgba(174,199,245,0.35)', letterSpacing: '0.06em' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.42rem', color: isMoving ? '#16a34a' : 'rgba(0,32,69,0.35)', letterSpacing: '0.06em' }}>
                 {isMoving ? 'ACQUIRING' : 'SIG:OK'}
               </span>
             </div>
             {/* Name + detail */}
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: isActive ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.38)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', letterSpacing: '0.01em' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: isActive ? 'rgba(0,32,69,0.75)' : 'rgba(0,32,69,0.48)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', letterSpacing: '0.01em' }}>
               {lead.name} — {lead.detail}
             </div>
             {/* Data shimmer line at bottom */}

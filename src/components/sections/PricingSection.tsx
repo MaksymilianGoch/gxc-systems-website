@@ -10,7 +10,7 @@ const tiers = [
     name: 'Starter',
     tagline: 'Dein erstes System, das funktioniert.',
     setupPrice: '1.490 €',
-    monthlyBase: null,
+    monthlyBase: 150,
     badge: null,
     for: 'Kleiner Betrieb, erster Einstieg, schnelle Wirkung',
     features: [
