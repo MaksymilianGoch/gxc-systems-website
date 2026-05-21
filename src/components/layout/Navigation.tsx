@@ -36,36 +36,61 @@ export function Navigation() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3" aria-label="GXC Systems">
-            {/* Octopus logo — no background */}
+            {/* Octopus logo */}
             <svg width="40" height="40" viewBox="0 0 100 100" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-              {/* Hexagon outline */}
-              <path d="M50 4L91 27V73L50 96L9 73V27Z" fill="rgba(180,210,255,0.12)" stroke="rgba(140,190,255,0.5)" strokeWidth="2"/>
-              {/* Body */}
-              <ellipse cx="50" cy="36" rx="14" ry="17" fill="rgba(180,210,255,0.9)"/>
-              {/* Eyes */}
-              <circle cx="44" cy="33" r="3.5" fill="rgba(100,160,240,0.7)"/>
-              <circle cx="56" cy="33" r="3.5" fill="rgba(100,160,240,0.7)"/>
-              <circle cx="44.8" cy="33.8" r="1.5" fill="rgba(40,80,160,0.8)"/>
-              {/* Wink right */}
-              <path d="M54 33 Q56 35 58 33" stroke="rgba(40,80,160,0.8)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+              {/* Outer hexagon (flat-top: points L/R) */}
+              <path d="M28 8 L72 8 L94 50 L72 92 L28 92 L6 50 Z"
+                fill="rgba(174,199,245,0.1)" stroke="rgba(140,182,255,0.45)" strokeWidth="2.5"/>
+              {/* Inner hexagon ring */}
+              <path d="M31 14 L69 14 L88 50 L69 86 L31 86 L12 50 Z"
+                fill="none" stroke="rgba(140,182,255,0.17)" strokeWidth="1.4"/>
+              {/* Body / head */}
+              <ellipse cx="50" cy="37" rx="16" ry="20" fill="rgba(174,199,245,0.9)"/>
+              {/* Left eye — open */}
+              <circle cx="42.5" cy="32" r="4" fill="rgba(88,142,224,0.65)"/>
+              <circle cx="43.5" cy="33" r="1.9" fill="rgba(18,60,155,0.88)"/>
+              {/* Right eye — winking */}
+              <path d="M52.5 29.5 Q56.5 34.5 60 29.5"
+                stroke="rgba(18,60,155,0.85)" strokeWidth="2.2" strokeLinecap="round" fill="none"/>
               {/* Smile */}
-              <path d="M44 40 Q50 45 56 40" stroke="rgba(40,80,160,0.7)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-              {/* Tentacles */}
-              <path d="M38 50 Q30 60 26 72 Q24 78 28 80" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              <path d="M44 53 Q38 65 36 76 Q34 82 30 82" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              <path d="M50 54 Q50 68 50 78 Q50 84 46 86 M50 78 Q52 84 56 86" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              <path d="M56 53 Q62 65 64 76 Q66 82 70 82" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              <path d="M62 50 Q70 60 74 72 Q76 78 72 80" stroke="rgba(160,200,255,0.85)" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              {/* Side arms */}
-              <path d="M36 42 Q22 40 14 46 Q10 50 14 54" stroke="rgba(160,200,255,0.8)" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              <path d="M64 42 Q78 40 86 46 Q90 50 86 54" stroke="rgba(160,200,255,0.8)" strokeWidth="3" strokeLinecap="round" fill="none"/>
-              {/* Circuit dots */}
-              <circle cx="14" cy="54" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
-              <circle cx="86" cy="54" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
-              <circle cx="28" cy="82" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
-              <circle cx="72" cy="82" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
-              <circle cx="46" cy="88" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
-              <circle cx="56" cy="88" r="3" fill="none" stroke="rgba(140,190,255,0.6)" strokeWidth="1.5"/>
+              <path d="M43 41 Q50 47 57 41"
+                stroke="rgba(22,65,158,0.7)" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+              {/* Left side tentacle */}
+              <path d="M34 42 Q18 40 12 46 Q7 51 12 56"
+                stroke="rgba(152,192,255,0.82)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              {/* Right side tentacle */}
+              <path d="M66 42 Q82 40 88 46 Q93 51 88 56"
+                stroke="rgba(152,192,255,0.82)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              {/* 4 front tentacles */}
+              <path d="M39 55 Q33 65 30 76"
+                stroke="rgba(158,198,255,0.87)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+              <path d="M46 57 Q42 68 40 80"
+                stroke="rgba(158,198,255,0.87)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+              <path d="M54 57 Q58 68 60 80"
+                stroke="rgba(158,198,255,0.87)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+              <path d="M61 55 Q67 65 70 76"
+                stroke="rgba(158,198,255,0.87)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+              {/* Circuit traces — outer left */}
+              <polyline points="30,76 24,79 20,84" stroke="rgba(138,183,255,0.58)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <circle cx="20" cy="84" r="2.3" fill="none" stroke="rgba(138,183,255,0.54)" strokeWidth="1.2"/>
+              <line x1="30" y1="76" x2="28" y2="84" stroke="rgba(138,183,255,0.55)" strokeWidth="1.5" strokeLinecap="round"/>
+              <circle cx="28" cy="84" r="2.3" fill="none" stroke="rgba(138,183,255,0.54)" strokeWidth="1.2"/>
+              {/* Circuit traces — inner left */}
+              <polyline points="40,80 37,86 32,90" stroke="rgba(138,183,255,0.58)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <circle cx="32" cy="90" r="2.3" fill="none" stroke="rgba(138,183,255,0.54)" strokeWidth="1.2"/>
+              {/* Circuit traces — center (body bottom) */}
+              <polyline points="50,57 50,74 46,80" stroke="rgba(138,183,255,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <line x1="50" y1="74" x2="54" y2="80" stroke="rgba(138,183,255,0.5)" strokeWidth="1.5" strokeLinecap="round"/>
+              <circle cx="46" cy="80" r="2.3" fill="none" stroke="rgba(138,183,255,0.48)" strokeWidth="1.2"/>
+              <circle cx="54" cy="80" r="2.3" fill="none" stroke="rgba(138,183,255,0.48)" strokeWidth="1.2"/>
+              {/* Circuit traces — inner right */}
+              <polyline points="60,80 63,86 68,90" stroke="rgba(138,183,255,0.58)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <circle cx="68" cy="90" r="2.3" fill="none" stroke="rgba(138,183,255,0.54)" strokeWidth="1.2"/>
+              {/* Circuit traces — outer right */}
+              <polyline points="70,76 76,79 80,84" stroke="rgba(138,183,255,0.58)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <circle cx="80" cy="84" r="2.3" fill="none" stroke="rgba(138,183,255,0.54)" strokeWidth="1.2"/>
+              <line x1="70" y1="76" x2="72" y2="84" stroke="rgba(138,183,255,0.55)" strokeWidth="1.5" strokeLinecap="round"/>
+              <circle cx="72" cy="84" r="2.3" fill="none" stroke="rgba(138,183,255,0.54)" strokeWidth="1.2"/>
             </svg>
             <div>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '-0.03em', color: 'var(--color-text)', lineHeight: 1 }}>GXC Systems</div>

@@ -79,7 +79,12 @@ export function PricingSection() {
     <section
       id="preise"
       className="section-y"
-      style={{ background: 'linear-gradient(135deg, #0d2040 0%, #0f2a50 40%, #122d54 100%)', position: 'relative', overflow: 'hidden' }}
+      style={{
+        background: 'linear-gradient(135deg, #0d2040 0%, #0f2a50 40%, #122d54 100%)',
+        backgroundImage: 'radial-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(135deg, #0d2040 0%, #0f2a50 40%, #122d54 100%)',
+        backgroundSize: '28px 28px, auto',
+        position: 'relative', overflow: 'hidden',
+      }}
       aria-labelledby="pricing-heading"
     >
       {/* Decorative orbs */}
@@ -88,26 +93,23 @@ export function PricingSection() {
 
       <style>{`
         .pricing-card {
-          transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
+          transition: transform 0.28s cubic-bezier(0.16,1,0.3,1), box-shadow 0.28s ease;
+          display: flex; flex-direction: column; height: 100%;
         }
         .pricing-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 16px 48px -12px rgba(0,0,0,0.25);
+          transform: translateY(-5px);
+          box-shadow: 0 20px 52px -12px rgba(0,0,0,0.3);
         }
         .pricing-featured {
-          transform: translateY(-6px);
-          box-shadow: 0 4px 0 0 #4ade80, 0 20px 64px -12px rgba(0,0,0,0.35);
+          transform: translateY(-10px) scale(1.025);
+          box-shadow: 0 0 0 1.5px rgba(74,222,128,0.55), 0 28px 72px -12px rgba(0,0,0,0.45);
         }
         .pricing-featured:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 4px 0 0 #4ade80, 0 28px 72px -12px rgba(0,0,0,0.4);
+          transform: translateY(-14px) scale(1.025);
+          box-shadow: 0 0 0 2px rgba(74,222,128,0.7), 0 36px 80px -12px rgba(0,0,0,0.5);
         }
-        .toggle-track {
-          transition: background 0.2s ease;
-        }
-        .toggle-thumb {
-          transition: left 0.2s ease;
-        }
+        .toggle-track { transition: background 0.2s ease; }
+        .toggle-thumb  { transition: left 0.2s ease; }
       `}</style>
 
       <Container>
@@ -175,14 +177,14 @@ export function PricingSection() {
           </div>
         </AnimateIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start" style={{ paddingBottom: '0.5rem' }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch" style={{ paddingBottom: '0.5rem' }}>
           {tiers.map((tier, i) => {
             const monthlyPrice = tier.monthlyBase
               ? (annual ? Math.round(tier.monthlyBase * 0.88) : tier.monthlyBase)
               : null
 
             return (
-              <AnimateIn key={tier.id} delay={i * 80}>
+              <AnimateIn key={tier.id} delay={i * 80} className="flex flex-col h-full">
                 <div
                   className={`pricing-card ${tier.featured ? 'pricing-featured' : ''}`}
                   style={{
@@ -253,7 +255,7 @@ export function PricingSection() {
                   <div style={{ height: '1px', background: 'var(--color-border)', margin: '0 1.75rem' }} />
 
                   {/* Features */}
-                  <div style={{ padding: '1.25rem 1.75rem' }}>
+                  <div style={{ padding: '1.25rem 1.75rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', marginBottom: '1.25rem' }}>
                       {tier.features.map((f) => (
                         <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem' }}>
@@ -279,34 +281,37 @@ export function PricingSection() {
                       </p>
                     )}
 
-                    {/* CTA */}
-                    <a
-                      href="#kontakt"
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.5rem',
-                        padding: '0.875rem',
-                        background: tier.featured ? '#4ade80' : 'transparent',
-                        color: tier.featured ? '#0a1a35' : 'var(--color-text)',
-                        border: `1px solid ${tier.featured ? 'transparent' : 'var(--color-border-2)'}`,
-                        borderRadius: '6px',
-                        fontFamily: 'var(--font-display)',
-                        fontWeight: 700,
-                        fontSize: '0.875rem',
-                        letterSpacing: '-0.01em',
-                        transition: 'opacity 0.15s ease, transform 0.15s ease',
-                        textDecoration: 'none',
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.88'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'none'; }}
-                    >
-                      {tier.cta}
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </a>
+                    {/* CTA — pushed to bottom */}
+                    <div style={{ marginTop: 'auto' }}>
+                      <a
+                        href="#kontakt"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.5rem',
+                          padding: '0.875rem',
+                          background: tier.featured ? '#4ade80' : 'transparent',
+                          color: tier.featured ? '#0a1a35' : 'var(--color-text)',
+                          border: `1.5px solid ${tier.featured ? 'transparent' : 'rgba(0,32,69,0.18)'}`,
+                          borderRadius: '8px',
+                          fontFamily: 'var(--font-display)',
+                          fontWeight: 700,
+                          fontSize: '0.875rem',
+                          letterSpacing: '-0.01em',
+                          transition: 'opacity 0.15s ease, transform 0.15s ease',
+                          textDecoration: 'none',
+                          boxShadow: tier.featured ? '0 4px 16px -4px rgba(74,222,128,0.35)' : 'none',
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.88'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'none'; }}
+                      >
+                        {tier.cta}
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </AnimateIn>
