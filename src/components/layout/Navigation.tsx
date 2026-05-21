@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { OctopusSVG } from '@/components/sections/HeroSystemVisual'
 
 const navLinks = [
   { label: 'System', href: '#wie-es-funktioniert' },
@@ -36,33 +37,7 @@ export function Navigation() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3" aria-label="GXC Systems">
-            {/* Octopus logo */}
-            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-              <path d="M25 6 L75 6 L97 50 L75 94 L25 94 L3 50 Z" fill="rgba(174,199,245,0.1)" stroke="rgba(140,182,255,0.48)" strokeWidth="2.5"/>
-              <path d="M29 12 L71 12 L91 50 L71 88 L29 88 L9 50 Z" fill="none" stroke="rgba(140,182,255,0.17)" strokeWidth="1.4"/>
-              <ellipse cx="50" cy="32" rx="17" ry="23" fill="rgba(174,199,245,0.92)"/>
-              <path d="M37 28 Q41 23.5 45 28 Q41 32.5 37 28 Z" fill="rgba(18,58,152,0.88)"/>
-              <path d="M53.5 26 Q57.5 32 61.5 26" stroke="rgba(18,58,152,0.88)" strokeWidth="2.3" strokeLinecap="round" fill="none"/>
-              <path d="M43 39 Q50 45 57 39" stroke="rgba(20,62,155,0.72)" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
-              <path d="M34 41 Q16 37 10 45 Q4 53 9 59 Q14 65 20 61" stroke="rgba(150,190,255,0.86)" strokeWidth="3.2" strokeLinecap="round" fill="none"/>
-              <path d="M66 41 Q84 37 90 45 Q96 53 91 59 Q86 65 80 61" stroke="rgba(150,190,255,0.86)" strokeWidth="3.2" strokeLinecap="round" fill="none"/>
-              <path d="M38 54 Q30 66 29 77 Q28 84 32 86" stroke="rgba(155,195,255,0.88)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
-              <path d="M45 57 Q39 70 39 81 Q39 87 43 88" stroke="rgba(155,195,255,0.88)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
-              <path d="M55 57 Q61 70 61 81 Q61 87 57 88" stroke="rgba(155,195,255,0.88)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
-              <path d="M62 54 Q70 66 71 77 Q72 84 68 86" stroke="rgba(155,195,255,0.88)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
-              <polyline points="32,86 28,86 28,91" stroke="rgba(136,181,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-              <circle cx="28" cy="91" r="2.8" fill="none" stroke="rgba(136,181,255,0.56)" strokeWidth="1.3"/>
-              <polyline points="32,86 32,90 36,90 36,93" stroke="rgba(136,181,255,0.56)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-              <circle cx="36" cy="93" r="2.8" fill="none" stroke="rgba(136,181,255,0.52)" strokeWidth="1.3"/>
-              <line x1="43" y1="88" x2="43" y2="93" stroke="rgba(136,181,255,0.54)" strokeWidth="1.5" strokeLinecap="round"/>
-              <circle cx="43" cy="93" r="2.8" fill="none" stroke="rgba(136,181,255,0.5)" strokeWidth="1.3"/>
-              <line x1="57" y1="88" x2="57" y2="93" stroke="rgba(136,181,255,0.54)" strokeWidth="1.5" strokeLinecap="round"/>
-              <circle cx="57" cy="93" r="2.8" fill="none" stroke="rgba(136,181,255,0.5)" strokeWidth="1.3"/>
-              <polyline points="68,86 68,90 64,90 64,93" stroke="rgba(136,181,255,0.56)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-              <circle cx="64" cy="93" r="2.8" fill="none" stroke="rgba(136,181,255,0.52)" strokeWidth="1.3"/>
-              <polyline points="68,86 72,86 72,91" stroke="rgba(136,181,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-              <circle cx="72" cy="91" r="2.8" fill="none" stroke="rgba(136,181,255,0.56)" strokeWidth="1.3"/>
-            </svg>
+            <OctopusSVG size={40} />
             <div>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '-0.03em', color: 'var(--color-text)', lineHeight: 1 }}>GXC Systems</div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-green)', marginTop: '2px' }}>Systeme für KMU</div>
