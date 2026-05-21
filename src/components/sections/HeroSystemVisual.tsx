@@ -2,60 +2,60 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 
-// ── layout ────────────────────────────────────────────────────────────────────
-const CARD_W = 148
-const CARD_H = 68
-const CMD_W  = 336   // 12 % larger (was 300)
-const CMD_H  = 348   // proportional
+const CARD_W = 158
+const CARD_H = 62
 
-// ── orbital parameters ────────────────────────────────────────────────────────
-// orbit_rx must be > CMD_W/2 + CARD_W/2 + gap to keep cards outside the panel.
-// We compute it dynamically in the RAF so it scales with container width.
-const ORBIT_RY_RATIO = 0.78  // ry = rx * this ratio (ellipse aspect)
-const BASE_VEL       = 0.0032 // rad / normalised-frame (60fps frame = 1.0)
-const SPEEDS         = [1.0, 0.91, 1.10, 0.95, 1.06].map(s => s * BASE_VEL)
-const INIT_ANGLES    = Array.from({ length: 5 }, (_, i) => (i * 2 * Math.PI) / 5)
+const DAMPING    = 0.985
+const MAX_SPEED  = 1.55
+const CARD_REP_R = 188
+const CARD_REP_K = 7800
+const WALL_ZONE  = 44
+const WALL_F     = 0.9
+const NOISE      = 0.02
+const EXCL_R     = 192
+const EXCL_K     = 24000
+const CAP_SPEED  = 2.8
+const SNAP       = 24
+const CAP_MIN    = 3400
+const CAP_MAX    = 5200
 
-// ── capture ───────────────────────────────────────────────────────────────────
-const R_DECAY        = 0.93   // per normalised frame during spiral
-const CAPTURE_MULT   = 2.6    // angular speed multiplier during spiral
-const SNAP           = 22     // px — triggers capture completion
-const CAP_MIN        = 3200
-const CAP_MAX        = 4600
-
-const REQUESTS = [
-  { id: 0, icon: 'email',         channel: 'E-Mail',           preview: 'Badezimmer Renovierung', contact: 'Thomas M.', statusDone: 'Lead erfasst'        },
-  { id: 1, icon: 'chat',          channel: 'WhatsApp',         preview: 'Wann kann ich Termin?',  contact: 'Sarah L.',  statusDone: 'Priorität erkannt'   },
-  { id: 2, icon: 'description',   channel: 'Kontaktformular',  preview: 'Elektroinstallation',    contact: 'K. Huber',  statusDone: 'Termin vorbereitet'  },
-  { id: 3, icon: 'phone_missed',  channel: 'Verpasster Anruf', preview: '+43 664 123 456',        contact: 'Unbekannt', statusDone: 'Follow-up aktiv'     },
-  { id: 4, icon: 'call_received', channel: 'Rückrufbitte',     preview: 'J. Müller · dringend',   contact: 'J. Müller', statusDone: 'Team benachrichtigt' },
+const LEADS = [
+  { id: 0, icon: 'email',         type: 'E-Mail',           name: 'Thomas M.',  detail: 'Badezimmer Renovierung', accent: '#aec7f5' },
+  { id: 1, icon: 'chat',          type: 'WhatsApp',         name: 'Sarah L.',   detail: 'Terminanfrage · dringend', accent: '#86c4a4' },
+  { id: 2, icon: 'description',   type: 'Kontaktformular',  name: 'K. Huber',   detail: 'Elektroinstallation',    accent: '#aec7f5' },
+  { id: 3, icon: 'phone_missed',  type: 'Verpasster Anruf', name: 'Unbekannt',  detail: '+43 664 123 456',        accent: '#f0c090' },
+  { id: 4, icon: 'call_received', type: 'Rückrufbitte',     name: 'J. Müller',  detail: 'Heizung · dringend',     accent: '#c0a8e8' },
+  { id: 5, icon: 'event',         type: 'Terminwunsch',     name: 'A. Fischer', detail: 'Mo–Mi ab 14 Uhr',        accent: '#86c4a4' },
 ]
 
-type Phase = 'orbit' | 'capture' | 'done'
-interface CardOrbit { angle: number; r: number; angVel: number; phase: Phase }
-interface FeedItem { statusDone: string; contact: string; key: number }
+const FEED_ACTIONS = [
+  'Lead erfasst',
+  'Anliegen klassifiziert',
+  'Priorität: Hoch',
+  'CRM-Eintrag erstellt',
+  'Team benachrichtigt',
+  'Follow-up vorbereitet',
+  'Termin vorbereitet',
+  'Bestätigung gesendet',
+]
 
-// ── Octopus SVG — redesigned to match reference image ─────────────────────────
+type Phase = 'free' | 'targeted' | 'moving' | 'captured'
+interface Phys { x: number; y: number; vx: number; vy: number }
+interface FeedItem { action: string; lead: string; key: number }
+
+// ── Shared octopus SVG (also imported by Navigation) ─────────────────────────
 export function OctopusSVG({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 100 100" fill="none" aria-hidden="true">
-      {/* Flat-top hexagon, transparent interior */}
       <path d="M25 5 L75 5 L97 50 L75 95 L25 95 L3 50 Z"
         fill="rgba(8,20,52,0.12)" stroke="rgba(140,182,255,0.52)" strokeWidth="3.2"/>
       <path d="M29 11 L71 11 L91 50 L71 89 L29 89 L9 50 Z"
         fill="none" stroke="rgba(140,182,255,0.18)" strokeWidth="1.6"/>
-
-      {/* Body — large oval mantle */}
       <ellipse cx="50" cy="29" rx="15.5" ry="21" fill="rgba(158,192,240,0.92)"/>
-
-      {/* Left side tentacle — bold S-curve hugging the hex edge */}
       <path d="M34.5 37 Q17 32 9 43 Q3 52 9 60 Q15 68 23 63"
         stroke="rgba(128,174,238,0.95)" strokeWidth="4.8" strokeLinecap="round" fill="none"/>
-      {/* Right side tentacle — mirror */}
       <path d="M65.5 37 Q83 32 91 43 Q97 52 91 60 Q85 68 77 63"
         stroke="rgba(128,174,238,0.95)" strokeWidth="4.8" strokeLinecap="round" fill="none"/>
-
-      {/* 4 front tentacles — converging down */}
       <path d="M38 50 Q27 63 26 75 Q25 83 29 86"
         stroke="rgba(126,172,236,0.92)" strokeWidth="3.8" strokeLinecap="round" fill="none"/>
       <path d="M45 54 Q36 67 36 79 Q36 86 40 88"
@@ -64,29 +64,18 @@ export function OctopusSVG({ size }: { size: number }) {
         stroke="rgba(126,172,236,0.92)" strokeWidth="3.8" strokeLinecap="round" fill="none"/>
       <path d="M62 50 Q73 63 74 75 Q75 83 71 86"
         stroke="rgba(126,172,236,0.92)" strokeWidth="3.8" strokeLinecap="round" fill="none"/>
-
-      {/* PCB tree — right-angle traces → glowing endpoints */}
-      {/* Left outer */}
       <polyline points="29,86 29,90"
         stroke="rgba(112,165,232,0.78)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
       <circle cx="29" cy="90" r="3.8" fill="rgba(60,148,255,0.96)"/>
-
-      {/* Left inner */}
       <polyline points="40,88 40,90 35,90 35,93"
         stroke="rgba(112,165,232,0.78)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
       <circle cx="35" cy="93" r="3.8" fill="rgba(60,148,255,0.96)"/>
-
-      {/* Centre vertical from body base */}
       <line x1="50" y1="50" x2="50" y2="91"
         stroke="rgba(112,165,232,0.62)" strokeWidth="2" strokeLinecap="round"/>
       <circle cx="50" cy="91" r="3.8" fill="rgba(60,148,255,0.96)"/>
-
-      {/* Right inner */}
       <polyline points="60,88 60,90 65,90 65,93"
         stroke="rgba(112,165,232,0.78)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
       <circle cx="65" cy="93" r="3.8" fill="rgba(60,148,255,0.96)"/>
-
-      {/* Right outer */}
       <polyline points="71,86 71,90"
         stroke="rgba(112,165,232,0.78)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
       <circle cx="71" cy="90" r="3.8" fill="rgba(60,148,255,0.96)"/>
@@ -94,106 +83,161 @@ export function OctopusSVG({ size }: { size: number }) {
   )
 }
 
-export function HeroSystemVisual() {
-  const containerRef  = useRef<HTMLDivElement>(null)
-  const cardRefs      = useRef<(HTMLDivElement | null)[]>(Array(5).fill(null))
-  const lineRefs      = useRef<(SVGLineElement | null)[]>(Array(5).fill(null))
-  const orbRef        = useRef<CardOrbit[]>(
-    INIT_ANGLES.map((angle, i) => ({ angle, r: 220, angVel: SPEEDS[i], phase: 'orbit' as Phase }))
-  )
-  const phaseRef      = useRef<Phase[]>(Array(5).fill('orbit') as Phase[])
-  const capturedRef   = useRef<boolean[]>(Array(5).fill(false))
-  const sizeRef       = useRef({ w: 560, h: 620 })
-  const prevTimeRef   = useRef(0)
+function getSpawn(cw: number, ch: number, cmdCx: number, cmdCy: number): Phys {
+  const M = 12
+  const pool: [number, number][] = [
+    [M, M], [cw - CARD_W - M, M],
+    [M, ch * 0.3], [cw - CARD_W - M, ch * 0.3],
+    [M, ch - CARD_H - M], [cw - CARD_W - M, ch - CARD_H - M],
+    [cw * 0.28 - CARD_W / 2, M], [cw * 0.72 - CARD_W / 2, M],
+    [cw * 0.28 - CARD_W / 2, ch - CARD_H - M],
+    [cw * 0.72 - CARD_W / 2, ch - CARD_H - M],
+  ].sort(() => Math.random() - 0.5) as [number, number][]
 
-  const [phases, setPhases] = useState<Phase[]>(Array(5).fill('orbit') as Phase[])
+  for (const [x, y] of pool) {
+    const cx = x + CARD_W / 2
+    const cy = y + CARD_H / 2
+    if (Math.hypot(cx - cmdCx, cy - cmdCy) > EXCL_R + 28
+      && x >= 0 && x <= cw - CARD_W
+      && y >= 0 && y <= ch - CARD_H) {
+      return { x, y, vx: (Math.random() - 0.5) * 1.1, vy: (Math.random() - 0.5) * 1.1 }
+    }
+  }
+  return { x: M, y: M, vx: 0.5, vy: 0.4 }
+}
+
+export function HeroSystemVisual() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const cardRefs     = useRef<(HTMLDivElement | null)[]>(Array(6).fill(null))
+  const lineRefs     = useRef<(SVGLineElement | null)[]>(Array(6).fill(null))
+  const physRef      = useRef<Phys[]>([
+    { x: 12,  y: 18,  vx:  0.7, vy:  0.5 },
+    { x: 358, y: 14,  vx: -0.6, vy:  0.7 },
+    { x: 10,  y: 192, vx:  0.9, vy: -0.3 },
+    { x: 358, y: 408, vx: -0.8, vy: -0.5 },
+    { x: 12,  y: 482, vx:  0.6, vy: -0.8 },
+    { x: 182, y: 538, vx:  0.4, vy: -0.7 },
+  ])
+  const phaseRef    = useRef<Phase[]>(Array(6).fill('free') as Phase[])
+  const capturedRef = useRef<boolean[]>(Array(6).fill(false))
+  const sizeRef     = useRef({ w: 540, h: 628 })
+  const prevTRef    = useRef(0)
+
+  const [phases, setPhases] = useState<Phase[]>(Array(6).fill('free') as Phase[])
   const [feed,   setFeed]   = useState<FeedItem[]>([])
   const [count,  setCount]  = useState(0)
 
   const setPhase = useCallback((idx: number, ph: Phase) => {
-    phaseRef.current = phaseRef.current.map((v, i) => (i === idx ? ph : v)) as Phase[]
-    setPhases(prev => prev.map((v, i) => (i === idx ? ph : v)) as Phase[])
+    phaseRef.current = phaseRef.current.map((v, i) => i === idx ? ph : v) as Phase[]
+    setPhases(prev => prev.map((v, i) => i === idx ? ph : v) as Phase[])
   }, [])
 
-  // ── orbital RAF (delta-time normalised) ────────────────────────────────────────
+  // ── RAF physics (delta-time normalised) ─────────────────────────────────────
   useEffect(() => {
     let rafId: number
     let alive = true
 
     const measure = () => {
       const el = containerRef.current
-      if (el) { const r = el.getBoundingClientRect(); sizeRef.current = { w: r.width || 560, h: r.height || 620 } }
+      if (el) { const r = el.getBoundingClientRect(); sizeRef.current = { w: r.width || 540, h: r.height || 628 } }
     }
     measure()
     window.addEventListener('resize', measure, { passive: true })
 
     const tick = (now: number) => {
       if (!alive) return
-
-      const raw  = now - prevTimeRef.current
-      const dt   = Math.min(raw / 16.67, 2.5)   // normalised: 1 = 60 fps, clamped
-      prevTimeRef.current = now
+      const dt = Math.min((now - prevTRef.current) / 16.67, 2.4)
+      prevTRef.current = now
 
       const { w: cw, h: ch } = sizeRef.current
       const cmdCx = cw / 2
-      const cmdCy = ch / 2
+      const cmdCy = ch * 0.47
 
-      // Compute orbit radius dynamically so cards orbit just outside the panel
-      const minRX = CMD_W / 2 + CARD_W / 2 + 18   // 18 px clearance
-      const maxRX = cw / 2 - CARD_W / 2 - 6        // 6 px from container edge
-      const orbitRX = Math.max(minRX, Math.min(maxRX, 230))
-      const orbitRY = orbitRX * ORBIT_RY_RATIO
+      for (let i = 0; i < 6; i++) {
+        const p  = physRef.current[i]
+        const ph = phaseRef.current[i]
 
-      const orb = orbRef.current
-      const ph  = phaseRef.current
-
-      for (let i = 0; i < 5; i++) {
-        const o     = orb[i]
-        const phase = ph[i]
-
-        if (phase === 'orbit') {
-          o.angle += o.angVel * dt
-          o.r = orbitRX   // snap to current orbit radius (handles resize)
-        } else if (phase === 'capture') {
-          // Frame-rate-independent exponential decay
-          o.r     *= Math.pow(R_DECAY, dt)
-          o.angle += o.angVel * CAPTURE_MULT * dt
-
-          if (o.r < SNAP && !capturedRef.current[i]) {
+        if (ph === 'moving') {
+          const dx = cmdCx - (p.x + CARD_W / 2)
+          const dy = cmdCy - (p.y + CARD_H / 2)
+          const d  = Math.hypot(dx, dy)
+          if (d < SNAP && !capturedRef.current[i]) {
             capturedRef.current[i] = true
+            const ci = i
             setTimeout(() => {
               if (!alive) return
-              setFeed(f => [{ statusDone: REQUESTS[i].statusDone, contact: REQUESTS[i].contact, key: Date.now() }, ...f].slice(0, 4))
+              const action = FEED_ACTIONS[Math.floor(Math.random() * FEED_ACTIONS.length)]
+              setFeed(f => [{ action, lead: LEADS[ci].name, key: Date.now() }, ...f].slice(0, 5))
               setCount(c => c + 1)
-              setPhase(i, 'done')
+              setPhase(ci, 'captured')
               setTimeout(() => {
                 if (!alive) return
-                o.angle = Math.random() * Math.PI * 2
-                o.r     = orbitRX
-                capturedRef.current[i] = false
-                setPhase(i, 'orbit')
-              }, 650)
+                const sp = getSpawn(sizeRef.current.w, sizeRef.current.h, sizeRef.current.w / 2, sizeRef.current.h * 0.47)
+                physRef.current[ci] = sp
+                capturedRef.current[ci] = false
+                setPhase(ci, 'free')
+              }, 720)
             }, 0)
+          } else if (!capturedRef.current[i] && d > 0) {
+            const s = Math.min(CAP_SPEED, d * 0.09)
+            p.vx = (dx / d) * s
+            p.vy = (dy / d) * s
           }
+
+        } else if (ph === 'free' || ph === 'targeted') {
+          // card–card repulsion
+          for (let j = 0; j < 6; j++) {
+            if (j === i || phaseRef.current[j] === 'captured') continue
+            const pj = physRef.current[j]
+            const dx = (p.x + CARD_W / 2) - (pj.x + CARD_W / 2)
+            const dy = (p.y + CARD_H / 2) - (pj.y + CARD_H / 2)
+            const d  = Math.hypot(dx, dy)
+            if (d < CARD_REP_R && d > 1) {
+              const f = (CARD_REP_K / (d * d)) * 0.016 * dt
+              p.vx += (dx / d) * f
+              p.vy += (dy / d) * f
+            }
+          }
+          // CMD exclusion zone
+          const cdx = (p.x + CARD_W / 2) - cmdCx
+          const cdy = (p.y + CARD_H / 2) - cmdCy
+          const cd  = Math.hypot(cdx, cdy)
+          if (cd < EXCL_R && cd > 1) {
+            const f = (EXCL_K / (cd * cd)) * 0.016 * dt
+            p.vx += (cdx / cd) * f
+            p.vy += (cdy / cd) * f
+          }
+          // soft walls
+          if (p.x < WALL_ZONE)                   p.vx += WALL_F * dt * (WALL_ZONE - p.x) / WALL_ZONE
+          if (p.x > cw - CARD_W - WALL_ZONE)     p.vx -= WALL_F * dt * (p.x - (cw - CARD_W - WALL_ZONE)) / WALL_ZONE
+          if (p.y < WALL_ZONE)                   p.vy += WALL_F * dt * (WALL_ZONE - p.y) / WALL_ZONE
+          if (p.y > ch - CARD_H - WALL_ZONE)     p.vy -= WALL_F * dt * (p.y - (ch - CARD_H - WALL_ZONE)) / WALL_ZONE
+          // noise + damp
+          p.vx += (Math.random() - 0.5) * NOISE * dt
+          p.vy += (Math.random() - 0.5) * NOISE * dt
+          p.vx *= Math.pow(DAMPING, dt)
+          p.vy *= Math.pow(DAMPING, dt)
+          const spd = Math.hypot(p.vx, p.vy)
+          if (spd > MAX_SPEED) { p.vx = p.vx / spd * MAX_SPEED; p.vy = p.vy / spd * MAX_SPEED }
+
+        } else {
+          p.vx = 0; p.vy = 0
         }
-        // done: no movement
 
-        // ── card position on ellipse ──
-        const px = cmdCx + o.r * Math.cos(o.angle) - CARD_W / 2
-        const py = cmdCy + o.r * (orbitRY / orbitRX) * Math.sin(o.angle) - CARD_H / 2
+        p.x = Math.max(0, Math.min(cw - CARD_W, p.x + p.vx * dt))
+        p.y = Math.max(0, Math.min(ch - CARD_H, p.y + p.vy * dt))
 
-        const cardEl = cardRefs.current[i]
-        if (cardEl) cardEl.style.transform = `translate(${Math.round(px)}px,${Math.round(py)}px)`
+        const el = cardRefs.current[i]
+        if (el) el.style.transform = `translate(${Math.round(p.x)}px,${Math.round(p.y)}px)`
 
-        const lineEl = lineRefs.current[i]
-        if (lineEl) {
-          lineEl.setAttribute('x1', String(Math.round(px + CARD_W / 2)))
-          lineEl.setAttribute('y1', String(Math.round(py + CARD_H / 2)))
-          lineEl.setAttribute('x2', String(Math.round(cmdCx)))
-          lineEl.setAttribute('y2', String(Math.round(cmdCy)))
+        const ln = lineRefs.current[i]
+        if (ln) {
+          ln.setAttribute('x1', String(Math.round(p.x + CARD_W / 2)))
+          ln.setAttribute('y1', String(Math.round(p.y + CARD_H / 2)))
+          ln.setAttribute('x2', String(Math.round(cmdCx)))
+          ln.setAttribute('y2', String(Math.round(cmdCy)))
         }
       }
-
       rafId = requestAnimationFrame(tick)
     }
 
@@ -201,163 +245,195 @@ export function HeroSystemVisual() {
     return () => { alive = false; cancelAnimationFrame(rafId); window.removeEventListener('resize', measure) }
   }, [setPhase])
 
-  // ── capture scheduler ──────────────────────────────────────────────────────────
+  // ── capture scheduler ───────────────────────────────────────────────────────
   useEffect(() => {
     let alive = true
-    const scheduleNext = () => {
+    const next = () => {
       if (!alive) return
-      const delay = CAP_MIN + Math.random() * (CAP_MAX - CAP_MIN)
       setTimeout(() => {
         if (!alive) return
-        const orb = orbRef.current.map((o, i) => o.phase === 'orbit' ? i : -1).filter(i => i >= 0)
-        if (orb.length > 0) {
-          const idx = orb[Math.floor(Math.random() * orb.length)]
-          orbRef.current[idx].phase = 'capture'
-          setPhase(idx, 'capture')
+        const free = phaseRef.current.map((p, i) => p === 'free' ? i : -1).filter(i => i >= 0)
+        if (free.length > 0) {
+          const idx = free[Math.floor(Math.random() * free.length)]
+          setPhase(idx, 'targeted')
+          setTimeout(() => { if (alive && phaseRef.current[idx] === 'targeted') setPhase(idx, 'moving') }, 1000)
         }
-        scheduleNext()
-      }, delay)
+        next()
+      }, CAP_MIN + Math.random() * (CAP_MAX - CAP_MIN))
     }
-    const init = setTimeout(scheduleNext, 2200)
-    return () => { alive = false; clearTimeout(init) }
+    const t = setTimeout(next, 2000)
+    return () => { alive = false; clearTimeout(t) }
   }, [setPhase])
 
-  // ── reset counter + feed every 60 s ───────────────────────────────────────────
+  // ── reset every 60 s ────────────────────────────────────────────────────────
   useEffect(() => {
     const iv = setInterval(() => { setCount(0); setFeed([]) }, 60000)
     return () => clearInterval(iv)
   }, [])
 
   return (
-    <div ref={containerRef} style={{ position: 'relative', width: '100%', height: 'clamp(520px, 54vw, 660px)', overflow: 'hidden' }}>
+    <div
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: 'clamp(500px, 54vw, 680px)',
+        overflow: 'hidden',
+        background: 'linear-gradient(145deg, #070d1e 0%, #0b162e 55%, #080f27 100%)',
+        borderRadius: 20,
+        border: '1px solid rgba(140,182,255,0.1)',
+        boxShadow: '0 28px 80px -16px rgba(0,0,0,0.55)',
+      }}
+    >
       <style>{`
-        @keyframes hsvDot  { 0%,100%{opacity:1;box-shadow:0 0 5px #4ade80} 50%{opacity:0.25;box-shadow:0 0 2px #4ade80} }
-        @keyframes hsvFeed { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:none} }
-        @keyframes hsvPing { 0%,80%,100%{transform:scale(0.8);opacity:0.3} 40%{transform:scale(1.4) translateY(-2px);opacity:1} }
-        @keyframes hsvGlow {
-          0%,100% { box-shadow: 0 0 0 1px rgba(174,199,245,0.12), 0 0 28px rgba(120,165,255,0.14), 0 0 60px rgba(80,130,230,0.06), 0 24px 60px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05); }
-          50%     { box-shadow: 0 0 0 1px rgba(174,199,245,0.2),  0 0 44px rgba(120,165,255,0.24), 0 0 88px rgba(80,130,230,0.12), 0 24px 60px -12px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05); }
+        @keyframes ldot   { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        @keyframes lfeed  { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:none} }
+        @keyframes lglow  {
+          0%,100%{box-shadow:0 0 0 1px rgba(174,199,245,0.08),0 0 28px rgba(100,150,240,0.1),0 24px 56px -12px rgba(0,0,0,0.6)}
+          50%    {box-shadow:0 0 0 1px rgba(174,199,245,0.16),0 0 46px rgba(100,150,240,0.18),0 24px 56px -12px rgba(0,0,0,0.6)}
         }
       `}</style>
 
-      {/* SVG rails */}
-      <svg aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 5, overflow: 'visible' }}>
-        {REQUESTS.map((_, i) => (
-          <line key={i} ref={el => { lineRefs.current[i] = el }}
-            x1="0" y1="0" x2="0" y2="0"
-            stroke={phases[i] === 'capture' ? 'rgba(74,222,128,0.4)' : 'rgba(174,199,245,0.09)'}
-            strokeWidth={phases[i] === 'capture' ? 1.4 : 0.6}
-            strokeDasharray={phases[i] === 'capture' ? '5 6' : '3 10'}
-            style={{ transition: 'stroke 0.5s ease, stroke-width 0.4s ease' }}
-          />
-        ))}
+      {/* Subtle dot grid */}
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px)', backgroundSize: '28px 28px', pointerEvents: 'none', zIndex: 1 }} aria-hidden="true" />
+
+      {/* Ambient orbs */}
+      <div style={{ position: 'absolute', top: '-18%', left: '-10%', width: '52%', height: '52%', borderRadius: '50%', background: 'radial-gradient(circle, rgba(100,148,240,0.055) 0%, transparent 70%)', filter: 'blur(44px)', pointerEvents: 'none', zIndex: 1 }} aria-hidden="true" />
+      <div style={{ position: 'absolute', bottom: '-12%', right: '-8%', width: '42%', height: '42%', borderRadius: '50%', background: 'radial-gradient(circle, rgba(100,190,155,0.045) 0%, transparent 70%)', filter: 'blur(44px)', pointerEvents: 'none', zIndex: 1 }} aria-hidden="true" />
+
+      {/* SVG rail layer */}
+      <svg aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 14, overflow: 'visible' }}>
+        {LEADS.map((_, i) => {
+          const active = phases[i] === 'targeted' || phases[i] === 'moving'
+          return (
+            <line key={i} ref={el => { lineRefs.current[i] = el }}
+              x1="0" y1="0" x2="0" y2="0"
+              stroke={active ? 'rgba(174,199,245,0.38)' : 'rgba(174,199,245,0.055)'}
+              strokeWidth={active ? 1.2 : 0.5}
+              strokeDasharray={phases[i] === 'moving' ? '4 5' : '2 10'}
+              style={{ transition: 'stroke 0.5s ease, stroke-width 0.4s ease' }}
+            />
+          )
+        })}
       </svg>
 
-      {/* Request cards — below command center (z:8 < z:30) */}
-      {REQUESTS.map((req, i) => {
-        const phase     = phases[i]
-        const isCapture = phase === 'capture'
-        const isDone    = phase === 'done'
+      {/* ── Lead cards ── */}
+      {LEADS.map((lead, i) => {
+        const ph      = phases[i]
+        const isActive = ph === 'targeted' || ph === 'moving'
+        const isMoving = ph === 'moving'
+        const isDone   = ph === 'captured'
         return (
-          <div key={req.id} ref={el => { cardRefs.current[i] = el }}
+          <div
+            key={lead.id}
+            ref={el => { cardRefs.current[i] = el }}
             style={{
               position: 'absolute', left: 0, top: 0,
               width: CARD_W, willChange: 'transform',
-              backdropFilter: 'blur(14px) saturate(1.5)',
-              background: isDone ? 'rgba(237,252,244,0.97)' : isCapture ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.84)',
-              border: isDone ? '1.5px solid rgba(74,222,128,0.45)' : isCapture ? '1.5px solid rgba(174,199,245,0.85)' : '1px solid rgba(255,255,255,0.46)',
-              borderRadius: 11,
-              boxShadow: isCapture ? '0 10px 32px -8px rgba(0,32,69,0.2), 0 0 0 2px rgba(174,199,245,0.1)' : isDone ? '0 6px 20px -6px rgba(74,222,128,0.2)' : '0 5px 18px -5px rgba(0,32,69,0.1)',
-              padding: '0.58rem 0.75rem',
-              zIndex: 8,
+              backdropFilter: 'blur(12px) saturate(1.3)',
+              background: isActive ? 'rgba(255,255,255,0.11)' : isDone ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.065)',
+              border: isActive ? `1px solid ${lead.accent}66` : '1px solid rgba(255,255,255,0.1)',
+              borderRadius: 10,
+              boxShadow: isActive
+                ? `0 8px 26px -6px rgba(0,0,0,0.45), 0 0 0 2px ${lead.accent}22`
+                : '0 4px 14px -4px rgba(0,0,0,0.35)',
+              padding: '0.5rem 0.68rem',
+              zIndex: isActive ? 25 : isDone ? 5 : 12,
               opacity: isDone ? 0 : 1,
-              transition: 'opacity 0.22s ease, border 0.3s ease, box-shadow 0.3s ease, background 0.3s ease',
+              transition: 'opacity 0.2s ease, border 0.35s ease, box-shadow 0.35s ease, background 0.35s ease',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.38rem', marginBottom: '0.24rem' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '0.78rem', color: isDone ? '#15803d' : isCapture ? 'var(--color-blue)' : '#94a3b8', fontVariationSettings: isDone ? "'FILL' 1" : "'FILL' 0", flexShrink: 0, transition: 'color 0.3s ease' }}>
-                {isDone ? 'check_circle' : req.icon}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.36rem', marginBottom: '0.2rem' }}>
+              <span style={{
+                display: 'inline-block', width: 5, height: 5, borderRadius: '50%', flexShrink: 0,
+                background: isActive ? '#4ade80' : lead.accent,
+                boxShadow: isActive ? '0 0 6px #4ade80' : 'none',
+                animation: isActive ? 'ldot 1.2s ease-in-out infinite' : 'none',
+              }} />
+              <span className="material-symbols-outlined" style={{ fontSize: '0.7rem', color: lead.accent, flexShrink: 0, fontVariationSettings: "'FILL' 1" }}>
+                {lead.icon}
               </span>
-              <span style={{ fontSize: '0.56rem', fontFamily: 'var(--font-mono)', fontWeight: 700, color: isDone ? '#15803d' : isCapture ? 'var(--color-blue)' : 'var(--color-text-3)', textTransform: 'uppercase', letterSpacing: '0.07em', whiteSpace: 'nowrap', transition: 'color 0.3s ease' }}>
-                {isDone ? req.statusDone : req.channel}
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', fontWeight: 700, color: isActive ? 'rgba(255,255,255,0.88)' : lead.accent, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap', transition: 'color 0.3s' }}>
+                {lead.type}
               </span>
             </div>
-            <p style={{ fontSize: '0.64rem', color: isDone ? '#4d7c60' : 'var(--color-text-2)', lineHeight: 1.4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', opacity: isDone ? 0.75 : 1 }}>
-              {req.contact} · {req.preview}
+            <p style={{ fontSize: '0.61rem', color: isActive ? 'rgba(255,255,255,0.78)' : 'rgba(255,255,255,0.45)', lineHeight: 1.4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', transition: 'color 0.3s' }}>
+              {lead.name} · {lead.detail}
             </p>
-            {isCapture && (
-              <div style={{ display: 'flex', gap: 3, marginTop: '0.28rem', alignItems: 'center' }}>
-                {[0,1,2].map(d => <span key={d} style={{ display: 'inline-block', width: 3, height: 3, borderRadius: '50%', background: '#4ade80', animation: `hsvPing 0.85s ${d*0.18}s ease-in-out infinite` }} />)}
-                <span style={{ fontSize: '0.5rem', color: '#4ade80', fontFamily: 'var(--font-mono)', marginLeft: 4 }}>Verarbeite...</span>
+            {isMoving && (
+              <div style={{ display: 'flex', gap: 3, marginTop: '0.22rem', alignItems: 'center' }}>
+                {[0,1,2].map(d => (
+                  <span key={d} style={{ display:'inline-block', width: 2.5, height: 2.5, borderRadius: '50%', background: '#4ade80', animation: `ldot 0.65s ${d*0.14}s ease-in-out infinite` }} />
+                ))}
+                <span style={{ fontSize: '0.47rem', color: '#4ade80', fontFamily: 'var(--font-mono)', marginLeft: 4 }}>Wird verarbeitet</span>
               </div>
             )}
           </div>
         )
       })}
 
-      {/* ── Command Center (z:30 — above cards, acts as orbital occlusion disk) ── */}
+      {/* ── Command Center (z:30, acts as exclusion occlusion) ── */}
       <div style={{
-        position: 'absolute', top: '50%', left: '50%',
+        position: 'absolute', top: '47%', left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: CMD_W,
+        width: 290, zIndex: 30,
         backdropFilter: 'blur(28px) saturate(1.9)',
-        background: 'linear-gradient(160deg, rgba(12,26,62,0.97) 0%, rgba(8,18,50,0.99) 100%)',
-        border: '1px solid rgba(140,182,255,0.22)',
-        borderRadius: 22, overflow: 'hidden',
-        zIndex: 30,
-        animation: 'hsvGlow 3.5s ease-in-out infinite',
+        background: 'linear-gradient(160deg, rgba(10,20,50,0.98) 0%, rgba(7,14,38,0.99) 100%)',
+        border: '1px solid rgba(140,182,255,0.2)',
+        borderRadius: 18, overflow: 'hidden',
+        animation: 'lglow 3.5s ease-in-out infinite',
       }}>
-        {/* Octopus header */}
-        <div style={{ padding: '1rem 1.25rem 0.9rem', borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'linear-gradient(160deg, rgba(140,180,255,0.08) 0%, rgba(255,255,255,0.01) 100%)', display: 'flex', alignItems: 'center', gap: '0.9rem', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-30%', left: '-5%', width: 110, height: 110, borderRadius: '50%', background: 'radial-gradient(circle, rgba(174,199,245,0.2) 0%, transparent 70%)', filter: 'blur(18px)', pointerEvents: 'none' }} />
-          <div style={{ width: 52, height: 52, flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ position: 'absolute', inset: -7, borderRadius: '50%', background: 'radial-gradient(circle, rgba(174,199,245,0.28) 0%, transparent 70%)', filter: 'blur(9px)' }} />
-            <div style={{ position: 'relative', zIndex: 1 }}><OctopusSVG size={52} /></div>
+        {/* Header */}
+        <div style={{ padding: '0.875rem 1rem 0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.025)', display: 'flex', alignItems: 'center', gap: '0.75rem', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-30%', left: '-5%', width: 90, height: 90, borderRadius: '50%', background: 'radial-gradient(circle, rgba(140,182,255,0.18) 0%, transparent 70%)', filter: 'blur(14px)', pointerEvents: 'none' }} />
+          <div style={{ width: 44, height: 44, flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ position: 'absolute', inset: -5, borderRadius: '50%', background: 'radial-gradient(circle, rgba(140,182,255,0.22) 0%, transparent 70%)', filter: 'blur(7px)' }} />
+            <div style={{ position: 'relative', zIndex: 1 }}><OctopusSVG size={44} /></div>
           </div>
           <div style={{ flex: 1, minWidth: 0, position: 'relative', zIndex: 1 }}>
-            <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.8rem', fontWeight: 700, color: 'rgba(255,255,255,0.94)', letterSpacing: '-0.02em', marginBottom: '0.22rem', lineHeight: 1 }}>GXC Command Center</p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <span style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: '#4ade80', animation: 'hsvDot 2.8s ease-in-out infinite', flexShrink: 0 }} />
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.47rem', color: 'rgba(74,222,128,0.88)', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>System Aktiv</span>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.76rem', fontWeight: 700, color: 'rgba(255,255,255,0.94)', letterSpacing: '-0.02em', marginBottom: '0.2rem', lineHeight: 1 }}>GXC Command Center</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.32rem' }}>
+              <span style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 5px #4ade80', animation: 'ldot 2.8s ease-in-out infinite' }} />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.46rem', color: 'rgba(74,222,128,0.9)', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>System Aktiv</span>
             </div>
           </div>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.43rem', color: 'rgba(255,255,255,0.2)', flexShrink: 0, position: 'relative', zIndex: 1 }}>v2.1</span>
         </div>
 
         {/* Stats */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', padding: '0.875rem 1.25rem 0' }}>
-          <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 10, padding: '0.55rem 0.75rem' }}>
-            <p style={{ fontSize: '0.49rem', color: 'rgba(174,199,245,0.65)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)', marginBottom: '0.14rem' }}>Erfasst (Minute)</p>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem', padding: '0.75rem 1rem 0' }}>
+          <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 9, padding: '0.5rem 0.625rem' }}>
+            <p style={{ fontSize: '0.46rem', color: 'rgba(174,199,245,0.6)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)', marginBottom: '0.1rem' }}>Neue Anfragen</p>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '1.3rem', fontWeight: 700, color: 'white', lineHeight: 1 }}>{count}</p>
           </div>
-          <div style={{ background: 'rgba(74,222,128,0.07)', borderRadius: 10, padding: '0.55rem 0.75rem', border: '1px solid rgba(74,222,128,0.12)' }}>
-            <p style={{ fontSize: '0.49rem', color: 'rgba(74,222,128,0.65)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)', marginBottom: '0.14rem' }}>Ø Reaktion</p>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '1.05rem', fontWeight: 700, color: '#4ade80', lineHeight: 1 }}>&lt; 2 Min</p>
+          <div style={{ background: 'rgba(74,222,128,0.07)', borderRadius: 9, padding: '0.5rem 0.625rem', border: '1px solid rgba(74,222,128,0.12)' }}>
+            <p style={{ fontSize: '0.46rem', color: 'rgba(74,222,128,0.6)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)', marginBottom: '0.1rem' }}>Ø Reaktion</p>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', fontWeight: 700, color: '#4ade80', lineHeight: 1 }}>&lt; 2 Min</p>
           </div>
         </div>
 
         {/* Live feed */}
-        <div style={{ padding: '0.875rem 1.25rem', minHeight: 156 }}>
-          <p style={{ fontSize: '0.46rem', color: 'rgba(255,255,255,0.26)', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>Live Feed</p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.38rem' }}>
+        <div style={{ padding: '0.75rem 1rem', minHeight: 148 }}>
+          <p style={{ fontSize: '0.44rem', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-mono)', marginBottom: '0.44rem' }}>Live Feed</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.36rem' }}>
             {feed.length === 0 ? (
-              <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.15)', fontStyle: 'italic' }}>Warte auf erste Anfrage...</p>
+              <p style={{ fontSize: '0.61rem', color: 'rgba(255,255,255,0.14)', fontStyle: 'italic' }}>Warte auf erste Anfrage...</p>
             ) : feed.map((item, j) => (
-              <div key={item.key} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', opacity: Math.max(0.28, 1 - j * 0.22), animation: j === 0 ? 'hsvFeed 0.35s ease' : 'none' }}>
-                <span style={{ width: 4, height: 4, borderRadius: '50%', background: '#4ade80', flexShrink: 0 }} />
+              <div key={item.key} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.38rem', opacity: Math.max(0.22, 1 - j * 0.2), animation: j === 0 ? 'lfeed 0.4s ease' : 'none' }}>
+                <span style={{ width: 3.5, height: 3.5, borderRadius: '50%', background: '#4ade80', flexShrink: 0, marginTop: '0.34rem' }} />
                 <div>
-                  <p style={{ fontSize: '0.64rem', color: 'rgba(255,255,255,0.88)', fontWeight: 600, lineHeight: 1.25 }}>{item.statusDone}</p>
-                  <p style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)' }}>{item.contact}</p>
+                  <p style={{ fontSize: '0.64rem', color: 'rgba(255,255,255,0.88)', fontWeight: 600, lineHeight: 1.25 }}>{item.action}</p>
+                  <p style={{ fontSize: '0.52rem', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)' }}>{item.lead} · eben</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div style={{ padding: '0.5rem 1.25rem', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: '0.47rem', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-mono)' }}>Zähler reset nach 60 s</span>
-          <span style={{ fontSize: '0.47rem', color: '#4ade80', fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.06em' }}>● LIVE</span>
+        {/* Footer */}
+        <div style={{ padding: '0.45rem 1rem', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: '0.46rem', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-mono)' }}>Reset nach 60 s</span>
+          <span style={{ fontSize: '0.46rem', color: '#4ade80', fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.06em' }}>● LIVE</span>
         </div>
       </div>
     </div>
