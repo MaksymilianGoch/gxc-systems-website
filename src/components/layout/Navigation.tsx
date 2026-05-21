@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { OctopusSVG } from '@/components/sections/HeroSystemVisual'
 
 const navLinks = [
   { label: 'System', href: '#wie-es-funktioniert' },
@@ -36,14 +37,7 @@ export function Navigation() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3" aria-label="GXC Systems">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/gxc-octopus-logo.png"
-              alt="GXC Systems"
-              width={40}
-              height={40}
-              style={{ width: 40, height: 40, objectFit: 'cover', objectPosition: 'center', borderRadius: 6, flexShrink: 0 }}
-            />
+            <OctopusSVG size={40} />
             <div>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '-0.03em', color: 'var(--color-text)', lineHeight: 1 }}>GXC Systems</div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-green)', marginTop: '2px' }}>Systeme für KMU</div>
