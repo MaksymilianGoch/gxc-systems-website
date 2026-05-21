@@ -386,9 +386,14 @@ export function HeroSystemVisual() {
         {/* Header */}
         <div style={{ padding: '0.875rem 1rem 0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.025)', display: 'flex', alignItems: 'center', gap: '0.75rem', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-30%', left: '-5%', width: 90, height: 90, borderRadius: '50%', background: 'radial-gradient(circle, rgba(140,182,255,0.18) 0%, transparent 70%)', filter: 'blur(14px)', pointerEvents: 'none' }} />
-          <div style={{ width: 44, height: 44, flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ position: 'absolute', inset: -5, borderRadius: '50%', background: 'radial-gradient(circle, rgba(140,182,255,0.22) 0%, transparent 70%)', filter: 'blur(7px)' }} />
-            <div style={{ position: 'relative', zIndex: 1 }}><OctopusSVG size={44} /></div>
+          <div style={{ width: 44, height: 44, flexShrink: 0, borderRadius: 8, overflow: 'hidden', position: 'relative' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/gxc-octopus-logo.png"
+              alt=""
+              aria-hidden="true"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+            />
           </div>
           <div style={{ flex: 1, minWidth: 0, position: 'relative', zIndex: 1 }}>
             <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.76rem', fontWeight: 700, color: 'rgba(255,255,255,0.94)', letterSpacing: '-0.02em', marginBottom: '0.2rem', lineHeight: 1 }}>GXC Command Center</p>
