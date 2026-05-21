@@ -241,7 +241,10 @@ export function HeroSystemVisual() {
         @keyframes hsvDot  { 0%,100%{opacity:1} 50%{opacity:0.28} }
         @keyframes hsvFeed { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:none} }
         @keyframes hsvPing { 0%,80%,100%{transform:scale(0.8);opacity:0.3} 40%{transform:scale(1.35) translateY(-2px);opacity:1} }
-        @keyframes hsvCmd  { 0%,100%{box-shadow:0 28px 56px -16px rgba(0,0,0,0.5)} 50%{box-shadow:0 28px 56px -16px rgba(0,0,0,0.5),0 0 0 3px rgba(74,222,128,0.09)} }
+        @keyframes hsvCmd  {
+          0%,100% { box-shadow: 0 0 0 1px rgba(174,199,245,0.1), 0 0 28px rgba(140,180,255,0.12), 0 0 64px rgba(100,150,240,0.07), 0 36px 72px -16px rgba(0,0,0,0.58), inset 0 1px 0 rgba(255,255,255,0.06); }
+          50%     { box-shadow: 0 0 0 1px rgba(174,199,245,0.18), 0 0 40px rgba(140,180,255,0.2),  0 0 80px rgba(100,150,240,0.12), 0 36px 72px -16px rgba(0,0,0,0.58), inset 0 1px 0 rgba(255,255,255,0.06); }
+        }
       `}</style>
 
       {/* SVG rail layer — no viewBox: px coords = container px coords */}
@@ -359,22 +362,76 @@ export function HeroSystemVisual() {
       <div style={{
         position: 'absolute', top: '50%', left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 256,
-        backdropFilter: 'blur(24px) saturate(1.8)',
-        background: 'linear-gradient(145deg, rgba(10,22,56,0.96) 0%, rgba(8,18,48,0.98) 100%)',
-        border: '1px solid rgba(140,180,255,0.16)',
-        borderRadius: 16, overflow: 'hidden',
-        boxShadow: '0 32px 64px -16px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.04)',
+        width: 268,
+        backdropFilter: 'blur(28px) saturate(1.9)',
+        background: 'linear-gradient(160deg, rgba(12,26,62,0.97) 0%, rgba(8,18,50,0.99) 100%)',
+        border: '1px solid rgba(140,182,255,0.22)',
+        borderRadius: 18, overflow: 'hidden',
+        boxShadow: [
+          '0 0 0 1px rgba(174,199,245,0.1)',
+          '0 0 32px rgba(140,180,255,0.14)',
+          '0 0 72px rgba(100,150,240,0.08)',
+          '0 36px 72px -16px rgba(0,0,0,0.58)',
+          'inset 0 1px 0 rgba(255,255,255,0.06)',
+        ].join(', '),
         zIndex: 30,
         animation: 'hsvCmd 3.5s ease-in-out infinite',
       }}>
-        {/* Title bar */}
-        <div style={{ padding: '0.7rem 0.875rem 0.65rem', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.025)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 6px #4ade80', animation: 'hsvDot 2.8s ease-in-out infinite' }} />
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.57rem', fontWeight: 700, color: 'rgba(255,255,255,0.82)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>GXC Command Center</span>
+        {/* ── Octopus header ── */}
+        <div style={{
+          padding: '0.875rem 1rem 0.8rem',
+          borderBottom: '1px solid rgba(255,255,255,0.07)',
+          background: 'linear-gradient(160deg, rgba(140,180,255,0.07) 0%, rgba(255,255,255,0.01) 100%)',
+          display: 'flex', alignItems: 'center', gap: '0.875rem',
+          position: 'relative', overflow: 'hidden',
+        }}>
+          {/* Ambient glow behind logo */}
+          <div style={{ position: 'absolute', top: '-30%', left: '0%', width: 90, height: 90, borderRadius: '50%', background: 'radial-gradient(circle, rgba(174,199,245,0.22) 0%, transparent 70%)', filter: 'blur(14px)', pointerEvents: 'none' }} />
+
+          {/* Octopus logo */}
+          <div style={{ width: 46, height: 46, flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Glow ring */}
+            <div style={{ position: 'absolute', inset: -5, borderRadius: '50%', background: 'radial-gradient(circle, rgba(174,199,245,0.3) 0%, transparent 70%)', filter: 'blur(7px)' }} />
+            <svg width="46" height="46" viewBox="0 0 100 100" fill="none" aria-hidden="true" style={{ position: 'relative', zIndex: 1 }}>
+              <path d="M28 8 L72 8 L94 50 L72 92 L28 92 L6 50 Z" fill="rgba(140,180,255,0.11)" stroke="rgba(140,182,255,0.52)" strokeWidth="2.5"/>
+              <path d="M31 14 L69 14 L88 50 L69 86 L31 86 L12 50 Z" fill="none" stroke="rgba(140,182,255,0.19)" strokeWidth="1.4"/>
+              <ellipse cx="50" cy="37" rx="16" ry="20" fill="rgba(174,199,245,0.92)"/>
+              <circle cx="42.5" cy="32" r="4" fill="rgba(88,142,224,0.66)"/>
+              <circle cx="43.5" cy="33" r="1.9" fill="rgba(18,60,155,0.9)"/>
+              <path d="M52.5 29.5 Q56.5 34.5 60 29.5" stroke="rgba(18,60,155,0.88)" strokeWidth="2.2" strokeLinecap="round" fill="none"/>
+              <path d="M43 41 Q50 47 57 41" stroke="rgba(22,65,158,0.72)" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+              <path d="M34 42 Q18 40 12 46 Q7 51 12 56" stroke="rgba(152,192,255,0.84)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              <path d="M66 42 Q82 40 88 46 Q93 51 88 56" stroke="rgba(152,192,255,0.84)" strokeWidth="3" strokeLinecap="round" fill="none"/>
+              <path d="M39 55 Q33 65 30 76" stroke="rgba(158,198,255,0.88)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+              <path d="M46 57 Q42 68 40 80" stroke="rgba(158,198,255,0.88)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+              <path d="M54 57 Q58 68 60 80" stroke="rgba(158,198,255,0.88)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+              <path d="M61 55 Q67 65 70 76" stroke="rgba(158,198,255,0.88)" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+              <polyline points="30,76 24,79 20,84" stroke="rgba(138,183,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <circle cx="20" cy="84" r="2.3" fill="none" stroke="rgba(138,183,255,0.55)" strokeWidth="1.2"/>
+              <line x1="30" y1="76" x2="28" y2="84" stroke="rgba(138,183,255,0.55)" strokeWidth="1.5" strokeLinecap="round"/>
+              <circle cx="28" cy="84" r="2.3" fill="none" stroke="rgba(138,183,255,0.55)" strokeWidth="1.2"/>
+              <polyline points="50,57 50,74 46,80" stroke="rgba(138,183,255,0.52)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <line x1="50" y1="74" x2="54" y2="80" stroke="rgba(138,183,255,0.52)" strokeWidth="1.5" strokeLinecap="round"/>
+              <circle cx="46" cy="80" r="2.3" fill="none" stroke="rgba(138,183,255,0.5)" strokeWidth="1.2"/>
+              <circle cx="54" cy="80" r="2.3" fill="none" stroke="rgba(138,183,255,0.5)" strokeWidth="1.2"/>
+              <polyline points="70,76 76,79 80,84" stroke="rgba(138,183,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <circle cx="80" cy="84" r="2.3" fill="none" stroke="rgba(138,183,255,0.55)" strokeWidth="1.2"/>
+              <line x1="70" y1="76" x2="72" y2="84" stroke="rgba(138,183,255,0.55)" strokeWidth="1.5" strokeLinecap="round"/>
+              <circle cx="72" cy="84" r="2.3" fill="none" stroke="rgba(138,183,255,0.55)" strokeWidth="1.2"/>
+            </svg>
           </div>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.48rem', color: 'rgba(255,255,255,0.28)' }}>v2.1</span>
+
+          {/* Title + live status */}
+          <div style={{ flex: 1, minWidth: 0, position: 'relative', zIndex: 1 }}>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.75rem', fontWeight: 700, color: 'rgba(255,255,255,0.93)', letterSpacing: '-0.02em', marginBottom: '0.22rem', lineHeight: 1 }}>
+              GXC Command Center
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <span style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 5px #4ade80', animation: 'hsvDot 2.8s ease-in-out infinite', flexShrink: 0 }} />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.47rem', color: 'rgba(74,222,128,0.88)', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>System Aktiv</span>
+            </div>
+          </div>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.44rem', color: 'rgba(255,255,255,0.2)', flexShrink: 0, position: 'relative', zIndex: 1 }}>v2.1</span>
         </div>
         {/* Stats */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem', padding: '0.7rem 0.875rem 0' }}>
